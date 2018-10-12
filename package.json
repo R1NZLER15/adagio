@@ -1,0 +1,11 @@
+{
+	"name": "adagio-network",
+	"version": "1.0.0",
+	"description": "nothing to see over here",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1
+	},
+	"author": "r1nzler_",
+	"licence": "MIT"
+}
