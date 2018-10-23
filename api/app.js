@@ -1,7 +1,7 @@
 'use strict'
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
 
 //load rutes
 
@@ -14,6 +14,11 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
     res.status(200).send({
         message: 'Hola'
+    })
+})
+app.get('/test', (req, res) => {
+    res.status(200).send({
+        message: 'Beep. Boop.'
     })
 })
 
