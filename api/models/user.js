@@ -7,17 +7,20 @@ var UserSchema = new Schema({
     fst_surname: String,
     snd_surname: String,
     unique_nick: String,
-    gender: String,
     email: String,
+    gender: String,
     password: String,
     avatar: String,
     banner: String,
-    join_date: Date,
-    birthday: Date,
+    about: String,
+    group: String,
+    grade: String,
+    join_date: String,
+    birthday: String,
     role: String,
-    badges: String
-    /*ip: String*/
-    /*roles:
+    badges: String,
+    ip: String
+    /*role:
         user
         teacher
         principal
