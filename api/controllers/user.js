@@ -22,7 +22,9 @@ function saveUser(req, res){
     var currentDay = dd + '/' + mm + '/' + yyyy;
     var params = req.body;
     let user = new User();
-    if(params.names && params.fst_surname && params.snd_surname && params.unique_nick && params.email && params.password){
+    if(params.names && params.fst_surname && params.snd_surname
+        && params.unique_nick && params.email && params.password
+        && params.group && params.grade){
         user.names = params.names;
         user.fst_surname = params.fst_surname;
         user.snd_surname = params.snd_surname;
@@ -32,39 +34,40 @@ function saveUser(req, res){
         user.gender = params.gender;
         user.role = 'student';
         user.avatar = null;
+        user.banner = null;
+        user.about = null;
+        user.group = params.group.toUpperCase();;
+        user.grade = params.grade;
+        user.badges = null;
+        user.student_id = null;
+        /* 
+        TODO: Find a way to verify the student_id
+        */
         user.join_date = currentDay;
         User.find({ $or: [
-            {nick: user.unique_nick.toLowerCase()},
+            {unique_nick: user.unique_nick.toLowerCase()},
             {email: user.email.toLowerCase()}
         ]}).exec((err,users) => {
             if(err){
-                return res.status(500).send({
-                    message: 'ERR0R en la petición de datos.'
-                });
+                return res.status(500).send({message: 'ERR0R en la petición de datos.'});
             }
             if(users && users.length >= 1){
-                return res.status(400).send({
-                    message: 'Ya existe un usuario con los mismos datos.'
+                return res.status(400).send({message: 'Ya existe un usuario con los mismos datos.'});
+            }else{
+                bcrypt.hash(params.password, null, null, (err, hash) =>{
+                    user.password = hash;
+                    user.save((err, userStored) => {
+                        if(err) return res.status(500).send({message: 'ERR0R. Contacta al administrador.'});
+                        if(userStored){
+                            res.status(200).send({user: userStored});
+                            console.log(`||==Usuario creado: ${params.unique_nick}`);
+                        }else{res.status(404).send({message: 'ERR0R. No se pudo registrar el usuario.'})}
+                    });
                 });
             }
         });
-        bcrypt.hash(params.password, null, null, (err, hash) =>{
-            user.password = hash;
-            user.save((err, userStored) => {
-                if(err) return res.status(500).send({
-                    message: 'ERR0R. Contacta al administrador.'
-                });
-                if(userStored){
-                    res.status(200).send({user: userStored});
-                }else{res.status(404).send({
-                    message: 'ERR0R. No se pudo registrar el usuario.'
-                })}
-            });
-        });
     }else{
-        res.status(400).send({
-            message: 'Por favor completa los campos obligatorios.'
-        });
+        res.status(400).send({message: 'Por favor completa los campos obligatorios.'});
     }
 }
 module.exports = {

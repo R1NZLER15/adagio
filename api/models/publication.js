@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 var PublicationSchema = new Schema({
     text: String,
     file: String,
-    created_at: Date, 
+    created_at: String, 
     user: {Type: Schema.ObjectId,ref: 'User'}
 });
 

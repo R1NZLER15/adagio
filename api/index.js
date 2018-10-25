@@ -7,10 +7,10 @@ const port = 3800;
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/adagio_db',{useNewUrlParser: true})
     .then(() => {
-        console.log('==Conexión exitosa')
+        console.log(`||==Conexión exitosa`);
         //create server
         app.listen(port, () => {
-            console.log("==Servidor corriendo")
+            console.log(`||==Servidor corriendo`);
         });
     })
     .catch(err => console.log(err));

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Schema =  mongoose.Schema;
 
 var UserSchema = new Schema({
+    student_id: String,
     names: String,
     fst_surname: String,
     snd_surname: String,
@@ -18,10 +19,10 @@ var UserSchema = new Schema({
     join_date: String,
     birthday: String,
     role: String,
-    badges: String,
-    ip: String
+    badges: String
     /*role:
-        user
+        student
+        non-student
         teacher
         principal
         mod
