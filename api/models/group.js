@@ -6,11 +6,16 @@ var GroupSchema = new Schema({
     name: String,
     cover: String,
     banner: String,
-    about: String,
+    description: String,
+    type: String,
     category: String,
     privacy: String,
-    members: {type: mongoose.ObjectId, ref:'User'},
+    group_admin: {type: mongoose.ObjectId, ref:'User'},
     created_at: String
 });
+/*
+*type: Define if the group is a social group or a proyect group
+*category: topic of the group
+*/
 
 module.exports = mongoose.model('Group', GroupSchema);

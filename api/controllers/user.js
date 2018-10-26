@@ -1,6 +1,6 @@
 'use strict'
-const User = require('../models/user');
 const bcrypt = require('bcrypt-nodejs');
+const User = require('../models/user');
 const jwt = require('../services/jwt');
 
 function home(req, res) {
@@ -17,15 +17,9 @@ function test(req, res) {
 
 function saveUser(req, res) {
     var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1;
+    var dd = today.getDate() < 10 ? '0' + today.getDate() : today.getDate();
+    var mm = today.getMonth() + 1 < 10 ? '0' + today.getMonth() + 1 : today.getMonth() + 1;
     var yyyy = today.getFullYear();
-    if (dd < 10) {
-        dd = '0' + dd
-    }
-    if (mm < 10) {
-        mm = '0' + mm
-    }
     var currentDay = dd + '/' + mm + '/' + yyyy;
     var params = req.body;
     let user = new User();
@@ -35,7 +29,7 @@ function saveUser(req, res) {
         user.names = params.names;
         user.fst_surname = params.fst_surname;
         user.snd_surname = params.snd_surname;
-        user.unique_nick = params.unique_nick;
+        user.unique_nick = params.unique_nick.toLowerCase();
         user.email = params.email;
         user.birthday = params.birthday;
         user.gender = params.gender;
@@ -48,12 +42,12 @@ function saveUser(req, res) {
         user.badges = null;
         user.student_id = null;
         /* 
-        TODO: Find a way to verify the student_id
+        TODO: Find a way to verify the student_id (matricula)
         */
         user.join_date = currentDay;
         User.find({
             $or: [{
-                    unique_nick: user.unique_nick.toLowerCase()
+                    unique_nick: user.unique_nick
                 },
                 {
                     email: user.email.toLowerCase()
@@ -135,9 +129,57 @@ function loginUser(req, res) {
         }
     });
 }
+//Get user data
+function getUser(req, res) {
+    let userId = req.params.id;
+    User.findById(userId, (err, user) => {
+        if (err) return res.status(500).send({
+            message: 'ERR0R'
+        });
+        if (!user) return res.status(404).send({
+            message: 'Éste usuario no existe.'
+        });
+        return res.status(200).send({
+            user
+        });
+    });
+}
+
+function getUsers(req, res) {
+    let userIdentity = req.user.sub;
+    let page = 1
+    if (req.params.page) {
+        page = req.params.page;
+    }
+    let itemsPerPage = 5;
+    User.find({}, null, {
+        skipt: ((itemsPerPage * page) - page),
+        limit: itemsPerPage
+    }, (err, users) => {
+        if (!users)
+            if (err) return res.status(404).send({
+                message: 'ERR0R. No hay usuarios.'
+            });
+        User.countDocuments((err, total) => {
+            if (err) return res.status(500).send({
+                message: 'ERR0R'
+            });
+            /*followUserIds(identify_user_id).then((value) => {*/
+            return res.status(200).send({
+                users,
+                /*users_following: value.following,
+                users_follow_me: value.followed,*/
+                total,
+                pages: Math.ceil(total / itemsPerPage)
+            });
+        });
+    });
+}
 module.exports = {
     home,
     test,
     saveUser,
-    loginUser
+    loginUser,
+    getUser,
+    getUsers
 }

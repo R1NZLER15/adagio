@@ -9,5 +9,5 @@ var MessageSchema = new Schema({
     emitter: {type: Schema.ObjectId, ref: 'User'},
     receiver: {type: Schema.ObjectId, ref: 'User'}
 });
-
+//emitter sends a message to receiver
 module.exports = mongoose.model('Message', MessageSchema);

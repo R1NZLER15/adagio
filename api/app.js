@@ -7,7 +7,9 @@ const app = express();
 const user_routes = require('./routes/user');
 
 //middlewares
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(bodyParser.json());
 
 //cores

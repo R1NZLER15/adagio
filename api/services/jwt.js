@@ -3,7 +3,7 @@ const jwt = require('jwt-simple');
 const moment = require('moment');
 const key = 'SuperSecretKey_WhyAreYouViewingThis?'
 
-exports.createToken = function(user) {
+exports.createToken = function (user) {
     var payload = {
         sub: user._id,
         names: user.names,

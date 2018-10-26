@@ -5,7 +5,9 @@ const port = 3800;
 
 //connect to db
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/adagio_db',{useNewUrlParser: true})
+mongoose.connect('mongodb://localhost:27017/adagio_db', {
+        useNewUrlParser: true
+    })
     .then(() => {
         console.log(`||==Conexión exitosa`);
         //create server

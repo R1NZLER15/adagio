@@ -13,7 +13,7 @@ var UserSchema = new Schema({
     password: String,
     avatar: String,
     banner: String,
-    about: String,
+    about_me: String,
     group: String,
     grade: String,
     join_date: String,
@@ -21,13 +21,14 @@ var UserSchema = new Schema({
     role: String,
     badges: String
     /*role:
+        guest
         student
-        non-student
+        graduated
         teacher
         principal
+        dev
         mod
         admin
-        dev
     */
 });
 
