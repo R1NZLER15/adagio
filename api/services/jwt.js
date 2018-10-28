@@ -17,8 +17,6 @@ exports.createToken = function (user) {
         avatar: user.avatar,
         banner: user.banner,
         about: user.about,
-        group: user.group,
-        grade: user.grade,
         badges: user.badges,
         student_id: user.student_id,
         iat: moment().unix(),

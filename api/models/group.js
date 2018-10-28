@@ -15,7 +15,9 @@ var GroupSchema = new Schema({
 });
 /*
 *type: Define if the group is a social group or a proyect group
-*category: topic of the group
+*Types; public, private, classroom(private, joinable via key), proyect(users can create
+*these groups for school proyects, the group gets deleted a few days after the proyect presentation)
+*category: topic of the group (only public or private groups have this option)
 */
 
 module.exports = mongoose.model('Group', GroupSchema);
