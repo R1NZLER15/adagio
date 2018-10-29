@@ -1,10 +1,23 @@
 'use strict'
 const bcrypt = require('bcrypt-nodejs');
 const User = require('../models/user');
+const Follow = require('../models/follower_followed');
 const Student = require('../models/student');
 const jwt = require('../services/jwt');
 const fs = require('fs');
 const path = require('path');
+
+function err0r(res, statusCode, msg) {
+    if (!statusCode) {
+        statusCode = 500;
+    }
+    if (!msg) {
+        msg = 'ERR0R';
+    }
+    res.status(statusCode).send({
+        message: msg
+    });
+}
 
 function userTest(req, res) {
     res.status(200).send({
@@ -48,25 +61,16 @@ function saveUser(req, res) {
                 }
             ]
         }).exec((err, users) => {
-            if (err) {
-                return res.status(500).send({
-                    message: 'ERR0R en la petición de datos.'
-                });
-            }
+            if (err) return err0r(res, 500, 'ERR0R en la petición de datos.');
             if (users && users.length >= 1) {
-                return res.status(400).send({
-                    message: 'Ya existe un usuario con los mismos datos.'
-                });
+                return err0r(res, 400, 'ERR0R. Ya existe un usuario con los mismos datos.');
             } else {
                 bcrypt.hash(params.password, null, null, (err, hash) => {
                     user.password = hash;
                     user.save((err, userStored) => {
-                        if (err) return res.status(500).send({
-                            message: 'ERR0R. Contacta al administrador.'
-                        });
+                        if (err) return err0r(res, 500);
                         if (userStored) {
                             if (params.isStudent) {
-                                console.log(userStored._id);
                                 student.user_id = userStored._id;
                                 student.group = params.group;
                                 student.grade = params.grade;
@@ -77,18 +81,14 @@ function saveUser(req, res) {
                             });
                             console.log(`||==Usuario creado: ${params.unique_nick}`);
                         } else {
-                            res.status(404).send({
-                                message: 'ERR0R. No se pudo registrar el usuario.'
-                            });
+                            return err0r(res, 404, 'ERR0R. No se pudo registrar el usuario.');
                         }
                     });
                 });
             }
         });
     } else {
-        res.status(400).send({
-            message: 'Por favor completa los campos obligatorios.'
-        });
+        return err0r(res, 400, 'ERR0R. Por favor completa los campos obligatorios.');
     }
 }
 
@@ -100,15 +100,12 @@ function loginUser(req, res) {
     User.findOne({
         email: email
     }, (err, user) => {
-        if (err) return res.status(500).send({
-            message: `ERR0R. Contacta al administrador.`
-        });
+        if (err) return err0r(res, 500);
         if (user) {
             bcrypt.compare(password, user.password, (err, check) => {
                 if (check) {
-                    //TODO: Return user data with token
                     if (params.getToken) {
-                        res.status(200).send({
+                        return res.status(200).send({
                             token: jwt.createToken(user)
                         });
                     } else {
@@ -118,32 +115,48 @@ function loginUser(req, res) {
                         });
                     }
                 } else {
-                    return res.status(400).send({
-                        message: `Contraseña incorrecta.`
-                    })
+                    return err0r(res, 400, 'ERR0R. Contraseña incorrecta.');
                 }
             })
         } else {
-            return res.status(400).send({
-                message: `Datos incorrectos o inexistentes.`
-            });
+            return err0r(res, 400, 'ERR0R. Datos incorrectos o inexistentes.');
         }
     });
 }
 //Get user data
 function getUser(req, res) {
     const userId = req.params.id;
+
     User.findById(userId, (err, user) => {
-        if (err) return res.status(500).send({
-            message: 'ERR0R'
-        });
-        if (!user) return res.status(404).send({
-            message: 'Éste usuario no existe.'
-        });
-        return res.status(200).send({
-            user
+        if (err) return err0r(res);
+        if (!user) return err0r(res, 404, 'ERR0R. Este usuario no existe.');
+        //Check if im following <this> user, and if the user is following me
+        followCheck(req.user.sub, userId).then((result) => {
+            res.status(200).send({
+                user,
+                following: result.following,
+                followsMe: result.followsMe
+            });
         });
     });
+}
+async function followCheck(me, user) {
+    let following = await Follow.findOne({
+        'follower': me,
+        'followed': user
+    }).exec().then((following) => {
+        return following;
+    });
+    let followsMe = await Follow.findOne({
+        'follower': user,
+        'followed': me
+    }).exec().then((followsMe) => {
+        return followsMe;
+    });
+    return {
+        following: following,
+        followsMe: followsMe
+    }
 }
 
 function getUsers(req, res) {
@@ -157,42 +170,34 @@ function getUsers(req, res) {
         skipt: ((itemsPerPage * page) - page),
         limit: itemsPerPage
     }, (err, users) => {
-        if (!users)
-            if (err) return res.status(404).send({
-                message: 'ERR0R. No hay usuarios.'
-            });
+        if (err) return err0r(res);
+        if (!users) return err0r(res, 404, 'ERR0R. No hay usuarios.');
         User.countDocuments((err, total) => {
-            if (err) return res.status(500).send({
-                message: 'ERR0R'
-            });
+            if (err) return err0r(res);
             /*followUserIds(identify_user_id).then((value) => {*/
             return res.status(200).send({
-                users,
                 /*users_following: value.following,
                 users_follow_me: value.followed,*/
                 total,
-                pages: Math.ceil(total / itemsPerPage)
+                pages: Math.ceil(total / itemsPerPage),
+                users
             });
         });
     });
 }
-
+async function followUserIds(userId){
+    let following = await Follow.find({'user':userId}).select('')
+}
 function updateUser(req, res) {
     const userId = req.params.id;
     const update = req.body;
     delete update.password;
-    if (userId != req.user.sub) return res.status(500).send({
-        message: 'No tienes permiso para hacer esto.'
-    });
+    if (userId != req.user.sub) return err0r(res, 500, 'ERR0R. No tienes permiso para hacer esto.');
     User.findOneAndUpdate(userId, update, {
         new: true
     }, (err, userUpdated) => {
-        if (err) return res.status(500).send({
-            message: 'ERR0R'
-        });
-        if (!userUpdated) return res.status(404).send({
-            message: 'No se ha podido actualizar el usuario'
-        });
+        if (err) return err0r(res);
+        if (!userUpdated) return err0r(res, 404, 'ERR0R. No se ha podido actualizar el usuario');
         return res.status(200).send({
             user: userUpdated
         });
@@ -209,7 +214,7 @@ function uploadAvatar(req, res) {
         const file_ext = ext_split[1];
         console.log(file_path);
         if (userId != req.user.sub) {
-            return RemoveUploadFiles(res, file_path, 'No tienes permiso para hacer esto.');
+            return RemoveUploadFiles(res, file_path, 'ERR0R. No tienes permiso para hacer esto.');
         }
         if (file_ext == 'jpg' ||
             file_ext == 'jpeg' ||
@@ -224,25 +229,19 @@ function uploadAvatar(req, res) {
                 }, {
                     new: true
                 }, (err, userUpdated) => {
-                    if (err) return res.status(500).send({
-                        message: 'ERR0R'
-                    });
-                    if (!userUpdated) return res.status(404).send({
-                        message: 'No se ha podido actualizar el usuario'
-                    });
+                    if (err) return err0r(res);
+                    if (!userUpdated) return err0r(res, 404, 'ERR0R. No se ha podido actualizar el usuario');
                     return res.status(200).send({
                         user: userUpdated
                     });
                 })
             });
         } else {
-            return RemoveUploadFiles(res, file_path, 'Solo puedes subir archivos en formato; .jpg .jpeg ó .png');
+            return RemoveUploadFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato; .jpg .jpeg ó .png');
         }
 
     } else {
-        return res.status(400).send({
-            message: 'No se ha recibido ninguna imagen.'
-        })
+        return err0r(res, 400, 'ERR0R. No se ha recibido ninguna imagen.');
     }
 }
 
@@ -261,9 +260,7 @@ function getAvatarFile(req, res) {
         if (exists) {
             res.sendFile(path.resolve(path_file));
         } else {
-            res.status(404).send({
-                message: 'No existe esta imagen'
-            })
+            return err0r(res, 404, 'ERR0R. No existe esta imagen');
         }
     });
 }
