@@ -34,6 +34,8 @@ function saveUser(req, res) {
     const params = req.body;
     let user = new User();
     let student = new Student();
+    //TODO: Create a username/nick blacklist (profanity/false identity filter)
+    //TODO: 
     if (params.names && params.fst_surname && params.snd_surname &&
         params.unique_nick && params.email && params.password) {
         user.names = params.names;
@@ -49,9 +51,7 @@ function saveUser(req, res) {
         user.about = null;
         user.badges = null;
         user.join_date = currentDay;
-        /* 
-        TODO: Find a way to verify the student_id (matricula)
-        */
+        //TODO: Find a way to verify if the user data matches an existing user from the school DB
         User.find({
             $or: [{
                     unique_nick: user.unique_nick
@@ -96,14 +96,13 @@ function loginUser(req, res) {
     const params = req.body;
     const email = params.email;
     const password = params.password;
-
     User.findOne({
         email: email
     }, (err, user) => {
         if (err) return err0r(res, 500);
         if (user) {
-            bcrypt.compare(password, user.password, (err, check) => {
-                if (check) {
+            bcrypt.compare(password, user.password, (err, success) => {
+                if (success) {
                     if (params.getToken) {
                         return res.status(200).send({
                             token: jwt.createToken(user)
@@ -117,7 +116,7 @@ function loginUser(req, res) {
                 } else {
                     return err0r(res, 400, 'ERR0R. Contraseña incorrecta.');
                 }
-            })
+            });
         } else {
             return err0r(res, 400, 'ERR0R. Datos incorrectos o inexistentes.');
         }
@@ -185,9 +184,12 @@ function getUsers(req, res) {
         });
     });
 }
-async function followUserIds(userId){
-    let following = await Follow.find({'user':userId}).select('')
+async function followUserIds(userId) {
+    let following = await Follow.find({
+        'user': userId
+    }).select('')
 }
+
 function updateUser(req, res) {
     const userId = req.params.id;
     const update = req.body;

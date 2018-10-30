@@ -4,12 +4,13 @@ const Schema = mongoose.Schema;
 
 var GroupSchema = new Schema({
     name: String,
-    cover: String,
-    banner: String,
+    group_link:String,
     description: String,
     type: String,
     category: String,
     privacy: String,
+    cover: String,
+    banner: String,
     group_admin: {type: mongoose.ObjectId, ref:'User'},
     created_at: String
 });
