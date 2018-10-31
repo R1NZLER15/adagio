@@ -159,7 +159,7 @@ async function followCheck(me, user) {
 }
 
 function getUsers(req, res) {
-    const userIdentity = req.user.sub;
+    const userId = req.user.sub;
     let page = 1
     if (req.params.page) {
         page = req.params.page;
@@ -173,21 +173,82 @@ function getUsers(req, res) {
         if (!users) return err0r(res, 404, 'ERR0R. No hay usuarios.');
         User.countDocuments((err, total) => {
             if (err) return err0r(res);
-            /*followUserIds(identify_user_id).then((value) => {*/
-            return res.status(200).send({
-                /*users_following: value.following,
-                users_follow_me: value.followed,*/
-                total,
-                pages: Math.ceil(total / itemsPerPage),
-                users
+            followUserIds(userId).then((success) => {
+                return res.status(200).send({
+                    users_following: success.following,
+                    users_following_me: success.followed,
+                    total,
+                    pages: Math.ceil(total / itemsPerPage),
+                    users
+                });
             });
         });
     });
 }
 async function followUserIds(userId) {
     let following = await Follow.find({
-        'user': userId
-    }).select('')
+        'follower': userId
+    }).select({
+        '_id': 0,
+        '_v': 0,
+        'follower': 0
+    }).exec().then((success) => {
+        let followingArr = [];
+        success.forEach((follow) => {
+            followingArr.push(follow.followed)
+        });
+        console.log(followingArr);
+        return followingArr;
+    });
+    console.log(following);
+    let followed = await Follow.find({
+        'followed': userId
+    }).select({
+        '_id': 0,
+        '_v': 0,
+        'followed': 0
+    }).exec().then((success) => {
+        let followsArr = [];
+        success.forEach((follow) => {
+            followsArr.push(follow.follower)
+        });
+        return followsArr;
+    });
+    return {
+        following: following,
+        followed: followed
+    }
+}
+
+function getStats(req, res) {
+    let userId = req.user.sub;
+    if (req.params.id) {
+        userId = req.params.id;
+    }
+    getStatsFollows(userId).then((success) => {
+        return res.status(200).send({
+            following: success.following,
+            followed: success.followed
+        });
+    });
+
+}
+
+async function getStatsFollows(userId) {
+    let following = await Follow.count({
+        'follower': userId
+    }).exec().then((success) => {
+        return success;
+    });
+    let followed = await Follow.count({
+        'followed': userId
+    }).exec().then((success) => {
+        return success;
+    });
+    return {
+        following,
+        followed
+    }
 }
 
 function updateUser(req, res) {
@@ -276,6 +337,7 @@ module.exports = {
     loginUser,
     getUser,
     getUsers,
+    getStats,
     updateUser,
     uploadAvatar,
     getAvatarFile,
