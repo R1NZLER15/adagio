@@ -1,3 +1,4 @@
-/api/node_modules
-/api/uploads/users
+api/node_modules
+api/uploads/users
 .vscode/
+api/firebaseKey.json
