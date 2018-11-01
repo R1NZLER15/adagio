@@ -3,7 +3,7 @@ Red Social Orientada a Planteles Educativos
 
 #### TODO List(Por realizar):
 - [ ] **Misión y Visión del proyecto**
-- [ ] **Back-End** *~80%*
+- [ ] **Back-End** *?%*
   - [ ] **Usuarios** *72%*
     - [x] Registro
       - [ ] Confirmación vía email **<- Alta-prioridad**
@@ -13,7 +13,7 @@ Red Social Orientada a Planteles Educativos
     - [x] Obtener un listado paginado de usuarios registrados
     - [x] Obtener las estadisticas de un usuario
     - [x] Actualizar la información de un usuario
-      - [ ] Actualizar contraseña
+      - [ ] Actualizar contraseña **<- Alta-prioridad**
     - [x] Subir el avatar de un usuario
     - [x] Obtener el avatar de un usuario
     - [ ] ??
@@ -24,32 +24,34 @@ Red Social Orientada a Planteles Educativos
     - [x] Obtener un listado paginado de usuarios que siguen (usuarios -> siguen -> usuario)
     - [x] Obtener un listado no paginado de usuarios que sigo y que me siguen
     - [ ] ??
-  - [ ] **Publicaciones** *~62%*
+  - [ ] **Publicaciones** *~87%*
     - [x] Crear publicación
       - [ ] Subir archivos/imagenes
     - [x] Editar publicación
     - [x] Borrar publicación
     - [x] Timeline de publicaciones de usuarios que sigo
     - [x] Timeline de todas las publicaciones de la red
-    - [ ] Sistema de "likes"
-    - [ ] Sistema de comentarios
+    - [x] Sistema de "likes"
+    - [x] Sistema de comentarios
     - [ ] ??
-  - [x] **Mensajería** *99%*
-    - [x] Enviar Mensajes
-    - [x] Recibir Mensajes
-    - [x] Bandeja de mensajes
+  - [ ] **Mensajería** *10%*
+    - [ ] Enviar Mensajes
+    - [ ] Recibir Mensajes
+    - [ ] Bandeja de mensajes
     - [ ] ??
-  - [ ] **Grupos** *~%* **<- Alta-prioridad**
+  - [ ] **Grupos** *?%* **<- Alta-prioridad**
     - [x] Crear Grupo
     - [x] Actualizar información de un grupo
     - [x] Eliminar grupo
     - [ ] Publicar en grupo
-    - [ ] **Grupo para proyectos** <- high-priority
+    - [ ] **Grupo para proyectos** **<- Alta-prioridad**
     - [ ] ??
   - [ ] **Notificaciones** *0%*
     - [ ] Notificación de nueva publicación por parte de la administración
-      - [ ] Notificación de nuevo Evento
-      - [ ] Notificación de nueva Beca
+      - [ ] Anuncio
+      - [ ] Evento
+      - [ ] Convocatoria
+      - [ ] "Otro"
     - [ ] Notificación de nueva Actualización (Versión movíl)
     - [ ] Notificación de nuevo seguidor
     - [ ] Notificación de nuevo like
@@ -67,6 +69,8 @@ Red Social Orientada a Planteles Educativos
     - [ ] Estadisticas de publicaciones
     - [ ] Estadisticas de grupo
   - [ ] **Calendario Grupal** *0%* <- baja-prioridad
+  - [ ] **Paginas** *0%* <- baja-prioridad (se implementará despues de los grupos)
+  - [ ] **Foros de especialidad** *0%* <- baja-prioridad (se implementará despues de las paginas)
   
 - [ ] **Deploy to live server** 0/1
 
