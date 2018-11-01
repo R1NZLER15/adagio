@@ -64,11 +64,13 @@ Red Social Orientada a Planteles Educativos
     - [ ] Estadisticas de grupo
   - [ ] **Calendario Grupal**
   
-- [ ] **Front-End**
+- [ ] **Deploy to live server** 0/1
 
-- [ ] **Crear aplicación movíl**
+- [ ] **Front-End** *0%*
+
+- [ ] **Crear aplicación movíl** *0%*
 
 #### Post developement TODO list:
 - [ ] **API para programadores**
 - [ ] **Mudar el proyecto a Firebase**
-- [ ] **Volver el proyecto "Open Source"**
+- [ ] **Volver el proyecto "Open Source"** 0/1
