@@ -42,7 +42,7 @@ Red Social Orientada a Planteles Educativos
     - [x] Crear Grupo
     - [x] Actualizar información de un grupo
     - [ ] Publicar en grupo
-    - [ ]
+    - [ ] ??
   - [ ] **Notificaciones**
     - [ ] Notificación de nueva publicación por parte de la administración
       - [ ] Notificación de nuevo Evento
