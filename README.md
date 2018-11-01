@@ -3,7 +3,7 @@ Red Social Orientada a Planteles Educativos
 
 #### TODO List(Por realizar):
 - [ ] **Misión y Visión del proyecto**
-- [ ] **Back-End**
+- [ ] **Back-End** *~80%*
   - [ ] **Usuarios**
     - [x] Registro
       - [ ] Confirmación vía email **<-Alta prioridad**
@@ -69,5 +69,6 @@ Red Social Orientada a Planteles Educativos
 - [ ] **Crear aplicación movíl**
 
 #### Post developement TODO list:
+- [ ] **API para programadores**
 - [ ] **Mudar el proyecto a Firebase**
 - [ ] **Volver el proyecto "Open Source"**
