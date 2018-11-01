@@ -47,7 +47,7 @@ Red Social Orientada a Planteles Educativos
     - [ ] Recibir Mensajes
     - [ ] Bandeja de mensajes
     - [ ] ??
-  - [ ] **Grupos** *?%* **<- Alta-prioridad**
+  - [ ] **Grupos** *?%* **<- Prioridad-alta**
     - [x] Crear Grupo
     - [x] Actualizar información de un grupo
     - [x] Eliminar grupo
@@ -76,8 +76,8 @@ Red Social Orientada a Planteles Educativos
     - [x] Estadisticas de publicación
     - [ ] Estadisticas de publicaciones
     - [ ] Estadisticas de grupo
-  - [ ] **Calendario Escolar(Calendario anual)** *0%* <- baja-prioridad
-  - [ ] **Calendario Grupal(Horario-semanal)** *0%* <- baja-prioridad
+  - [ ] **Calendario Escolar(Calendario anual)** *0%* <- prioridad-baja
+  - [ ] **Calendario Grupal(Horario-semanal)** *0%* <- prioridad-baja
   - [ ] **Paginas** *0%* <- prioridad-media (se implementará despues de los grupos)
   - [ ] **Foros de especialidad** *0%* <- prioridad-media (se implementará despues de las paginas)
   
