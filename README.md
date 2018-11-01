@@ -6,14 +6,14 @@ Red Social Orientada a Planteles Educativos
 - [ ] **Back-End** *?%*
   - [ ] **Usuarios** *72%*
     - [x] Registro
-      - [ ] Confirmación vía email **<- Alta-prioridad**
+      - [ ] Confirmación vía email **<- Prioridad-alta**
       - [ ] Encontrar una manera de verificar si el usuario registrado es un estudiante o no
     - [x] Inicio de sesión
     - [x] Obtener la informacion de un usuario
     - [x] Obtener un listado paginado de usuarios registrados
     - [x] Obtener las estadisticas de un usuario
     - [x] Actualizar la información de un usuario
-      - [ ] Actualizar contraseña **<- Alta-prioridad**
+      - [ ] Actualizar contraseña **<- Prioridad-alta**
     - [x] Subir el avatar de un usuario
     - [x] Obtener el avatar de un usuario
     - [ ] ??
@@ -32,7 +32,15 @@ Red Social Orientada a Planteles Educativos
     - [x] Timeline de publicaciones de usuarios que sigo
     - [x] Timeline de todas las publicaciones de la red
     - [x] Sistema de "likes"
+      - [x] Crear me gusta a publicación
+      - [x] Borrar me gusta a publicación
+      - [ ] Crear me gusta a comentario
+      - [ ] Borrar me gusta a comentario
     - [x] Sistema de comentarios
+      - [x] Crear
+      - [x] Editar
+      - [ ] Borrar
+      - [ ] Mover comentarios a su propia categoría 0/1 <- prioridad-baja
     - [ ] ??
   - [ ] **Mensajería** *10%*
     - [ ] Enviar Mensajes
@@ -44,7 +52,7 @@ Red Social Orientada a Planteles Educativos
     - [x] Actualizar información de un grupo
     - [x] Eliminar grupo
     - [ ] Publicar en grupo
-    - [ ] **Grupo para proyectos** **<- Alta-prioridad**
+    - [ ] **Grupo para proyectos** **<- Prioridad-alta**
     - [ ] ??
   - [ ] **Notificaciones** *0%*
     - [ ] Notificación de nueva publicación por parte de la administración
@@ -70,8 +78,8 @@ Red Social Orientada a Planteles Educativos
     - [ ] Estadisticas de grupo
   - [ ] **Calendario Escolar(Calendario anual)** *0%* <- baja-prioridad
   - [ ] **Calendario Grupal(Horario-semanal)** *0%* <- baja-prioridad
-  - [ ] **Paginas** *0%* <- media-prioridad (se implementará despues de los grupos)
-  - [ ] **Foros de especialidad** *0%* <- media-prioridad (se implementará despues de las paginas)
+  - [ ] **Paginas** *0%* <- prioridad-media (se implementará despues de los grupos)
+  - [ ] **Foros de especialidad** *0%* <- prioridad-media (se implementará despues de las paginas)
   
 - [ ] **Deploy to live server** 0/1
 
