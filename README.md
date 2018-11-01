@@ -4,9 +4,9 @@ Red Social Orientada a Planteles Educativos
 #### TODO List(Por realizar):
 - [ ] **Misión y Visión del proyecto**
 - [ ] **Back-End** *~80%*
-  - [ ] **Usuarios**
+  - [ ] **Usuarios** *72%*
     - [x] Registro
-      - [ ] Confirmación vía email **<-Alta prioridad**
+      - [ ] Confirmación vía email **<- Alta-prioridad**
       - [ ] Encontrar una manera de verificar si el usuario registrado es un estudiante o no
     - [x] Inicio de sesión
     - [x] Obtener la informacion de un usuario
@@ -17,14 +17,14 @@ Red Social Orientada a Planteles Educativos
     - [x] Subir el avatar de un usuario
     - [x] Obtener el avatar de un usuario
     - [ ] ??
-  - [x] **Seguimientos(Follows)**
+  - [x] **Seguimientos(Follows)** *99%*
     - [x] Crear seguimiento
     - [x] Eliminar seguimiento
     - [x] Obtener un listado paginado de usuarios seguidos (usuario -> sigue -> usuarios)
     - [x] Obtener un listado paginado de usuarios que siguen (usuarios -> siguen -> usuario)
     - [x] Obtener un listado no paginado de usuarios que sigo y que me siguen
     - [ ] ??
-  - [ ] **Publicaciones**
+  - [ ] **Publicaciones** *~62%*
     - [x] Crear publicación
       - [ ] Subir archivos/imagenes
     - [x] Editar publicación
@@ -34,16 +34,19 @@ Red Social Orientada a Planteles Educativos
     - [ ] Sistema de "likes"
     - [ ] Sistema de comentarios
     - [ ] ??
-  - [x] **Mensajería**
+  - [x] **Mensajería** *99%*
     - [x] Enviar Mensajes
     - [x] Recibir Mensajes
     - [x] Bandeja de mensajes
-  - [ ] **Grupos**
+    - [ ] ??
+  - [ ] **Grupos** *~%* **<- Alta-prioridad**
     - [x] Crear Grupo
     - [x] Actualizar información de un grupo
+    - [x] Eliminar grupo
     - [ ] Publicar en grupo
+    - [ ] **Grupo para proyectos** <- high-priority
     - [ ] ??
-  - [ ] **Notificaciones**
+  - [ ] **Notificaciones** *0%*
     - [ ] Notificación de nueva publicación por parte de la administración
       - [ ] Notificación de nuevo Evento
       - [ ] Notificación de nueva Beca
@@ -53,16 +56,17 @@ Red Social Orientada a Planteles Educativos
     - [ ] Notificación de nuevo comentario en publicación
     - [ ] Notificación de nueva publicación en grupo
     - [ ] Notificación de nueva publicación de usuario seguido
-  - [ ] **Reportes de contenido**
-  - [ ] **Solicitudes**
-    - [ ] Solicitudes de permuta
-  - [ ] **Estadisticas**
+  - [x] **Reportes de contenido** *100%*
+  - [x] **Solicitudes** *99%*
+    - [x] Solicitudes de permuta
+    - [ ] ??
+  - [ ] **Estadisticas** *60%*
     - [x] Estadisticas de usuario
     - [x] Estadisticas de seguimientos
     - [x] Estadisticas de publicación
     - [ ] Estadisticas de publicaciones
     - [ ] Estadisticas de grupo
-  - [ ] **Calendario Grupal**
+  - [ ] **Calendario Grupal** *0%* <- baja-prioridad
   
 - [ ] **Deploy to live server** 0/1
 
