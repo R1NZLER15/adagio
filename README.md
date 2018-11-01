@@ -57,8 +57,9 @@ Red Social Orientada a Planteles Educativos
   - [ ] **Solicitudes**
     - [ ] Solicitudes de permuta
   - [ ] **Estadisticas**
-    - [ ] Estadisticas de usuario
-    - [ ] Estadisticas de publicación
+    - [x] Estadisticas de usuario
+    - [x] Estadisticas de seguimientos
+    - [x] Estadisticas de publicación
     - [ ] Estadisticas de publicaciones
     - [ ] Estadisticas de grupo
   - [ ] **Calendario Grupal**
