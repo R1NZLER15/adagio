@@ -89,5 +89,6 @@ Red Social Orientada a Planteles Educativos
 
 #### Post developement TODO list:
 - [ ] **API para programadores**
+- [ ] **Temas de color**
 - [ ] **Mudar el proyecto a Firebase**
 - [ ] **Volver el proyecto "Open Source"** 0/1
