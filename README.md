@@ -34,13 +34,13 @@ Red Social Orientada a Planteles Educativos
     - [ ] Sistema de "likes"
     - [ ] Sistema de comentarios
     - [ ] ??
-  - [ ] **Mensajería**
-    - [ ] Enviar Mensajes
-    - [ ] Recibir Mensajes
-    - [ ] Bandeja de mensajes
+  - [x] **Mensajería**
+    - [x] Enviar Mensajes
+    - [x] Recibir Mensajes
+    - [x] Bandeja de mensajes
   - [ ] **Grupos**
     - [x] Crear Grupo
-    - [ ] Actualizar información de un grupo
+    - [x] Actualizar información de un grupo
     - [ ] Publicar en grupo
     - [ ]
   - [ ] **Notificaciones**
