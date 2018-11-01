@@ -68,9 +68,10 @@ Red Social Orientada a Planteles Educativos
     - [x] Estadisticas de publicación
     - [ ] Estadisticas de publicaciones
     - [ ] Estadisticas de grupo
-  - [ ] **Calendario Grupal** *0%* <- baja-prioridad
-  - [ ] **Paginas** *0%* <- baja-prioridad (se implementará despues de los grupos)
-  - [ ] **Foros de especialidad** *0%* <- baja-prioridad (se implementará despues de las paginas)
+  - [ ] **Calendario Escolar(Calendario anual)** *0%* <- baja-prioridad
+  - [ ] **Calendario Grupal(Horario-semanal)** *0%* <- baja-prioridad
+  - [ ] **Paginas** *0%* <- media-prioridad (se implementará despues de los grupos)
+  - [ ] **Foros de especialidad** *0%* <- media-prioridad (se implementará despues de las paginas)
   
 - [ ] **Deploy to live server** 0/1
 
