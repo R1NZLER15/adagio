@@ -34,13 +34,15 @@ Red Social Orientada a Planteles Educativos
     - [x] Sistema de "likes"
       - [x] Crear me gusta a publicación
       - [x] Borrar me gusta a publicación
-      - [ ] Crear me gusta a comentario
-      - [ ] Borrar me gusta a comentario
+      - [x] Crear me gusta a comentario
+      - [x] Borrar me gusta a comentario
     - [x] Sistema de comentarios
       - [x] Crear
       - [x] Editar
-      - [ ] Borrar
-      - [ ] Mover comentarios a su propia categoría 0/1 <- prioridad-baja
+      - [x] Borrar
+      - [ ] ||Mover comentarios a su propia categoría 0/1 <- prioridad-baja
+    - [ ] ||Sistema de respuestas a comentarios <- prioridad-baja
+      - [ ] ??
     - [ ] ??
   - [ ] **Mensajería** *10%*
     - [ ] Enviar Mensajes
@@ -72,12 +74,13 @@ Red Social Orientada a Planteles Educativos
     - [ ] ??
   - [ ] **Estadisticas** *60%*
     - [x] Estadisticas de usuario
+    - [ ] Estadisticas de usuarios
     - [x] Estadisticas de seguimientos
     - [x] Estadisticas de publicación
     - [ ] Estadisticas de publicaciones
     - [ ] Estadisticas de grupo
-  - [ ] **Calendario Escolar(Calendario anual)** *0%* <- prioridad-baja
-  - [ ] **Calendario Grupal(Horario-semanal)** *0%* <- prioridad-baja
+  - [ ] ||**Calendario Escolar(Calendario anual)** *0%* <- prioridad-baja
+  - [ ] ||**Calendario Grupal(Horario-semanal)** *0%* <- prioridad-baja
   - [ ] **Paginas** *0%* <- prioridad-media (se implementará despues de los grupos)
   - [ ] **Foros de especialidad** *0%* <- prioridad-media (se implementará despues de las paginas)
   
