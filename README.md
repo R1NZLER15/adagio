@@ -1,4 +1,4 @@
-###### Actualmente el repositorio se encuentra des-actualizado, subiré los archivos esta tarde (2/nov/18)
+###### Actualmente el repositorio se encuentra desactualizado, subiré los archivos esta tarde (2/nov/18)
 # Adagio
 Red Social Orientada a Planteles Educativos
 
