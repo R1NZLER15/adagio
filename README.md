@@ -73,13 +73,14 @@ Red Social Orientada a Planteles Educativos
   - [ ] **Solicitudes** *~%*
     - [ ] Solicitudes de permuta
     - [ ] ??
-  - [ ] **Estadisticas** *60%*
+  - [x] **Estadisticas** *99%*
     - [x] Estadisticas de usuario
-    - [ ] Estadisticas de usuarios
+    - [x] Estadisticas de usuarios
     - [x] Estadisticas de seguimientos
     - [x] Estadisticas de publicación
-    - [ ] Estadisticas de publicaciones
-    - [ ] Estadisticas de grupo
+    - [x] Estadisticas de publicaciones
+    - [x] Estadisticas de grupo
+    - [ ] ??
   - [ ] **Busqueda de usuarios y grupos**
   - [ ] ||**Calendario Escolar(Calendario anual)** *0%* <- prioridad-baja
   - [ ] ||**Calendario Grupal(Horario-semanal)** *0%* <- prioridad-baja
