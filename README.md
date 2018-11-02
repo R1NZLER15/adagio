@@ -24,9 +24,9 @@ Red Social Orientada a Planteles Educativos
     - [x] Obtener un listado paginado de usuarios que siguen (usuarios -> siguen -> usuario)
     - [x] Obtener un listado no paginado de usuarios que sigo y que me siguen
     - [ ] ??
-  - [ ] **Publicaciones** *~87%*
+  - [x] **Publicaciones** *~95%*
     - [x] Crear publicación
-      - [ ] Subir archivos/imagenes
+      - [x] Subir archivos/imagenes
     - [x] Editar publicación
     - [x] Borrar publicación
     - [x] Timeline de publicaciones de usuarios que sigo
@@ -68,9 +68,9 @@ Red Social Orientada a Planteles Educativos
     - [ ] Notificación de nuevo comentario en publicación
     - [ ] Notificación de nueva publicación en grupo
     - [ ] Notificación de nueva publicación de usuario seguido
-  - [x] **Reportes de contenido** *100%*
-  - [x] **Solicitudes** *99%*
-    - [x] Solicitudes de permuta
+  - [] **Reportes de contenido** *100%*
+  - [] **Solicitudes** *99%*
+    - [] Solicitudes de permuta
     - [ ] ??
   - [ ] **Estadisticas** *60%*
     - [x] Estadisticas de usuario
