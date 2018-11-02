@@ -68,8 +68,8 @@ Red Social Orientada a Planteles Educativos
     - [ ] Notificación de nuevo comentario en publicación
     - [ ] Notificación de nueva publicación en grupo
     - [ ] Notificación de nueva publicación de usuario seguido
-  - [] **Reportes de contenido** *100%*
-  - [] **Solicitudes** *99%*
+  - [x] **Reportes de contenido** *~%*
+  - [ ] **Solicitudes** *~%*
     - [] Solicitudes de permuta
     - [ ] ??
   - [ ] **Estadisticas** *60%*
