@@ -1,3 +1,4 @@
+###### Actualmente el repositorio se encuentra des-actualizado, subiré los archivos esta tarde (2/nov/18)
 # Adagio
 Red Social Orientada a Planteles Educativos
 
@@ -70,7 +71,7 @@ Red Social Orientada a Planteles Educativos
     - [ ] Notificación de nueva publicación de usuario seguido
   - [x] **Reportes de contenido** *~%*
   - [ ] **Solicitudes** *~%*
-    - [] Solicitudes de permuta
+    - [ ] Solicitudes de permuta
     - [ ] ??
   - [ ] **Estadisticas** *60%*
     - [x] Estadisticas de usuario
