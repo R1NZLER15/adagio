@@ -1,6 +1,7 @@
 'use strict'
 const User = require('../models/user');
 const Group = require('../models/group');
+const GroupMember = require('../models/group_member');
 const fs = require('fs');
 const path = require('path');
 
@@ -64,7 +65,7 @@ function saveGroup(res, req) {
                     });
                 });
             }
-        })
+        });
     }
 }
 
@@ -77,7 +78,22 @@ function uploadGroupCover(req, res) {
 }
 
 function updateGroup(req, res) {
-
+    const params = req.body;
+    const userId = req.user.sub;
+    const groupId = params.group_id;
+    Group.findById(groupId, (err, group) =>{
+        if(err) return err0r(res,500,err);
+        if(!group) return err0r(res,404, 'ERR0R. Este grupo no existe');
+        if(userId != group.group_admin) return err0r(res,403, 'Acceso denegado');
+        console.log(group);
+        if()
+        Group.findByIdAndUpdate(groupId,{
+            'name': params.name,
+            'privacy': params.privacy,
+            'description': params.description,
+            'category': params.category
+        });
+    });
 }
 
 function deleteGroup(req, res) {
@@ -86,10 +102,12 @@ function deleteGroup(req, res) {
     Group.findOneAndDelete({
         '_id': groupId,
         'group_admin': userId
-    }, (err, success)=>{
-        if(err) return err0r(res);
-        if(!success) return err0r(res,403,'No tienes permiso para hacer esto.');
-        return res.status(200).send({message: 'Grupo eliminado.'})
+    }, (err, success) => {
+        if (err) return err0r(res);
+        if (!success) return err0r(res, 403, 'No tienes permiso para hacer esto.');
+        return res.status(200).send({
+            message: 'Grupo eliminado.'
+        });
     });
 }
 
@@ -102,6 +120,10 @@ function leaveGroup(res, req) {
 }
 
 function deleteGroupMember(res, req) {
+
+}
+
+function inviteUser(res, req) {
 
 }
 

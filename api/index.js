@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:27017/adagio_db', {
         console.log(`||==Conexión exitosa`);
         //create server
         app.listen(port, () => {
-            console.log(`||==Servidor corriendo`);
+            console.log(`||==Servidor corriendo. Puerto: ${port}`);
         });
     })
     .catch(err => console.log(err));

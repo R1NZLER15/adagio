@@ -2,13 +2,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var PublicationSchema = new Schema({
-    type: String,
-    text: String,
-    media: String,
-    file: String,
-    created_at: String, 
-    user_id: {type: mongoose.ObjectId,ref: 'User'}
+let PublicationSchema = new Schema({
+    text_field: String,
+    media_field: String,
+    document_field: String,
+    likes: Number,
+    created_at: String,
+    updated_at: String,
+    user_id: {type: mongoose.ObjectId,ref: 'User'},
 });
 //type: define if the post belongs to a group or if its a public post
 

@@ -49,7 +49,6 @@ function saveUser(req, res) {
         user.avatar = 'default-avatar.png';
         user.banner = null;
         user.about = null;
-        user.badges = null;
         user.join_date = currentDay;
         //TODO: Find a way to verify if the user data matches an existing user from the school DB
         User.find({
@@ -162,11 +161,11 @@ function getUsers(req, res) {
     const userId = req.user.sub;
     let page = 1
     if (req.params.page) {
-        page = req.params.page;
+        page = parseInt(req.params.page);
     }
     const itemsPerPage = 5;
-    User.find({}, null, {
-        skipt: ((itemsPerPage * page) - page),
+    User.find({}, '-password', {
+        skip: (itemsPerPage * (page-1)),
         limit: itemsPerPage
     }, (err, users) => {
         if (err) return err0r(res);
@@ -179,6 +178,7 @@ function getUsers(req, res) {
                     users_following_me: success.followed,
                     total,
                     pages: Math.ceil(total / itemsPerPage),
+                    page: page,
                     users
                 });
             });
@@ -197,10 +197,8 @@ async function followUserIds(userId) {
         success.forEach((follow) => {
             followingArr.push(follow.followed)
         });
-        console.log(followingArr);
         return followingArr;
     });
-    console.log(following);
     let followed = await Follow.find({
         'followed': userId
     }).select({
@@ -217,37 +215,6 @@ async function followUserIds(userId) {
     return {
         following: following,
         followed: followed
-    }
-}
-
-function getStats(req, res) {
-    let userId = req.user.sub;
-    if (req.params.id) {
-        userId = req.params.id;
-    }
-    getStatsFollows(userId).then((success) => {
-        return res.status(200).send({
-            following: success.following,
-            followed: success.followed
-        });
-    });
-
-}
-
-async function getStatsFollows(userId) {
-    let following = await Follow.count({
-        'follower': userId
-    }).exec().then((success) => {
-        return success;
-    });
-    let followed = await Follow.count({
-        'followed': userId
-    }).exec().then((success) => {
-        return success;
-    });
-    return {
-        following,
-        followed
     }
 }
 
@@ -331,15 +298,18 @@ function getAvatarFile(req, res) {
 function updatePass(req, res) {
 
 }
+function deleteUser(req,res){
+
+}
 module.exports = {
     userTest,
     saveUser,
     loginUser,
     getUser,
     getUsers,
-    getStats,
     updateUser,
     uploadAvatar,
     getAvatarFile,
-    updatePass
+    updatePass,
+    deleteUser
 }

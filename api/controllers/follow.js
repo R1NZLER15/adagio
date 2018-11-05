@@ -47,26 +47,26 @@ function deleteFollow(req, res) {
     });
 }
 
-//Users that a cartain user follows
+//Users that a certain user follows
 function getUserFollows(req, res) {
     let userId = req.user.sub;
+    let page = 1;
     if (req.params.id && req.params.page) {
         userId = req.params.id
     }
-    let page = 1;
     if (req.params.page) {
-        page = req.params.page;
+        page = parseInt(req.params.page);
     }
     let itemsPerPage = 5;
-    Follow.findOne({
-        followed: userId
+    Follow.find({
+        follower: userId
     }, null, {
-        skipt: ((itemsPerPage * page) - page),
+        skip: (itemsPerPage * (page-1)),
         limit: itemsPerPage
     }, (err, follows) => {
         if (err) return err0r(res);
         if (!follows) return err0r(res, 404, 'ERR0R. No estás siguiendo a ningun usuario.');
-        Follow.countDocuments((err, total) => {
+        Follow.countDocuments({follower: userId},(err, total) => {
             if (err) return err0r(res);
             return res.status(200).send({
                 total,
@@ -75,30 +75,31 @@ function getUserFollows(req, res) {
             });
         });
     }).populate({
-        path: 'follower'
+        path: 'followed',
+        select: '-password'
     });
 }
 
 //Users that follow a certain user
 function getUserFollowers(req, res) {
     let userId = req.user.sub;
+    let page = 1;
     if (req.params.id && req.params.page) {
         userId = req.params.id
     }
-    let page = 1;
     if (req.params.page) {
-        page = req.params.page;
+        page = parseInt(req.params.page);
     }
     let itemsPerPage = 5;
     Follow.findOne({
-        follower: userId
+        followed: userId
     }, null, {
-        skipt: ((itemsPerPage * page) - page),
+        skip: (itemsPerPage * (page-1)),
         limit: itemsPerPage
     }, (err, follows) => {
         if (err) return err0r(res);
         if (!follows) return err0r(res, 404, 'ERR0R. Ningun usuario te sigue.');
-        Follow.countDocuments((err, total) => {
+        Follow.countDocuments({followed: userId},(err, total) => {
             if (err) return err0r(res);
             return res.status(200).send({
                 total,
@@ -107,7 +108,8 @@ function getUserFollowers(req, res) {
             });
         });
     }).populate({
-        path: 'follower'
+        path: 'follower',
+        select: '-password'
     });
 }
 
