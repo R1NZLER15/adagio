@@ -1,2 +1,100 @@
-# adagio
+###### Actualmente el repositorio se encuentra desactualizado, subiré los archivos esta tarde (2/nov/18)
+# Adagio
 Red Social Orientada a Planteles Educativos
+
+#### TODO List(Por realizar):
+- [ ] **Misión y Visión del proyecto**
+- [ ] **Back-End** *?%*
+  - [ ] **Usuarios** *72%*
+    - [x] Registro
+      - [ ] Confirmación vía email **<- Prioridad-alta**
+      - [ ] Encontrar una manera de verificar si el usuario registrado es un estudiante o no
+    - [x] Inicio de sesión
+    - [x] Obtener la informacion de un usuario
+    - [x] Obtener un listado paginado de usuarios registrados
+    - [x] Obtener las estadisticas de un usuario
+    - [x] Actualizar la información de un usuario
+      - [ ] Actualizar contraseña **<- Prioridad-alta**
+    - [x] Subir el avatar de un usuario
+    - [x] Obtener el avatar de un usuario
+    - [ ] ??
+  - [x] **Seguimientos(Follows)** *99%*
+    - [x] Crear seguimiento
+    - [x] Eliminar seguimiento
+    - [x] Obtener un listado paginado de usuarios seguidos (usuario -> sigue -> usuarios)
+    - [x] Obtener un listado paginado de usuarios que siguen (usuarios -> siguen -> usuario)
+    - [x] Obtener un listado no paginado de usuarios que sigo y que me siguen
+    - [ ] ??
+  - [x] **Publicaciones** *~95%*
+    - [x] Crear publicación
+      - [x] Subir archivos/imagenes
+    - [x] Editar publicación
+    - [x] Borrar publicación
+    - [x] Timeline de publicaciones de usuarios que sigo
+    - [x] Timeline de todas las publicaciones de la red
+    - [x] Sistema de "likes"
+      - [x] Crear me gusta a publicación
+      - [x] Borrar me gusta a publicación
+      - [x] Crear me gusta a comentario
+      - [x] Borrar me gusta a comentario
+    - [x] Sistema de comentarios
+      - [x] Crear
+      - [x] Editar
+      - [x] Borrar
+      - [ ] ||Mover comentarios a su propia categoría 0/1 <- prioridad-baja
+    - [ ] ||Sistema de respuestas a comentarios <- prioridad-baja
+      - [ ] ??
+    - [ ] ??
+  - [ ] **Mensajería** *10%*
+    - [ ] Enviar Mensajes
+    - [ ] Recibir Mensajes
+    - [ ] Bandeja de mensajes
+    - [ ] ??
+  - [ ] **Grupos** *?%* **<- Prioridad-alta**
+    - [x] Crear Grupo
+    - [x] Actualizar información de un grupo
+    - [x] Eliminar grupo
+    - [ ] Publicar en grupo
+    - [ ] **Grupo para proyectos** **<- Prioridad-alta**
+    - [ ] ??
+  - [ ] **Notificaciones** *0%*
+    - [ ] Notificación de nueva publicación por parte de la administración
+      - [ ] Anuncio
+      - [ ] Evento
+      - [ ] Convocatoria
+      - [ ] "Otro"
+    - [ ] Notificación de nueva Actualización (Versión movíl)
+    - [ ] Notificación de nuevo seguidor
+    - [ ] Notificación de nuevo like
+    - [ ] Notificación de nuevo comentario en publicación
+    - [ ] Notificación de nueva publicación en grupo
+    - [ ] Notificación de nueva publicación de usuario seguido
+  - [x] **Reportes de contenido** *~%*
+  - [ ] **Solicitudes** *~%*
+    - [ ] Solicitudes de permuta
+    - [ ] ??
+  - [x] **Estadisticas** *99%*
+    - [x] Estadisticas de usuario
+    - [x] Estadisticas de usuarios
+    - [x] Estadisticas de seguimientos
+    - [x] Estadisticas de publicación
+    - [x] Estadisticas de publicaciones
+    - [x] Estadisticas de grupo
+    - [ ] ??
+  - [ ] **Busqueda de usuarios y grupos**
+  - [ ] ||**Calendario Escolar(Calendario anual)** *0%* <- prioridad-baja
+  - [ ] ||**Calendario Grupal(Horario-semanal)** *0%* <- prioridad-baja
+  - [ ] **Paginas** *0%* <- prioridad-media (se implementará despues de los grupos)
+  - [ ] **Foros de especialidad** *0%* <- prioridad-media (se implementará despues de las paginas)
+  
+- [ ] **Deploy to live server** 0/1
+
+- [ ] **Front-End** *0%*
+
+- [ ] **Crear aplicación movíl** *0%*
+
+#### Post developement TODO list:
+- [ ] **API para programadores**
+- [ ] **Temas de color**
+- [ ] **Mudar el proyecto a Firebase**
+- [ ] **Volver el proyecto "Open Source"** 0/1
