@@ -94,6 +94,9 @@ Red Social Orientada a Planteles Educativos
 - [ ] **Crear aplicación movíl** *0%*
 
 #### Post developement TODO list:
+- [ ] **Ranking de usuarios**
+- [ ] **Hashtags y menciones #/@**
+- [ ] **Implementar funciones de "aula virtual"**
 - [ ] **API para programadores**
 - [ ] **Temas de color**
 - [ ] **Mudar el proyecto a Firebase**
