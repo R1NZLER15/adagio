@@ -41,7 +41,7 @@ function saveUser(req, res) {
         user.names = params.names;
         user.fst_surname = params.fst_surname;
         user.snd_surname = params.snd_surname;
-        user.unique_nick = params.unique_nick.toLowerCase();
+        user.unique_nick = params.unique_nick;
         user.email = params.email;
         user.birthday = params.birthday;
         user.gender = params.gender;
@@ -53,7 +53,7 @@ function saveUser(req, res) {
         //TODO: Find a way to verify if the user data matches an existing user from the school DB
         User.find({
             $or: [{
-                    unique_nick: user.unique_nick
+                    unique_nick: user.unique_nick.toLowerCase()
                 },
                 {
                     email: user.email.toLowerCase()

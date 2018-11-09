@@ -11,5 +11,14 @@ const NotificationSchema = new Schema({
     created_at: String,
     viewed: Boolean
 });
-
+/*
+*seguimiento
+*comentario
+*me gusta
+*invitación a un grupo
+!admin: publicación
+!admin: convocatoria
+!admin: beca
+!admin: evento
+*/
 module.exports = mongoose.model('Notification', NotificationSchema)

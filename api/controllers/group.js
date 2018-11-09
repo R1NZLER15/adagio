@@ -23,7 +23,7 @@ function groupTest(req, res) {
     });
 }
 
-function saveGroup(res, req) {
+function saveGroup(req, res) {
     const userId = req.user.sub;
     const today = new Date();
     const dd = today.getDate() < 10 ? '0' + today.getDate() : today.getDate();
@@ -81,13 +81,12 @@ function updateGroup(req, res) {
     const params = req.body;
     const userId = req.user.sub;
     const groupId = params.group_id;
-    Group.findById(groupId, (err, group) =>{
-        if(err) return err0r(res,500,err);
-        if(!group) return err0r(res,404, 'ERR0R. Este grupo no existe');
-        if(userId != group.group_admin) return err0r(res,403, 'Acceso denegado');
+    Group.findById(groupId, (err, group) => {
+        if (err) return err0r(res, 500, err);
+        if (!group) return err0r(res, 404, 'ERR0R. Este grupo no existe');
+        if (userId != group.group_admin) return err0r(res, 403, 'Acceso denegado');
         console.log(group);
-        if()
-        Group.findByIdAndUpdate(groupId,{
+        Group.findByIdAndUpdate(groupId, {
             'name': params.name,
             'privacy': params.privacy,
             'description': params.description,
@@ -111,22 +110,101 @@ function deleteGroup(req, res) {
     });
 }
 
-function joinGroup(req, req) {
+function joinGroup(req, res) {
+    let params = req.body;
+    let userId = req.user.sub;
+    let groupId = params.group_id;
+    Group.findById(groupId, (err, group) => {
+        if (err) return err0r(res, 500, err);
+        if (!group) return err0r(res, 404, 'ERR0R. Este grupo no existe.');
+        if (group.privacy == "private") return err0r(res, 403, 'No te puedes unir a este grupo.');
+        GroupMember.findOne({
+            'user_id': userId,
+            'group_id': groupId
+        }, (err, exists) => {
+            if (err) return err0r(res, 500, err);
+            if (exists) return err0r(res, 403, 'Ya eres miembro de este grupo.');
+            else {
+                let newMember = new GroupMember();
+                newMember.user_id = userId;
+                newMember.group_id = groupId;
+                newMember.save((err, success) => {
+                    if (err) return err0r(res, 500, err);
+                    return res.status(201).send({
+                        success
+                    });
+                });
+            }
+        });
+    });
+}
+
+function joinGroupRequest(req, res) {
 
 }
 
-function leaveGroup(res, req) {
+function leaveGroup(req, res) {
+    let params = req.body;
+    let userId = req.user.sub;
+    let groupId = params.group_id;
+    GroupMember.findOneAndDelete({
+        'user_id': userId,
+        'group_id': groupId
+    }, (err, success) => {
+        if (err) return err0r(res, 500, err);
+        if (!success) return err0r(res, 403, 'No puedes abandonar este grupo porque ni siquiera eres parte de el... -.-');
+        res.status(200).send({
+            message: 'Has abandonado este grupo'
+        });
+    })
+}
+
+function deleteGroupMember(req, res) {
 
 }
 
-function deleteGroupMember(res, req) {
+function inviteUser(req, res) {
+    let params = req.body;
+    let userId = req.user.sub;
+    let invitedUserId = params.invited_user_id;
+    if (!invitedUserId) return err0r(res, 403, 'Ingresa el id del usuario que deseas invitar.');
+    User.findById(invitedUserId, (err, user) => {
+        if (err) return err0r(res, 500, err);
+        if (!user) return err0r(res, 404, 'ERR0R. Este usuario no existe.');
+        console.log(user._id);
+    })
+    let groupId = params.group_id;
+    Group.findById(groupId, (err, group) => {
+        if (err) return err0r(res, 500, err);
+        if (!group) return err0r(res, 404, 'ERR0R. Este grupo no existe.');
+        if (group.privacy == "private" && group.group_admin != userId) return err0r(res, 403, 'Solo el administrador puede invitar usuarios.');
+        newMember = new GroupMember();
+        newMember.user_id = invitedUserId;
+        newMember.group_id = groupId;
+        newMember.save((err, success) => {
+            if (err) return err0r(res, 500, err);
+            res.status(201).send({
+                success
+            });
+        });
+    });
+}
+
+function saveProjectCountdown(req, res) {
 
 }
 
-function inviteUser(res, req) {
-
+function saveProjectTaskList(req, res) {
+    //create a task list
 }
 
+function saveProjectTasks(req, res) {
+    //add tasks to the task list
+}
+
+function deleteProjectTasks(req, res) {
+    //i dont need to explain this...
+}
 module.exports = {
     groupTest,
     saveGroup

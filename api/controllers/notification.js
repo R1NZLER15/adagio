@@ -22,23 +22,12 @@ function notificationTest(req, res) {
 
 function getNotifications(req, res) {
     const userId = req.body.sub;
+    console.log(userId);
     let page = 1;
     if (req.params.page) {
         page = parseInt(req.params.page);
     }
     const itemsPerPage = 5;
-    Notification.find({
-        'receiver_id': userId
-    }, null, {
-        skip: (itemsPerPage * (page - 1)),
-        limit: itemsPerPage
-    }, (err, success) => {
-        if (err) return err0r(res,500,err);
-        if (!success) return err0r(res,404, 'No tienes ninguna notificación.');
-        res.status(200).send({
-            success
-        });
-    });
 }
 
 function dimissNotification(req, res) {
