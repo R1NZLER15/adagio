@@ -45,17 +45,18 @@ Red Social Orientada a Planteles Educativos
     - [ ] ||Sistema de respuestas a comentarios <- prioridad-baja
       - [ ] ??
     - [ ] ??
-  - [ ] **Mensajería** *10%*
-    - [ ] Enviar Mensajes
-    - [ ] Recibir Mensajes
-    - [ ] Bandeja de mensajes
+  - [x] **Mensajería** *~%*
+    - [x] Enviar Mensajes
+    - [x] Recibir Mensajes
+    - [x] Bandeja de mensajes
+    - [ ] Marcar mensajes como leidos
     - [ ] ??
   - [ ] **Grupos** *?%* **<- Prioridad-alta**
     - [x] Crear Grupo
     - [x] Actualizar información de un grupo
     - [x] Eliminar grupo
-    - [ ] Publicar en grupo
-    - [ ] **Grupo para proyectos** **<- Prioridad-alta**
+    - [x] Publicar en grupo
+    - [x] **Grupo para proyectos** **<- Prioridad-alta**
     - [ ] ??
   - [ ] **Notificaciones** *0%*
     - [ ] Notificación de nueva publicación por parte de la administración
@@ -64,8 +65,8 @@ Red Social Orientada a Planteles Educativos
       - [ ] Convocatoria
       - [ ] "Otro"
     - [ ] Notificación de nueva Actualización (Versión movíl)
-    - [ ] Notificación de nuevo seguidor
-    - [ ] Notificación de nuevo like
+    - [x] Notificación de nuevo seguidor
+    - [x] Notificación de nuevo like
     - [ ] Notificación de nuevo comentario en publicación
     - [ ] Notificación de nueva publicación en grupo
     - [ ] Notificación de nueva publicación de usuario seguido
@@ -89,7 +90,7 @@ Red Social Orientada a Planteles Educativos
   
 - [ ] **Deploy to live server** 0/1
 
-- [ ] **Front-End** *0%*
+- [ ] **Front-End** *0%* -- 
 
 - [ ] **Crear aplicación movíl** *0%*
 
