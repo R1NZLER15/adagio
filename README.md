@@ -48,7 +48,7 @@ Red Social Orientada a Planteles Educativos
     - [x] Enviar Mensajes
     - [x] Recibir Mensajes
     - [x] Bandeja de mensajes
-    - [ ] Marcar mensajes como leidos
+    - [x] Marcar mensajes como leidos
     - [ ] ??
   - [x] **Grupos** *~99%* **<- Prioridad-alta**
     - [x] Crear Grupo
@@ -71,6 +71,7 @@ Red Social Orientada a Planteles Educativos
   - [x] **Reportes de contenido** *~%*
   - [ ] **Solicitudes** *~%*
     - [ ] Solicitudes de permuta
+    - [ ] Solicitudes de cambio de carrera
   - [x] **Estadisticas** *99%*
     - [x] Estadisticas de usuario
     - [x] Estadisticas de usuarios
