@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 const express = require('express');
 const PublicationController = require('../controllers/publication');
 
@@ -7,7 +7,7 @@ const md_auth = require('../middlewares/authenticated');
 
 const multipart = require('connect-multiparty');
 const md_upload = multipart({
-    uploadDir: './uploads/publications'
+	uploadDir: './uploads/publications'
 });
 api.get('/publication-test', md_auth.verifyAuth, PublicationController.publicationTest);
 //save/edit/delete - publication

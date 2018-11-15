@@ -1,23 +1,23 @@
-'use strict'
+'use strict';
 const mongoose = require('mongoose');
 const Schema =  mongoose.Schema;
 
 var UserSchema = new Schema({
-    names: String,
-    fst_surname: String,
-    snd_surname: String,
-    unique_nick: String,
-    email: String,
-    gender: String,
-    password: String,
-    avatar: String,
-    banner: String,
-    about_me: String,
-    join_date: String,
-    birthday: String,
-    role: String,
-    badges: String
-    /*role:
+	names: String,
+	fst_surname: String,
+	snd_surname: String,
+	unique_nick: String,
+	email: String,
+	gender: String,
+	password: String,
+	avatar: String,
+	banner: String,
+	about_me: String,
+	join_date: String,
+	birthday: String,
+	role: String,
+	badges: String
+	/*role:
         guest
         student
         graduated

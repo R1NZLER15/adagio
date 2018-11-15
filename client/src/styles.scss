@@ -1,0 +1,39 @@
+/*GLOBAL*/
+@import "./fontawesome/scss/fontawesome.scss";
+@import "./fontawesome/scss/regular.scss";
+@import "./fontawesome/scss/solid.scss";
+
+h1,
+h2,
+span,
+label,
+p{
+  font-family: 'Roboto', sans-serif;
+}
+.page-content{
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: #e5e6eb;
+}
+
+.brand {
+  font-size: 72px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 1000;
+  background: -webkit-linear-gradient(0deg, #20bf55, #12973f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navbar {
+  background: #282931;
+}
+
+.nav-link{
+  color: #20bf55;
+}
+
+.nav-link:hover{
+  color: #1a9442;
+}

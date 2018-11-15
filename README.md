@@ -17,6 +17,7 @@ Red Social Orientada a Planteles Educativos
       - [ ] Actualizar contraseña **<- Prioridad-alta**
     - [x] Subir el avatar de un usuario
     - [x] Obtener el avatar de un usuario
+    - [ ] ??
   - [x] **Seguimientos(Follows)** *99%*
     - [x] Crear seguimiento
     - [x] Eliminar seguimiento
@@ -50,27 +51,29 @@ Red Social Orientada a Planteles Educativos
     - [x] Bandeja de mensajes
     - [ ] Marcar mensajes como leidos
     - [ ] ??
-  - [x] **Grupos** *~99%* **<- Prioridad-alta**
+  - [ ] **Grupos** *?%* **<- Prioridad-alta**
     - [x] Crear Grupo
     - [x] Actualizar información de un grupo
     - [x] Eliminar grupo
     - [x] Publicar en grupo
     - [x] **Grupo para proyectos** **<- Prioridad-alta**
-  - [x] **Notificaciones** *~99%*
-    - [x] Notificación de nueva publicación por parte de la administración
-      - [x] Anuncio
-      - [x] Evento
-      - [x] Convocatoria
-      - [x] "Otro"
+    - [ ] ??
+  - [ ] **Notificaciones** *0%*
+    - [ ] Notificación de nueva publicación por parte de la administración
+      - [ ] Anuncio
+      - [ ] Evento
+      - [ ] Convocatoria
+      - [ ] "Otro"
     - [ ] Notificación de nueva Actualización (Versión movíl)
     - [x] Notificación de nuevo seguidor
     - [x] Notificación de nuevo like
-    - [x] Notificación de nuevo comentario en publicación
-    - [x] Notificación de nueva publicación en grupo
-    - [x] Notificación de nueva publicación de usuario seguido
+    - [ ] Notificación de nuevo comentario en publicación
+    - [ ] Notificación de nueva publicación en grupo
+    - [ ] Notificación de nueva publicación de usuario seguido
   - [x] **Reportes de contenido** *~%*
   - [ ] **Solicitudes** *~%*
     - [ ] Solicitudes de permuta
+    - [ ] ??
   - [x] **Estadisticas** *99%*
     - [x] Estadisticas de usuario
     - [x] Estadisticas de usuarios
@@ -78,15 +81,16 @@ Red Social Orientada a Planteles Educativos
     - [x] Estadisticas de publicación
     - [x] Estadisticas de publicaciones
     - [x] Estadisticas de grupo
+    - [ ] ??
   - [ ] **Busqueda de usuarios y grupos**
   - [ ] ||**Calendario Escolar(Calendario anual)** *0%* <- prioridad-baja
   - [ ] ||**Calendario Grupal(Horario-semanal)** *0%* <- prioridad-baja
   - [ ] **Paginas** *0%* <- prioridad-media (se implementará despues de los grupos)
   - [ ] **Foros de especialidad** *0%* <- prioridad-media (se implementará despues de las paginas)
   
-- [x] **Deploy to live server** 0/1
+- [ ] **Deploy to live server** 0/1
 
-- [ ] **Front-End** *0%* -- **EN PROGRESO**
+- [ ] **Front-End** *0%* -- 
 
 - [ ] **Crear aplicación movíl** *0%*
 

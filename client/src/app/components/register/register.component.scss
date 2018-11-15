@@ -1,0 +1,30 @@
+label {
+  padding-left: 1vh;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.register-card {
+  align-content: center;
+  background: -webkit-linear-gradient(top, #348f52, #07bd44);
+  margin-top: 2vh;
+  border: none;
+}
+
+.card-header,
+.card-footer{
+  padding: 1vh;
+  color: #e5e6eb;
+  background: #282931;
+}
+.card-title,
+.form-group{
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+button{
+  margin: 2vh;
+}

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 const express = require('express');
 const UserController = require('../controllers/user');
 
@@ -7,7 +7,7 @@ const md_auth = require('../middlewares/authenticated');
 
 const multipart = require('connect-multiparty');
 const md_upload = multipart({
-    uploadDir: './uploads/users'
+	uploadDir: './uploads/users'
 });
 
 api.get('/user-test', md_auth.verifyAuth, UserController.userTest);

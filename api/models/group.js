@@ -1,18 +1,18 @@
-'use strict'
+'use strict';
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var GroupSchema = new Schema({
-    name: String,
-    group_link:String,
-    description: String,
-    type: String,
-    category: String,
-    privacy: String,
-    cover: String,
-    banner: String,
-    group_admin: {type: mongoose.ObjectId, ref:'User'},
-    created_at: String
+	name: String,
+	group_link: String,
+	description: String,
+	type: String,
+	category: String,
+	privacy: String,
+	cover: String,
+	banner: String,
+	group_admin: {type: mongoose.ObjectId, ref:'User'},
+	created_at: String
 });
 /*
 *type: Define if the group is a social group or a proyect group
