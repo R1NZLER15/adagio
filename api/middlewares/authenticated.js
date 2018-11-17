@@ -19,7 +19,7 @@ exports.verifyAuth = function (req, res, next) {
 		}
 	} catch (ex) {
 		return res.status(401).send({
-			message: 'Tu token no es valido.'
+			message: 'ACCESO DENEGADO. Tu token no es valido.'
 		});
 	}
 	req.user = payload;

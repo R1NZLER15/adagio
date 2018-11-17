@@ -8,8 +8,8 @@ var MessageSchema = new Schema({
 	document_field: String,
 	viewed: String,
 	created_at: String,
-	emitter: {type: Schema.ObjectId, ref: 'User'},
-	receiver: {type: Schema.ObjectId, ref: 'User'}
+	emitter_id: {type: Schema.ObjectId, ref: 'User'},
+	receiver_id: {type: Schema.ObjectId, ref: 'User'}
 });
 //emitter sends a message to receiver
 module.exports = mongoose.model('Message', MessageSchema);

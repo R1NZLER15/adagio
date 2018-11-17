@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const NotificationSchema = new Schema({
 	receiver_id: {type: Schema.ObjectId, ref: 'User'},
-	origin: {type: Schema.ObjectId, ref: 'User'},
+	emitter_id: {type: Schema.ObjectId, ref: 'User'},
 	text: String,
 	link: String,
 	type: String,
@@ -16,6 +16,7 @@ const NotificationSchema = new Schema({
 *comentario
 *me gusta
 *invitación a un grupo
+*respuesta solicitud
 !admin: publicación
 !admin: convocatoria
 !admin: beca

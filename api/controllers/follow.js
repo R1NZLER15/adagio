@@ -1,5 +1,7 @@
 'use strict';
 const Follow = require('../models/follower_followed');
+const Notification = require('../models/notification');
+const moment = require('moment');
 
 function followTest(req, res) {
 	res.status(200).send({
@@ -18,6 +20,15 @@ function saveFollow(req, res) {
 		'followed': follow.followed
 	}, (err, result) => {
 		if (result) return err0r(res, 404, 'ERR0R. Ya existe este seguimiento');
+		const notification = new Notification();
+		notification.receiver_id = params.followed;
+		notification.emitter_id = req.user.sub;
+		notification.text = `El usuario ${req.user.unique_nick} te está siguiendo.`;
+		notification.link = `/users/${req.user.sub}`;
+		notification.type = 'Seguimiento';
+		notification.created_at = moment().unix();
+		notification.viewed = false;
+		notification.save();
 		follow.save((err, followStored) => {
 			if (err) return err0r(res);
 			if (!followStored) return err0r(res, 404);

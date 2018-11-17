@@ -4,6 +4,23 @@ label {
   margin-bottom: 0;
 }
 
+input,
+input:focus {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: inherit;
+  color: #e5e6eb;
+}
+textarea:focus,
+input:focus {
+  box-shadow: none;
+}
+
+::placeholder {
+  color: #e5e6ebc0;
+}
+
 .register-card {
   align-content: center;
   background: -webkit-linear-gradient(top, #348f52, #07bd44);
@@ -12,19 +29,20 @@ label {
 }
 
 .card-header,
-.card-footer{
+.card-footer {
   padding: 1vh;
   color: #e5e6eb;
   background: #282931;
 }
+
 .card-title,
-.form-group{
+.form-group {
   padding-top: 0;
   padding-bottom: 0;
   margin-top: 0;
   margin-bottom: 0;
 }
 
-button{
+button {
   margin: 2vh;
 }

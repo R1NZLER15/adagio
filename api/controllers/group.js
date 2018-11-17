@@ -2,6 +2,8 @@
 const User = require('../models/user');
 const Group = require('../models/group');
 const GroupMember = require('../models/group_member');
+const Notification = require('../models/notification');
+const moment = require('moment');
 /*const fs = require('fs');
 const path = require('path');*/
 
@@ -200,6 +202,15 @@ function inviteUser(req, res) {
 		newMember.user_id = invitedUserId;
 		newMember.group_id = groupId;
 		newMember.save((err, success) => {
+			const notification = new Notification();
+			notification.receiver_id = invitedUserId;
+			notification.emitter_id = userId;
+			notification.text = `El usuario ${req.user.unique_nick} te ha invitado al grupo ${group.name}.`;
+			notification.link = `/groups/${group._id}`;
+			notification.type = 'Invitación grupo';
+			notification.created_at = moment().unix();
+			notification.viewed = false;
+			notification.save();
 			if (err) return err0r(res, 500, err);
 			res.status(201).send({
 				success

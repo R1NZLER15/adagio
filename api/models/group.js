@@ -11,7 +11,7 @@ var GroupSchema = new Schema({
 	privacy: String,
 	cover: String,
 	banner: String,
-	group_admin: {type: mongoose.ObjectId, ref:'User'},
+	group_admin_id: {type: mongoose.ObjectId, ref:'User'},
 	created_at: String
 });
 /*

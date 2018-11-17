@@ -113,8 +113,8 @@ function saveMessage(req, res) {
 						return RemoveUploadedMediaFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato; .jpg .jpeg .png .gif ó .mp4');
 					}
 				}
-				message.emitter = userId;
-				message.receiver = receiverId;
+				message.emitter_id = userId;
+				message.receiver_id = receiverId;
 				message.created_at = moment().unix();
 				message.viewed = false;
 				message.save((err, messageSaved) => {
@@ -150,16 +150,16 @@ function getConversation(req, res) {
 	Message.find({
 		$or: [{
 			$and: [{
-				'emitter': userId
+				'emitter_id': userId
 			}, {
-				'receiver': otherUserId
+				'receiver_id': otherUserId
 			}]
 		},
 		{
 			$and: [{
-				'emitter': otherUserId
+				'emitter_id': otherUserId
 			}, {
-				'receiver': userId
+				'receiver_id': userId
 			}]
 		}
 		]
@@ -174,24 +174,24 @@ function getConversation(req, res) {
 		Message.countDocuments({
 			$or: [{
 				$and: [{
-					'emitter': userId
+					'emitter_id': userId
 				}, {
-					'receiver': otherUserId
+					'receiver_id': otherUserId
 				}]
 			},
 			{
 				$and: [{
-					'emitter': otherUserId
+					'emitter_id': otherUserId
 				}, {
-					'receiver': userId
+					'receiver_id': userId
 				}]
 			}
 			]
 		}, (err, total) => {
 			if (err) return err0r(res, 500, err);
 			Message.update({
-				'emitter': otherUserId,
-				'receiver': userId,
+				'emitter_id': otherUserId,
+				'receiver_id': userId,
 				'viewed': false
 			}, {
 				'viewed': true

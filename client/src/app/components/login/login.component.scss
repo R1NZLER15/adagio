@@ -11,6 +11,23 @@ label {
   border: none;
 }
 
+input,
+input:focus {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: inherit;
+  color: #e5e6eb;
+}
+textarea:focus,
+input:focus {
+  box-shadow: none;
+}
+
+::placeholder {
+  color: #e5e6ebc0;
+}
+
 .card-header,
 .card-footer{
   padding: 1vh;

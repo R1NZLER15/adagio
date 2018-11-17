@@ -73,6 +73,15 @@ function saveUser(req, res) {
 								student.user_id = userStored._id;
 								student.group = params.group;
 								student.grade = params.grade;
+								const regTM = new RegExp('^([a-gA-G])$');
+								const regTV = new RegExp('^([h-nH-N])$');
+								if (regTM.test(params.group)) {
+									student.turn = 'Matutino';
+								} else if (regTV.test(params.group)) {
+									student.turn = 'Vespertino';
+								} else {
+									return err0r(res, 403, 'ERROR. Ingresaste datos invalidos.');
+								}
 								student.save();
 							}
 							res.status(200).send({
@@ -100,6 +109,7 @@ function loginUser(req, res) {
 		if (err) return err0r(res, 500);
 		if (user) {
 			bcrypt.compare(password, user.password, (err, success) => {
+				if (err) return err0r(res, 500, err);
 				if (success) {
 					if (params.getToken) {
 						return res.status(200).send({
@@ -164,7 +174,7 @@ function getUsers(req, res) {
 	}
 	const itemsPerPage = 5;
 	User.find({}, '-password', {
-		skip: (itemsPerPage * (page-1)),
+		skip: (itemsPerPage * (page - 1)),
 		limit: itemsPerPage
 	}, (err, users) => {
 		if (err) return err0r(res);
@@ -295,10 +305,32 @@ function getAvatarFile(req, res) {
 }
 
 function updatePass(req, res) {
-
+	const userId = req.user.sub;
+	const params = req.body;
+	const newPassword = params.new_password;
+	const oldPassword = params.old_password;
+	User.findById(userId, (err, userFound) => {
+		if (err) return err0r(res, 500, err);
+		bcrypt.compare(oldPassword, userFound.password, (err, passwordsMatch) => {
+			if (err) return err0r(res, 500, err);
+			if (passwordsMatch) {
+				bcrypt.hash(newPassword, null, null, (err, hash)=>{	
+					User.findByIdAndUpdate(userId, {'password': hash},(err,passwordUpdated)=>{
+						if (err) return err0r(res, 500, err);
+						res.status(201).send({
+							passwordUpdated
+						});
+					}).select('-password');
+				});
+			}else {
+				return err0r(res,404, 'Petición denegada, las contraseñas no coinciden');
+			}
+		});
+	});
 }
-function deleteUser(req,res){
 
+function deleteUser(req, res) {
+	//TODO
 }
 module.exports = {
 	userTest,

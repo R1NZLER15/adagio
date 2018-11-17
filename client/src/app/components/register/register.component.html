@@ -57,9 +57,20 @@
               </small>
             </div>
             <div class="form-group">
-              <label for="birthday"><i class="fas fa-birthday-cake"></i> Fecha de nacimiento</label>
+              <label for="birthday"><i class="fas fa-birthday-cake"></i> Fecha de nacimiento*</label>
               <input type="date" name="birthday" #birthday="ngModel" [(ngModel)]="user.birthday" class="form-control form-control-sm"
                 placeholder="Fecha de nacimiento" required>
+                <small class="text-dark" *ngIf="!birthday.valid && birthday.touched">
+                  ¡¡Este campo es obligatorio!!
+                </small>
+            </div>
+            <div class="form-group">
+              <label for="gender"><i class="fas fa-gender"></i> Sexo*</label>
+              <input type="select" name="sexo" #birthday="ngModel" [(ngModel)]="user.gender" class="form-control form-control-sm"
+                placeholder="Sexo" required>
+                <small class="text-dark" *ngIf="!sexo.valid && sexo.touched">
+                  ¡¡Este campo es obligatorio!!
+                </small>
             </div>
             <div class="form-row">
               <div class="col form-group">

@@ -6,7 +6,8 @@ var StudentSchema = new Schema({
 	user_id: {type: mongoose.ObjectId,ref: 'User'},
 	student_id: String,
 	group: String,
-	grade: String
+	grade: String,
+	turn: String,
 });
 
 module.exports = mongoose.model('Student', StudentSchema);
