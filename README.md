@@ -1,4 +1,3 @@
-###### Actualmente el repositorio se encuentra desactualizado, subiré los archivos esta tarde (2/nov/18)
 # Adagio
 Red Social Orientada a Planteles Educativos
 
@@ -24,7 +23,6 @@ Red Social Orientada a Planteles Educativos
     - [x] Obtener un listado paginado de usuarios seguidos (usuario -> sigue -> usuarios)
     - [x] Obtener un listado paginado de usuarios que siguen (usuarios -> siguen -> usuario)
     - [x] Obtener un listado no paginado de usuarios que sigo y que me siguen
-    - [ ] ??
   - [x] **Publicaciones** *~95%*
     - [x] Crear publicación
       - [x] Subir archivos/imagenes
@@ -43,15 +41,18 @@ Red Social Orientada a Planteles Educativos
       - [x] Borrar
       - [ ] ||Mover comentarios a su propia categoría 0/1 <- prioridad-baja
     - [ ] ||Sistema de respuestas a comentarios <- prioridad-baja
-      - [ ] ??
-    - [ ] ??
   - [x] **Mensajería** *~%*
     - [x] Enviar Mensajes
     - [x] Recibir Mensajes
     - [x] Bandeja de mensajes
+<<<<<<< HEAD
     - [ ] Marcar mensajes como leidos
     - [ ] ??
   - [ ] **Grupos** *?%* **<- Prioridad-alta**
+=======
+    - [x] Marcar mensajes como leidos
+  - [x] **Grupos** *~99%* **<- Prioridad-alta**
+>>>>>>> 5cd2d5061d97748a3653fdaeeb00891cd987d8a4
     - [x] Crear Grupo
     - [x] Actualizar información de un grupo
     - [x] Eliminar grupo
@@ -67,6 +68,7 @@ Red Social Orientada a Planteles Educativos
     - [ ] Notificación de nueva Actualización (Versión movíl)
     - [x] Notificación de nuevo seguidor
     - [x] Notificación de nuevo like
+<<<<<<< HEAD
     - [ ] Notificación de nuevo comentario en publicación
     - [ ] Notificación de nueva publicación en grupo
     - [ ] Notificación de nueva publicación de usuario seguido
@@ -74,6 +76,14 @@ Red Social Orientada a Planteles Educativos
   - [ ] **Solicitudes** *~%*
     - [ ] Solicitudes de permuta
     - [ ] ??
+=======
+    - [x] Notificación de nuevo comentario en publicación
+    - [x] Notificación de nueva publicación en grupo
+    - [x] Notificación de nueva publicación de usuario seguido
+  - [ ] **Reportes de contenido** *~%*
+  - [x] **Solicitudes** *99%*
+    - [x] Solicitudes de permuta
+>>>>>>> 5cd2d5061d97748a3653fdaeeb00891cd987d8a4
   - [x] **Estadisticas** *99%*
     - [x] Estadisticas de usuario
     - [x] Estadisticas de usuarios
