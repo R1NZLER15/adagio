@@ -3,7 +3,7 @@ import { Router, CanActivate } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 @Injectable()
-export class UserGuard implements CanActivate{
+export class UserGuard implements CanActivate {
   constructor(
     private _router: Router,
     private _userService: UserService
@@ -11,7 +11,7 @@ export class UserGuard implements CanActivate{
 
   canActivate() {
     const identity = this._userService.getIdentity();
-    if (identity && (identity.role === 'ROLE_USER' || identity.role === 'ROLE_ADMIN')){
+    if (identity && (identity.role === 'ROLE_USER' || identity.role === 'ROLE_ADMIN')) {
       return true;
     } else {
       this._router.navigate(['/login']);

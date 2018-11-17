@@ -1,25 +1,24 @@
 <div class="container-fluid content">
   <div class="row justify-content-md-center">
     <div class="col-lg-6 form-group-lg">
-      <div class="alert alert-success" *ngIf="status == 'success'">
-        Registro completado correctamente, <a [routerLink]="['/login']">identificate aquí</a>
-      </div>
-      <div class="alert alert-danger" *ngIf="status == 'error'">
-        El registro no ha podido completarse, es posible que el email o nick que intentaste ingresar ya
-        estén en uso
-      </div>
       <div class="card register-card">
         <div class="card-header">
           <h1 class="card-title text-center">{{title}}</h1>
         </div>
         <div class="card-body">
+          <div class="alert alert-success" *ngIf="status === 'success'">
+            Registro completado correctamente, <a [routerLink]="['/login']">identificate aquí</a>
+          </div>
+          <div class="alert alert-danger" *ngIf="status === 'error'">
+            El email o nick que intentaste ingresar ya están en uso.
+          </div>
           <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="register">
             <div class="form-row">
               <div class="col-lg form-group">
                 <label for="names"><i class="fas fa-user-circle"></i> Nombres*</label>
                 <input type="given-name" name="names" #names="ngModel" [(ngModel)]="user.names" class="form-control form-control-sm"
                   placeholder="Nombres" required>
-                <small class="text-dark" *ngIf="!names.valid && names.touched">
+                <small class="warn" *ngIf="!names.valid && names.touched">
                   ¡¡Este campo es obligatorio!!
                 </small>
               </div>
@@ -27,7 +26,7 @@
                 <label for="fst_surname"><i class="fas fa-user-circle"></i> Apellido paterno*</label>
                 <input type="family-name" name="fst_surname" #fst_surname="ngModel" [(ngModel)]="user.fst_surname"
                   class="form-control form-control-sm" placeholder="Apellido paterno" required>
-                <small class="text-dark" *ngIf="!fst_surname.valid && fst_surname.touched">
+                <small class="warn" *ngIf="!fst_surname.valid && fst_surname.touched">
                   ¡¡Este campo es obligatorio!!
                 </small>
               </div>
@@ -35,7 +34,7 @@
                 <label for="snd_surname"><i class="fas fa-user-circle"></i> Apellido materno*</label>
                 <input type="family-name" name="snd_surname" #snd_surname="ngModel" [(ngModel)]="user.snd_surname"
                   class="form-control form-control-sm" placeholder="Apellido materno" required>
-                <small class="text-dark" *ngIf="!snd_surname.valid && snd_surname.touched">
+                <small class="warn" *ngIf="!snd_surname.valid && snd_surname.touched">
                   ¡¡Este campo es obligatorio!!
                 </small>
               </div>
@@ -44,7 +43,7 @@
               <label for="unique_nick"><i class="fas fa-id-badge"></i> Nick de usuario*</label>
               <input type="username" name="unique_nick" #unique_nick="ngModel" [(ngModel)]="user.unique_nick" class="form-control form-control-sm"
                 placeholder="Nick de usuario" required>
-              <small class="text-dark" *ngIf="!unique_nick.valid && unique_nick.touched">
+              <small class="warn" *ngIf="!unique_nick.valid && unique_nick.touched">
                 ¡¡Este campo es obligatorio!!
               </small>
             </div>
@@ -52,32 +51,37 @@
               <label for="email"><i class="fas fa-at"></i> E-Mail*</label>
               <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm"
                 placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-              <small class="text-dark" *ngIf="!email.valid && email.touched">
+              <small class="warn" *ngIf="!email.valid && email.touched">
                 ¡¡Este campo es obligatorio!!
               </small>
             </div>
-            <div class="form-group">
-              <label for="birthday"><i class="fas fa-birthday-cake"></i> Fecha de nacimiento*</label>
-              <input type="date" name="birthday" #birthday="ngModel" [(ngModel)]="user.birthday" class="form-control form-control-sm"
-                placeholder="Fecha de nacimiento" required>
-                <small class="text-dark" *ngIf="!birthday.valid && birthday.touched">
+            <div class="form-row">
+              <div class="col form-group">
+                <label for="birthday"><i class="fas fa-birthday-cake"></i> Fecha de nacimiento*</label>
+                <input type="date" name="birthday" #birthday="ngModel" [(ngModel)]="user.birthday" class="form-control form-control-sm"
+                  placeholder="Fecha de nacimiento" required>
+                  <small class="warn" *ngIf="!birthday.valid && birthday.touched">
+                    ¡¡Este campo es obligatorio!!
+                  </small>
+              </div>
+              <div class="col form-group">
+                <label for="gender"><i class="fas fa-gender"></i> Sexo*</label>
+                <select name="gender" #gender="ngModel" [(ngModel)]="user.gender" class="form-control form-control-sm"
+                  placeholder="gender" required>
+                  <option>Hombre</option>
+                  <option>Mujer</option>
+                </select>
+                <small class="warn" *ngIf="!gender.valid && gender.touched">
                   ¡¡Este campo es obligatorio!!
                 </small>
-            </div>
-            <div class="form-group">
-              <label for="gender"><i class="fas fa-gender"></i> Sexo*</label>
-              <input type="select" name="sexo" #birthday="ngModel" [(ngModel)]="user.gender" class="form-control form-control-sm"
-                placeholder="Sexo" required>
-                <small class="text-dark" *ngIf="!sexo.valid && sexo.touched">
-                  ¡¡Este campo es obligatorio!!
-                </small>
+              </div>
             </div>
             <div class="form-row">
               <div class="col form-group">
                 <label for="password"><i class="fas fa-user-secret"></i> Contraseña*</label>
                 <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm"
                   placeholder="Contraseña" required>
-                <small class="text-dark" *ngIf="!password.valid && password.touched">
+                <small class="warn" *ngIf="!password.valid && password.touched">
                   ¡¡Este campo es obligatorio!!
                 </small>
               </div>

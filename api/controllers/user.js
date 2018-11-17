@@ -30,7 +30,7 @@ function saveUser(req, res) {
 	const dd = today.getDate() < 10 ? '0' + today.getDate() : today.getDate();
 	const mm = today.getMonth() + 1 < 10 ? '0' + today.getMonth() + 1 : today.getMonth() + 1;
 	const yyyy = today.getFullYear();
-	const currentDay = dd + '/' + mm + '/' + yyyy;
+	const currentDay = dd + '-' + mm + '-' + yyyy;
 	const params = req.body;
 	let user = new User();
 	let student = new Student();
@@ -45,7 +45,11 @@ function saveUser(req, res) {
 		user.email = params.email;
 		user.birthday = params.birthday;
 		user.gender = params.gender;
-		user.role = 'student';
+		if (params.isStudent) {
+			user.role = 'student';
+		} else {
+			user.role = 'guest';
+		}
 		user.avatar = 'default-avatar.png';
 		user.banner = null;
 		user.about = null;
@@ -62,7 +66,7 @@ function saveUser(req, res) {
 		}).exec((err, users) => {
 			if (err) return err0r(res, 500, 'ERR0R en la petición de datos.');
 			if (users && users.length >= 1) {
-				return err0r(res, 400, 'ERR0R. Ya existe un usuario con los mismos datos.');
+				return err0r(res, 403, 'ERR0R. Ya existe un usuario con los mismos datos.');
 			} else {
 				bcrypt.hash(params.password, null, null, (err, hash) => {
 					user.password = hash;

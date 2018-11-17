@@ -5,15 +5,23 @@ label {
 }
 
 input,
-input:focus {
+input:focus,
+select,
+select:focus {
   border-top: none;
   border-left: none;
   border-right: none;
   background: inherit;
   color: #e5e6eb;
 }
+
+option {
+  background: #282931;
+}
+
 textarea:focus,
-input:focus {
+input:focus,
+select:focus {
   box-shadow: none;
 }
 
@@ -45,4 +53,8 @@ input:focus {
 
 button {
   margin: 2vh;
+}
+
+.warn {
+  color: #282931;
 }
