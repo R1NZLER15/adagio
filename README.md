@@ -45,14 +45,8 @@ Red Social Orientada a Planteles Educativos
     - [x] Enviar Mensajes
     - [x] Recibir Mensajes
     - [x] Bandeja de mensajes
-<<<<<<< HEAD
-    - [ ] Marcar mensajes como leidos
-    - [ ] ??
-  - [ ] **Grupos** *?%* **<- Prioridad-alta**
-=======
     - [x] Marcar mensajes como leidos
   - [x] **Grupos** *~99%* **<- Prioridad-alta**
->>>>>>> 5cd2d5061d97748a3653fdaeeb00891cd987d8a4
     - [x] Crear Grupo
     - [x] Actualizar información de un grupo
     - [x] Eliminar grupo
@@ -60,30 +54,20 @@ Red Social Orientada a Planteles Educativos
     - [x] **Grupo para proyectos** **<- Prioridad-alta**
     - [ ] ??
   - [ ] **Notificaciones** *0%*
-    - [ ] Notificación de nueva publicación por parte de la administración
-      - [ ] Anuncio
-      - [ ] Evento
-      - [ ] Convocatoria
-      - [ ] "Otro"
+    - [x] Notificación de nueva publicación por parte de la administración
+      - [x] Anuncio
+      - [x] Evento
+      - [x] Convocatoria
+      - [x] "Otro"
     - [ ] Notificación de nueva Actualización (Versión movíl)
     - [x] Notificación de nuevo seguidor
     - [x] Notificación de nuevo like
-<<<<<<< HEAD
-    - [ ] Notificación de nuevo comentario en publicación
-    - [ ] Notificación de nueva publicación en grupo
-    - [ ] Notificación de nueva publicación de usuario seguido
-  - [x] **Reportes de contenido** *~%*
-  - [ ] **Solicitudes** *~%*
-    - [ ] Solicitudes de permuta
-    - [ ] ??
-=======
     - [x] Notificación de nuevo comentario en publicación
     - [x] Notificación de nueva publicación en grupo
     - [x] Notificación de nueva publicación de usuario seguido
   - [ ] **Reportes de contenido** *~%*
   - [x] **Solicitudes** *99%*
     - [x] Solicitudes de permuta
->>>>>>> 5cd2d5061d97748a3653fdaeeb00891cd987d8a4
   - [x] **Estadisticas** *99%*
     - [x] Estadisticas de usuario
     - [x] Estadisticas de usuarios
