@@ -11,11 +11,19 @@ export class UserGuard implements CanActivate {
 
   canActivate() {
     const identity = this._userService.getIdentity();
-    if (identity && (identity.role === 'ROLE_USER' || identity.role === 'ROLE_ADMIN')) {
+    if (identity && (identity.role === 'guest' || identity.role === 'student' || identity.role === 'administrator')) {
       return true;
     } else {
       this._router.navigate(['/login']);
-        return false;
+      return false;
+    }
+  }
+  checkAuth() {
+    const identity = this._userService.getIdentity();
+    if (identity && (identity.role === 'guest' || identity.role === 'student' || identity.role === 'administrator')) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

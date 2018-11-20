@@ -13,87 +13,101 @@
             El email o nick que intentaste ingresar ya están en uso.
           </div>
           <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="register">
-            <div class="form-row">
-              <div class="col-lg form-group">
-                <label for="names"><i class="fas fa-user-circle"></i> Nombres*</label>
-                <input type="given-name" name="names" #names="ngModel" [(ngModel)]="user.names" class="form-control form-control-sm"
-                  placeholder="Nombres" required>
-                <small class="warn" *ngIf="!names.valid && names.touched">
-                  ¡¡Este campo es obligatorio!!
-                </small>
-              </div>
-              <div class="col-lg form-group">
-                <label for="fst_surname"><i class="fas fa-user-circle"></i> Apellido paterno*</label>
-                <input type="family-name" name="fst_surname" #fst_surname="ngModel" [(ngModel)]="user.fst_surname"
-                  class="form-control form-control-sm" placeholder="Apellido paterno" required>
-                <small class="warn" *ngIf="!fst_surname.valid && fst_surname.touched">
-                  ¡¡Este campo es obligatorio!!
-                </small>
-              </div>
-              <div class="col-lg form-group">
-                <label for="snd_surname"><i class="fas fa-user-circle"></i> Apellido materno*</label>
-                <input type="family-name" name="snd_surname" #snd_surname="ngModel" [(ngModel)]="user.snd_surname"
-                  class="form-control form-control-sm" placeholder="Apellido materno" required>
-                <small class="warn" *ngIf="!snd_surname.valid && snd_surname.touched">
-                  ¡¡Este campo es obligatorio!!
-                </small>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="unique_nick"><i class="fas fa-id-badge"></i> Nick de usuario*</label>
-              <input type="username" name="unique_nick" #unique_nick="ngModel" [(ngModel)]="user.unique_nick" class="form-control form-control-sm"
-                placeholder="Nick de usuario" required>
-              <small class="warn" *ngIf="!unique_nick.valid && unique_nick.touched">
+            <div class="form-group-sm">
+              <label class="small" for="names"><i class="fas fa-user-circle"></i> Nombres</label>
+              <input type="given-name" name="names" #names="ngModel" [(ngModel)]="user.names" class="form-control form-control-sm"
+                placeholder="Nombres (No incluyas tus apellidos)" required pattern="[A-Za-z ]{2,15}$">
+              <small class="warning" *ngIf="!names.valid && names.touched">
                 ¡¡Este campo es obligatorio!!
               </small>
             </div>
-            <div class="form-group">
-              <label for="email"><i class="fas fa-at"></i> E-Mail*</label>
+            <div class="form-group-sm">
+              <label class="small" for="unique_nick"><i class="fas fa-id-badge"></i> Nick de usuario</label>
+              <input type="username" name="unique_nick" #unique_nick="ngModel" [(ngModel)]="user.unique_nick" class="form-control form-control-sm"
+                placeholder="Nick de usuario" required pattern="[A-Za-z0-9_]{2,15}$">
+              <small class="warning" *ngIf="!unique_nick.valid && unique_nick.touched">
+                ¡¡Este campo es obligatorio!!
+              </small>
+            </div>
+            <div class="form-group-sm">
+              <label class="small" for="email"><i class="fas fa-at"></i> E-Mail</label>
               <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm"
                 placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-              <small class="warn" *ngIf="!email.valid && email.touched">
+              <small class="warning" *ngIf="!email.valid && email.touched">
+                ¡¡Este campo es obligatorio!!
+              </small>
+            </div>
+            <div class="form-group-sm">
+              <label class="small" for="role"><i class="fas fa-question-circle"></i> Eres:</label>
+              <select name="role" #role="ngModel" [(ngModel)]="user.role" class="form-control form-control-sm"
+                required>
+                <option value="student" selected="selected">Estudiante</option>
+                <option value="graduated">Egresado</option>
+                <option value="teacher">Profesor</option>
+                <option value="guest">Ajeno a la institución (Padre de familia, etc...).</option>
+              </select>
+              <small class="warning" *ngIf="!role.valid && role.touched">
                 ¡¡Este campo es obligatorio!!
               </small>
             </div>
             <div class="form-row">
-              <div class="col form-group">
-                <label for="birthday"><i class="fas fa-birthday-cake"></i> Fecha de nacimiento*</label>
-                <input type="date" name="birthday" #birthday="ngModel" [(ngModel)]="user.birthday" class="form-control form-control-sm"
-                  placeholder="Fecha de nacimiento" required>
-                  <small class="warn" *ngIf="!birthday.valid && birthday.touched">
-                    ¡¡Este campo es obligatorio!!
-                  </small>
-              </div>
-              <div class="col form-group">
-                <label for="gender"><i class="fas fa-gender"></i> Sexo*</label>
-                <select name="gender" #gender="ngModel" [(ngModel)]="user.gender" class="form-control form-control-sm"
-                  placeholder="gender" required>
-                  <option>Hombre</option>
-                  <option>Mujer</option>
+              <div class="form-group-sm col" *ngIf="role.value  === 'student'">
+                <label class="small" for="group">Grupo</label>
+                <select name="group" #group="ngModel" [(ngModel)]="student.group" class="form-control form-control-sm"
+                  required>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="F">F</option>
+                  <option value="G">G</option>
+                  <option value="H">H</option>
+                  <option value="I">I</option>
+                  <option value="J">J</option>
+                  <option value="K">K</option>
+                  <option value="L">L</option>
                 </select>
-                <small class="warn" *ngIf="!gender.valid && gender.touched">
-                  ¡¡Este campo es obligatorio!!
-                </small>
+              </div>
+              <div class="form-group-sm col" *ngIf="role.value  === 'student'">
+                <label class="small" for="grade">Grado</label>
+                <select name="grade" #group="ngModel" [(ngModel)]="student.grade" class="form-control form-control-sm"
+                  required>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="form-group-sm col" *ngIf="role.value  === 'student' || role.value  === 'graduated'">
+                <label class="small" for="career">Carrera<span *ngIf="role.value  === 'graduated'"> que estudiaste</span></label>
+                <select name="career" #group="ngModel" [(ngModel)]="student.career" class="form-control form-control-sm"
+                  required>
+                  <option value="Administración de Recursos Humanos">Administración de Recursos Humanos</option>
+                  <option value="Construcción">Construcción</option>
+                  <option value="Producción Industrial de Alimentos">Producción Industrial de Alimentos</option>
+                  <option value="Programación">Programación</option>
+                  <option value="Ventas">Ventas</option>
+                </select>
+              </div>
+              <div class="alert alert-info" *ngIf="role.value  === 'teacher'">
+                Para verificar su identidad deberá contactarse con la cuenta administrativa o encargado de red.
               </div>
             </div>
-            <div class="form-row">
-              <div class="col form-group">
-                <label for="password"><i class="fas fa-user-secret"></i> Contraseña*</label>
-                <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm"
-                  placeholder="Contraseña" required>
-                <small class="warn" *ngIf="!password.valid && password.touched">
-                  ¡¡Este campo es obligatorio!!
-                </small>
-              </div>
-              <div class="col form-group">
-                <label for="passwordrepeat"><i class="fas fa-user-secret"></i> Confirma contraseña*</label>
-                <input type="password" name="passwordrepeat" class="form-control form-control-sm" placeholder="Confirma contraseña"
-                required>
-              </div>
+            <div class="form-group-sm">
+              <label class="small" for="password"><i class="fas fa-user-secret"></i> Contraseña</label>
+              <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm"
+                placeholder="Contraseña" required>
+              <small class="warning" *ngIf="!password.valid && password.touched">
+                ¡¡Este campo es obligatorio!!
+              </small>
             </div>
             <div class="form-row justify-content-md-center">
               <button type="submit" class="btn btn-sm btn-dark" [disabled]="!registerForm.form.valid"><i class="fas fa-address-card"></i>
-                Registrarse</button>
+                Registrarse
+              </button>
             </div>
           </form>
         </div>

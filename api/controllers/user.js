@@ -36,8 +36,7 @@ function saveUser(req, res) {
 	let student = new Student();
 	//TODO: Create a username/nick blacklist (profanity/false identity filter)
 	//TODO: 
-	if (params.names && params.fst_surname && params.snd_surname &&
-		params.unique_nick && params.email && params.password) {
+	if (params.names && params.unique_nick && params.email && params.password) {
 		user.names = params.names;
 		user.fst_surname = params.fst_surname;
 		user.snd_surname = params.snd_surname;
@@ -45,8 +44,10 @@ function saveUser(req, res) {
 		user.email = params.email;
 		user.birthday = params.birthday;
 		user.gender = params.gender;
-		if (params.isStudent) {
+		if (params.role === 'student') {
 			user.role = 'student';
+		} else if (params.role === 'graduated'){
+			user.role = 'graduated';
 		} else {
 			user.role = 'guest';
 		}
@@ -73,7 +74,7 @@ function saveUser(req, res) {
 					user.save((err, userStored) => {
 						if (err) return err0r(res, 500);
 						if (userStored) {
-							if (params.isStudent) {
+							if (params.role === 'student') {
 								student.user_id = userStored._id;
 								student.group = params.group;
 								student.grade = params.grade;

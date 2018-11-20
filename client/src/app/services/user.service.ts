@@ -24,9 +24,9 @@ export class UserService {
     });
   }
 
-  signup(user, gettoken = null): Observable < any > {
+  login(user, gettoken = null): Observable < any > {
     if (gettoken != null) {
-      user.gettoken = gettoken;
+      user = Object.assign(user, {gettoken});
     }
 
     const params = JSON.stringify(user);

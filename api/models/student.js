@@ -8,6 +8,7 @@ var StudentSchema = new Schema({
 	group: String,
 	grade: String,
 	turn: String,
+	career: String
 });
 
 module.exports = mongoose.model('Student', StudentSchema);

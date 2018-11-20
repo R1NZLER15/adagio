@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user';
+import { Student } from '../../models/student';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -12,7 +13,8 @@ import { UserService } from '../../services/user.service';
 export class RegisterComponent implements OnInit {
   public title: String;
   public user: User;
-  public status: string;
+  public student: Student;
+  public status: String;
 
   constructor(
     private _route: ActivatedRoute,
@@ -39,14 +41,24 @@ export class RegisterComponent implements OnInit {
       '',
       '',
     );
+    this.student = new Student(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      ''
+    );
   }
 
   ngOnInit() {
     console.log('Registro cargado...');
   }
   onSubmit(form) {
-    console.log(this.user);
-    this._userService.register(this.user).subscribe(
+    const input = $.extend(this.user, this.student);
+    console.log(this.user, this.student);
+    this._userService.register(input).subscribe(
       response => {
         if (response.user && response.user._id) {
           this.status = 'success';

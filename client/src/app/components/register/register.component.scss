@@ -8,6 +8,8 @@ input,
 input:focus,
 select,
 select:focus {
+  border-color: #282931;
+  border-radius: 0;
   border-top: none;
   border-left: none;
   border-right: none;
@@ -53,8 +55,4 @@ select:focus {
 
 button {
   margin: 2vh;
-}
-
-.warn {
-  color: #282931;
 }
