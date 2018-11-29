@@ -19,6 +19,7 @@ api.get('/get-media/:media_file', md_auth.verifyAuth, PublicationController.getM
 api.get('/get-document/:document_file', md_auth.verifyAuth, PublicationController.getDocumentFile);
 api.get('/publication/:publicationId', md_auth.verifyAuth, PublicationController.getPublication);
 api.get('/publications/:page?', md_auth.verifyAuth, PublicationController.getPublications);
+api.get('/user-publications/:user_id/:page?', md_auth.verifyAuth, PublicationController.getUserPublications);
 api.get('/followed-publications/:page?', md_auth.verifyAuth, PublicationController.getFollowedPublications);
 //like/unlike - publication
 api.post('/like-publication/:publicationId?', md_auth.verifyAuth, PublicationController.savePublicationLike);

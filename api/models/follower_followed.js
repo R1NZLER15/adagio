@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var FollowSchema = new Schema({
+const FollowSchema = new Schema({
 	follower: {type: mongoose.ObjectId,ref: 'User'},
 	followed: {type: mongoose.ObjectId,ref: 'User'}
 });

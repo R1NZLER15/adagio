@@ -25,7 +25,7 @@ function saveFollow(req, res) {
 		notification.emitter_id = req.user.sub;
 		notification.text = `El usuario ${req.user.unique_nick} te está siguiendo.`;
 		notification.link = `/users/${req.user.sub}`;
-		notification.type = 'Seguimiento';
+		notification.type = 'seguimiento';
 		notification.created_at = moment().unix();
 		notification.viewed = false;
 		notification.save();

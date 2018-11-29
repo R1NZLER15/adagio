@@ -1,19 +1,30 @@
 /*GLOBAL*/
 @import './fontawesome/scss/fontawesome';
-@import './fontawesome/scss/regular';
 @import './fontawesome/scss/solid';
 
+$adagio-green: #20bf55;
+$adagio-gray: #282931;
+
+*:focus {
+  outline: none !important;
+  outline-color: $adagio-green;
+  box-shadow: none !important;
+}
+
+html,
+body {
+  overflow-anchor: none;
+  background: #e5e6eb;
+}
 h1,
 h2,
 span,
 label,
 p{
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
 }
+
 .page-content{
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
   background: #e5e6eb;
 }
 
@@ -21,7 +32,7 @@ p{
   font-size: 72px;
   font-family: 'Roboto', sans-serif;
   font-weight: 1000;
-  background: -webkit-linear-gradient(0deg, #20bf55, #12973f);
+  background: -webkit-linear-gradient(0deg, $adagio-green, #12973f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -30,10 +41,29 @@ p{
   background: #282931;
 }
 
-.nav-link{
-  color: #20bf55;
+.nav-link,
+.link{
+  color: $adagio-green;
 }
 
-.nav-link:hover{
+.nav-link:hover,
+.link:hover{
   color: #1a9442;
+}
+
+.nick{
+  color: $adagio-green;
+}
+
+::-webkit-scrollbar {
+  width: 2vh;
+}
+::-webkit-scrollbar-track {
+  background: #e5e6eb; 
+}
+::-webkit-scrollbar-thumb {
+  background: #333; 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: $adagio-gray; 
 }

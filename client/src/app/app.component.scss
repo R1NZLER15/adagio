@@ -1,3 +1,57 @@
+$adagio-green: #20bf55;
+$adagio-gray: #282931;
+
 .menu{
   color: #444;
+}
+
+
+a,
+.navbar-brand{
+  padding: 0;
+}
+
+.avatar,
+.logo {
+  width: 3vh;
+  height: 3vh;
+}
+.avatar {
+  border-radius: 10%;
+}
+
+.dropdown {
+  .fa-bell {
+    cursor: pointer;
+  }
+  padding: 0;
+}
+
+.dropdown-menu {
+  border-radius: 0;
+  right: 0;
+  left: unset;
+  padding: 0;
+  #notification-header,
+  #notification-footer {
+    background: $adagio-gray;
+    color: #20bf55;
+    padding-left: 0.5vh;
+  }
+}
+
+.dropdown-item {
+  padding: 0.5vh;
+}
+
+.nav-link {
+  margin-left: 0.5vh;
+  margin-right: 0.5vh;
+}
+.logout {
+  color: #923030;
+}
+.components {
+  position: relative;
+  margin-top: 46px;
 }

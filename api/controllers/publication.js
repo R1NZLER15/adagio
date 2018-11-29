@@ -37,83 +37,102 @@ function publicationTest(req, res) {
 function savePublication(req, res) {
 	let params = req.body;
 	let userId = req.user.sub;
-	if (params.text_field || req.files.media_field || req.files.document_field) {
-		User.findById(userId, (err, user) => {
+	User.findById(userId, (err, user) => {
+		if (err) return err0r(res, 500, err);
+		if(!params.text_field) return err0r(res, 400);
+		let publication = new Publication();
+		//let text_field = params.text_field;
+		//text_field = text_field.replace(/\n/g, '\\n');
+		publication.text_field = params.text_field;
+		publication.user_id = req.user.sub;
+		publication.likes = 0;
+		if(user.role == 'administrator') {
+			publication.type = params.type;
+		}
+		publication.created_at = moment().unix();
+		publication.save((err, publicationSaved) => {
 			if (err) return err0r(res, 500, err);
-
-			let publication = new Publication();
-			if (params.text_field) {
-				publication.text_field = params.text_field;
-			}
-			if (req.files.media_field && req.files.document_field) {
-				const media_file_path = req.files.media_field.path;
-				RemoveUploadMediaFiles(res, media_file_path);
-				const document_file_path = req.files.document_field.path;
-				RemoveUploadDocumentFiles(res, document_file_path);
-				return err0r(res, 403, 'ERR0R Solo puedes subir 1 tipo de archivo a la vez.');
-			}
-			if (req.files.media_field) {
-				const file_path = req.files.media_field.path;
-				const file_split = file_path.split('//');
-				const file_name = file_split[2];
-				const ext_split = file_name.split('/.');
-				const file_ext = ext_split[1];
-				if (file_ext == 'jpg' ||
-					file_ext == 'jpeg' ||
-					file_ext == 'png' ||
-					file_ext == 'gif' ||
-					file_ext == 'mp4') {
-					publication.media_field = file_name;
-				} else {
-					return RemoveUploadMediaFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato; .jpg .jpeg .png .gif ó .mp4');
-				}
-			} else if (req.files.document_field) {
-				const file_path = req.files.document_field.path;
-				const file_split = file_path.split('//');
-				const file_name = file_split[2];
-				const ext_split = file_name.split('/.');
-				const file_ext = ext_split[1];
-				if (file_ext == 'pdf' ||
-					file_ext == 'docx' ||
-					file_ext == 'pptx' ||
-					file_ext == 'xlsx' ||
-					file_ext == 'doc') {
-					publication.document_field = file_name;
-				} else {
-					return RemoveUploadDocumentFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato; .pdf .docx .pptx .xlsx ó .doc');
-				}
-			}
-			publication.user_id = req.user.sub;
-			publication.likes = 0;
-			publication.created_at = moment().unix();
-			publication.save((err, publicationSaved) => {
-				if (err) return err0r(res, 500, err);
-				if (user.role == 'administrator') {
-					User.find({}, (err, users) => {
-						users.forEach((user) => {
-							let newNotification = new Notification();
-							newNotification.receiver_id = user._id;
-							newNotification.origin = userId;
-							if (!params.type) {
-								newNotification.type = 'publicación';
-							} else {
-								newNotification.type = params.type;
-							}
-							newNotification.text = 'La administración ha hecho una nueva publicación';
-							newNotification.created_at = moment().unix();
-							newNotification.viewed = false;
-							newNotification.save();
-						});
+			if (user.role == 'administrator' || user.role == 'developer') {
+				User.find({}, (err, users) => {
+					users.forEach((user) => {
+						let newNotification = new Notification();
+						newNotification.receiver_id = user._id;
+						newNotification.emitter_id = userId;
+						if (!params.type) {
+							newNotification.type = 'publicación';
+						} else {
+							newNotification.type = params.type;
+						}
+						newNotification.text = 'La administración ha publicado una nueva actualización';
+						newNotification.link = `/publication/${publicationSaved._id}`;
+						newNotification.created_at = moment().unix();
+						newNotification.viewed = false;
+						newNotification.save();
 					});
-				}
-				res.status(201).send({
-					publication: publicationSaved
 				});
+			}
+			Publication.findById(publicationSaved._id, (err, publicationResponse) => {
+				res.status(201).send({
+					publication: publicationResponse
+				});
+			}).sort('-created_at').populate({
+				path: 'user_id',
+				select: '-password'
 			});
 		});
-	} else {
-		return err0r(res, 403);
-	}
+	});
+}
+
+function saveMediaFile(req, res) {
+	const publicationId = req.params.publicationId;
+	Publication.findOne({
+		'_id': publicationId,
+		'user_id': req.user.sub
+	}, (err, publication)=> {
+		if(err) return err0r(res, 500, err);
+		if(publication.media_field) return err0r(res, 403);
+		if(publication.document_field) return err0r(res, 403, 'Solo puedes agregar un tipo de archivo');
+		const file_path = req.files.media_field.path;
+		const file_split = file_path.split('//');
+		const file_name = file_split[2];
+		const ext_split = file_name.split('/.');
+		const file_ext = ext_split[1];
+		if (file_ext == 'jpg' ||
+			file_ext == 'jpeg' ||
+			file_ext == 'png' ||
+			file_ext == 'gif' ||
+			file_ext == 'mp4') {
+			Publication.findById(publicationId, {'media_field': file_name});
+		} else {
+			return RemoveUploadMediaFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato; .jpg .jpeg .png .gif ó .mp4');
+		}
+	});
+}
+
+function saveDocumentFile(req, res) {
+	const publicationId = req.params.publicationId;
+	Publication.findOne({
+		'_id': publicationId,
+		'user_id': req.user.sub
+	}, (err, publication)=> {
+		if(err) return err0r(res, 500, err);
+		if(publication.document_field) return err0r(res, 403);
+		if(publication.media_field) return err0r(res, 403, 'Solo puedes agregar un tipo de archivo');
+		const file_path = req.files.document_field.path;
+		const file_split = file_path.split('//');
+		const file_name = file_split[2];
+		const ext_split = file_name.split('/.');
+		const file_ext = ext_split[1];
+		if (file_ext == 'pdf' ||
+			file_ext == 'docx' ||
+			file_ext == 'pptx' ||
+			file_ext == 'xlsx' ||
+			file_ext == 'doc') {
+			Publication.findById(publicationId, {'document_field': file_name});
+		} else {
+			return RemoveUploadDocumentFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato: .pdf .docx .pptx .xlsx ó .doc');
+		}
+	});
 }
 
 function RemoveUploadMediaFiles(res, file_path, message) {
@@ -227,11 +246,11 @@ function getPublication(req, res) {
 
 //Get global & popular posts
 function getPublications(req, res) {
+	const itemsPerPage = 5;
 	let page = 1;
 	if (req.params.page) {
 		page = parseInt(req.params.page);
 	}
-	const itemsPerPage = 5;
 	Publication.find({}, null, {
 		skip: (itemsPerPage * (page - 1)),
 		limit: itemsPerPage
@@ -303,10 +322,7 @@ function getFollowedPublications(req, res) {
 //Get posts from a single user
 function getUserPublications(req, res) {
 	let page = 1;
-	let userId = req.user.sub;
-	if (req.params.user_id) {
-		userId = req.params.user_id;
-	}
+	let userId = req.params.user_id;
 	if (req.params.page) {
 		page = parseInt(req.params.page);
 	}
@@ -319,7 +335,9 @@ function getUserPublications(req, res) {
 	}, (err, publications) => {
 		if (err) return err0r(res, 500, err);
 		if (!publications) return err0r(res, 404, 'No hay publicaciones para mostrar.');
-		Publication.countDocuments({}, (err, total) => {
+		Publication.countDocuments({
+			'user_id': userId
+		}, (err, total) => {
 			if (err) return err0r(res, 500, err);
 			res.status(200).send({
 				total,
@@ -618,6 +636,8 @@ function deletePublicationCommentLike(req, res) {
 module.exports = {
 	publicationTest,
 	savePublication,
+	saveMediaFile,
+	saveDocumentFile,
 	editPublication,
 	deletePublication,
 	getMediaFile,

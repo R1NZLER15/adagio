@@ -53,7 +53,7 @@
             <div class="form-row">
               <div class="form-group-sm col" *ngIf="role.value  === 'student'">
                 <label class="small" for="group">Grupo</label>
-                <select name="group" #group="ngModel" [(ngModel)]="student.group" class="form-control form-control-sm"
+                <select name="group" #group="ngModel" [(ngModel)]="user.group" class="form-control form-control-sm"
                   required>
                   <option value="A">A</option>
                   <option value="B">B</option>
@@ -71,7 +71,7 @@
               </div>
               <div class="form-group-sm col" *ngIf="role.value  === 'student'">
                 <label class="small" for="grade">Grado</label>
-                <select name="grade" #group="ngModel" [(ngModel)]="student.grade" class="form-control form-control-sm"
+                <select name="grade" #group="ngModel" [(ngModel)]="user.grade" class="form-control form-control-sm"
                   required>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -83,7 +83,7 @@
               </div>
               <div class="form-group-sm col" *ngIf="role.value  === 'student' || role.value  === 'graduated'">
                 <label class="small" for="career">Carrera<span *ngIf="role.value  === 'graduated'"> que estudiaste</span></label>
-                <select name="career" #group="ngModel" [(ngModel)]="student.career" class="form-control form-control-sm"
+                <select name="career" #group="ngModel" [(ngModel)]="user.career" class="form-control form-control-sm"
                   required>
                   <option value="Administración de Recursos Humanos">Administración de Recursos Humanos</option>
                   <option value="Construcción">Construcción</option>

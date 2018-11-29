@@ -7,9 +7,10 @@ let PublicationSchema = new Schema({
 	media_field: String,
 	document_field: String,
 	likes: Number,
+	type: String,
 	created_at: String,
 	updated_at: String,
-	user_id: {type: mongoose.ObjectId,ref: 'User'},
+	user_id: {type: mongoose.ObjectId,ref: 'User'}
 });
 //type: define if the post belongs to a group or if its a public post
 

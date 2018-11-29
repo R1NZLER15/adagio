@@ -1,12 +1,13 @@
 export class Publication {
   constructor(
-    public _id: string,
-    public text_field: string,
-    public media_field: string,
-    public document_field: string,
-    public likes: number,
-    public created_at: string,
-    public updated_at: string,
+    public _id: String,
+    public text_field: String,
+    public media_field: String,
+    public document_field: String,
+    public likes: Number,
+    public type: String,
+    public created_at: String,
+    public updated_at: String,
     public user_id: String,
   ) {}
 }

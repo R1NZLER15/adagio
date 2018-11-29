@@ -6,20 +6,26 @@
           <h1 class="card-title text-center">{{title}}</h1>
         </div>
         <div class="card-body">
+          <div class="alert alert-success" *ngIf="status == 'success'">
+            Te has identificado correctamente, bienvenido.
+          </div>
+          <div class="alert alert-danger" *ngIf="status == 'error'">
+            Has ingresado datos invalidos.
+          </div>
           <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="login">
             <div class="form-group">
               <label for="email"><i class="fas fa-at"></i> E-Mail*</label>
-              <input type="email" name="email" class="form-control form-control-sm"
+              <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm"
                 placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-              <small *ngIf="false">
+              <small *ngIf="!email.valid && email.touched">
                 ¡¡Este campo es obligatorio!!
               </small>
             </div>
             <div class="form-group">
               <label for="password"><i class="fas fa-user-secret"></i> Contraseña*</label>
-              <input type="password" name="password" class="form-control form-control-sm"
+              <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm"
                 placeholder="Contraseña" required>
-              <small *ngIf="false">
+              <small *ngIf="!password.valid && password.touched">
                 ¡¡Este campo es obligatorio!!
               </small>
             </div>

@@ -28,10 +28,8 @@ export class UserService {
     if (gettoken != null) {
       user = Object.assign(user, {gettoken});
     }
-
     const params = JSON.stringify(user);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-
     return this._http.post(this.url + 'login', params, {
       headers: headers
     });
@@ -77,11 +75,11 @@ export class UserService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
 
     if (userId != null) {
-      return this._http.get(this.url + 'counters/' + userId, {
+      return this._http.get(this.url + 'stats/' + userId, {
         headers: headers
       });
     } else {
-      return this._http.get(this.url + 'counters', {
+      return this._http.get(this.url + 'stats', {
         headers: headers
       });
     }

@@ -16,7 +16,12 @@ var UserSchema = new Schema({
 	join_date: String,
 	birthday: String,
 	role: String,
-	badges: String
+	badges: String,
+	student_id: String,
+	group: String,
+	grade: String,
+	turn: String,
+	career: String
 	/*role:
         guest
         student

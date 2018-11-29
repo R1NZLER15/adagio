@@ -1,11 +1,12 @@
 'use strict';
 const User = require('../models/user');
 const Group = require('../models/group');
+const GroupJoinRequest = require('../models/group_join_request');
 const GroupMember = require('../models/group_member');
 const Notification = require('../models/notification');
 const moment = require('moment');
-/*const fs = require('fs');
-const path = require('path');*/
+const fs = require('fs');
+const path = require('path');
 
 function err0r(res, statusCode, msg) {
 	if (!statusCode) {
@@ -79,6 +80,17 @@ function uploadGroupCover(req, res) {
 
 }
 
+function RemoveUploadMediaFiles(res, file_path, message) {
+	fs.unlink(file_path, (err) => {
+		if (err) return err0r(res, 404, 'ERR0R 404.');
+		if (message) {
+			return res.status(403).send({
+				message: message
+			});
+		}
+	});
+}
+
 function updateGroup(req, res) {
 	const params = req.body;
 	const userId = req.user.sub;
@@ -118,7 +130,9 @@ function joinGroup(req, res) {
 	Group.findById(groupId, (err, group) => {
 		if (err) return err0r(res, 500, err);
 		if (!group) return err0r(res, 404, 'ERR0R. Este grupo no existe.');
-		if (group.privacy == 'private') return err0r(res, 403, 'No te puedes unir a este grupo.');
+		if (group.privacy == 'private') {
+			return joinGroupRequest(res, userId, groupId);
+		}
 		GroupMember.findOne({
 			'user_id': userId,
 			'group_id': groupId
@@ -140,8 +154,110 @@ function joinGroup(req, res) {
 	});
 }
 
-function joinGroupRequest(req, res) {
+function joinGroupRequest(res, userId, groupId) {
+	let newRequest = new GroupJoinRequest();
+	newRequest.user_id = userId;
+	newRequest.groupId = groupId;
+	newRequest.created_at = moment().unix();
+	newRequest.save((err, requestSaved) => {
+		if(err) return err0r(res);
+		res.status(201).send({
+			requestSaved
+		});
+	});
+}
 
+function getJoinGroupRequests(req, res) {
+	const itemsPerPage = 5;
+	let page = 1;
+	if (req.params.page) {
+		page = parseInt(req.params.page);
+	}
+	const userId = req.user.sub;
+	const groupId = req.params.group_id;
+	Group.findById(groupId, (err, group) => {
+		if(err) return err0r(res);
+		if(group.group_admin != userId) return err0r(res, 403, 'Acceso denegado.');
+		GroupJoinRequest.find({
+			'group_id': groupId
+		}, null, {
+			skip: (itemsPerPage * (page - 1)),
+			limit: itemsPerPage
+		}, (err, requests) => {
+			if(err) return err0r(res);
+			GroupJoinRequest.countDocuments({
+				'group_id': groupId
+			}, (err, total) => {
+				if(err) return err0r(res);
+				res.status(200).send({
+					total: total,
+					pages: Math.ceil(total / itemsPerPage),
+					page: page,
+					requests: requests
+				});
+			});
+		}).sort('-created_at').populate({
+			path: 'user_id',
+			select: '-password'
+		});
+	});
+}
+
+function interactJoinRequest(req, res) {
+	const groupId = req.params.group_id;
+	const requestId = req.params.request_id;
+	const decision = req.params.decision;
+	const userId = req.user.sub;
+	Group.findById(groupId, (err, group) => {
+		if(err) return err0r(res);
+		if(!group) return err0r(res, 404);
+		if(group.group_admin != userId) return err0r(res, 403, '¡Acceso denegado!');
+		GroupJoinRequest.findById(requestId, (err, request) => {
+			if(err) return err0r(res);
+			if(!request) return err0r(res, 404, 'No existe esta solicitud');
+			if(decision == 'true') {
+				const aprovedUserId = request.user_id;
+				return aproveRequest(res, aprovedUserId, groupId);
+			}
+			if(decision == 'false') {
+				const rejectedUserId = request.user_id;
+				return rejectRequest(res, rejectedUserId, groupId);
+			}
+		});
+	});
+}
+
+function aproveRequest(res, aprovedUserId, groupId) {
+	GroupMember.findOne({
+		'user_id': aprovedUserId,
+		'group_id': groupId
+	}, (err, exists) => {
+		if (err) return err0r(res, 500, err);
+		if (exists) return err0r(res, 403, 'Este usuario ya es miembro del grupo.');
+		else {
+			let newMember = new GroupMember();
+			newMember.user_id = aprovedUserId;
+			newMember.group_id = groupId;
+			newMember.save((err, success) => {
+				if (err) return err0r(res, 500, err);
+				return res.status(201).send({
+					success
+				});
+			});
+		}
+	});
+}
+
+function rejectRequest(res, rejectedUserId, groupId) {
+	GroupJoinRequest.findOneAndDelete({
+		'user_id': rejectedUserId,
+		'group_id': groupId
+	}, (err, success) => {
+		if(err) return err0r(res);
+		if(success) return res.stats(200).send({
+			message: 'Usuario rechazado.'
+		});
+	});
 }
 
 function leaveGroup(req, res) {
@@ -185,15 +301,14 @@ function deleteGroupMember(req, res) {
 }
 
 function inviteUser(req, res) {
-	let params = req.body;
-	let userId = req.user.sub;
-	let invitedUserId = params.invited_user_id;
+	const userId = req.user.sub;
+	const invitedUserId = req.params.invited_user_id;
+	const groupId = req.params.group_id;
 	if (!invitedUserId) return err0r(res, 403, 'Ingresa el id del usuario que deseas invitar.');
 	User.findById(invitedUserId, (err, user) => {
 		if (err) return err0r(res, 500, err);
 		if (!user) return err0r(res, 404, 'ERR0R. Este usuario no existe.');
 	});
-	let groupId = params.group_id;
 	Group.findById(groupId, (err, group) => {
 		if (err) return err0r(res, 500, err);
 		if (!group) return err0r(res, 404, 'ERR0R. Este grupo no existe.');
@@ -206,8 +321,8 @@ function inviteUser(req, res) {
 			notification.receiver_id = invitedUserId;
 			notification.emitter_id = userId;
 			notification.text = `El usuario ${req.user.unique_nick} te ha invitado al grupo ${group.name}.`;
-			notification.link = `/groups/${group._id}`;
-			notification.type = 'Invitación grupo';
+			notification.link = `/group/${group._id}`;
+			notification.type = 'invitación_grupo';
 			notification.created_at = moment().unix();
 			notification.viewed = false;
 			notification.save();
@@ -234,6 +349,7 @@ function saveProjectTasks(req, res) {
 function deleteProjectTasks(req, res) {
 	//i dont need to explain this...
 }
+
 module.exports = {
 	groupTest,
 	saveGroup,
@@ -243,6 +359,8 @@ module.exports = {
 	deleteGroup,
 	joinGroup,
 	joinGroupRequest,
+	getJoinGroupRequests,
+	interactJoinRequest,
 	leaveGroup,
 	deleteGroupMember,
 	inviteUser,

@@ -2,10 +2,10 @@
 const bcrypt = require('bcrypt-nodejs');
 const User = require('../models/user');
 const Follow = require('../models/follower_followed');
-const Student = require('../models/student');
 const jwt = require('../services/jwt');
 const fs = require('fs');
 const path = require('path');
+const moment = require('moment');
 
 function err0r(res, statusCode, msg) {
 	if (!statusCode) {
@@ -26,14 +26,8 @@ function userTest(req, res) {
 }
 
 function saveUser(req, res) {
-	const today = new Date();
-	const dd = today.getDate() < 10 ? '0' + today.getDate() : today.getDate();
-	const mm = today.getMonth() + 1 < 10 ? '0' + today.getMonth() + 1 : today.getMonth() + 1;
-	const yyyy = today.getFullYear();
-	const currentDay = dd + '-' + mm + '-' + yyyy;
 	const params = req.body;
 	let user = new User();
-	let student = new Student();
 	//TODO: Create a username/nick blacklist (profanity/false identity filter)
 	//TODO: 
 	if (params.names && params.unique_nick && params.email && params.password) {
@@ -46,24 +40,37 @@ function saveUser(req, res) {
 		user.gender = params.gender;
 		if (params.role === 'student') {
 			user.role = 'student';
+			user.student_id = null;
+			user.group = params.group;
+			user.grade = params.grade;
+			user.career = params.career;
+			const regTM = new RegExp('^([a-gA-G])$');
+			const regTV = new RegExp('^([h-nH-N])$');
+			if (regTM.test(params.group)) {
+				user.turn = 'Matutino';
+			} else if (regTV.test(params.group)) {
+				user.turn = 'Vespertino';
+			} else {
+				return err0r(res, 403, 'ERROR. Ingresaste datos invalidos.');
+			}
 		} else if (params.role === 'graduated'){
 			user.role = 'graduated';
+			user.career = params.career;
+			user.group = params.group;
 		} else {
 			user.role = 'guest';
 		}
 		user.avatar = 'default-avatar.png';
-		user.banner = null;
-		user.about = null;
-		user.join_date = currentDay;
+		user.cover = 'default-cover.png';
+		user.about = '';
+		user.join_date = moment().unix();
 		//TODO: Find a way to verify if the user data matches an existing user from the school DB
 		User.find({
 			$or: [{
 				'unique_nick': user.unique_nick.toLowerCase()
-			},
-			{
+			}, {
 				'email': user.email.toLowerCase()
-			}
-			]
+			}]
 		}).exec((err, users) => {
 			if (err) return err0r(res, 500, 'ERR0R en la petición de datos.');
 			if (users && users.length >= 1) {
@@ -74,21 +81,6 @@ function saveUser(req, res) {
 					user.save((err, userStored) => {
 						if (err) return err0r(res, 500);
 						if (userStored) {
-							if (params.role === 'student') {
-								student.user_id = userStored._id;
-								student.group = params.group;
-								student.grade = params.grade;
-								const regTM = new RegExp('^([a-gA-G])$');
-								const regTV = new RegExp('^([h-nH-N])$');
-								if (regTM.test(params.group)) {
-									student.turn = 'Matutino';
-								} else if (regTV.test(params.group)) {
-									student.turn = 'Vespertino';
-								} else {
-									return err0r(res, 403, 'ERROR. Ingresaste datos invalidos.');
-								}
-								student.save();
-							}
 							res.status(200).send({
 								user: userStored
 							});
@@ -109,14 +101,14 @@ function loginUser(req, res) {
 	const email = params.email;
 	const password = params.password;
 	User.findOne({
-		email: email
+		'email': email
 	}, (err, user) => {
 		if (err) return err0r(res, 500);
 		if (user) {
 			bcrypt.compare(password, user.password, (err, success) => {
 				if (err) return err0r(res, 500, err);
 				if (success) {
-					if (params.getToken) {
+					if (params.gettoken) {
 						return res.status(200).send({
 							token: jwt.createToken(user)
 						});
@@ -265,7 +257,7 @@ function uploadAvatar(req, res) {
 			User.findById(userId, 'avatar', (err, result) => {
 				let userAvatar = result.avatar;
 				if (userAvatar != 'default-avatar.png') {
-					fs.unlinkSync('./uploads/users/' + userAvatar);
+					fs.unlinkSync('./uploads/user/avatar/' + userAvatar);
 				}
 				User.findOneAndUpdate(userId, {
 					avatar: file_name
@@ -282,7 +274,45 @@ function uploadAvatar(req, res) {
 		} else {
 			return RemoveUploadFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato; .jpg .jpeg ó .png');
 		}
+	} else {
+		return err0r(res, 400, 'ERR0R. No se ha recibido ninguna imagen.');
+	}
+}
 
+function uploadCover(req, res) {
+	const userId = req.params.id;
+	if (req.files) {
+		const file_path = req.files.cover.path;
+		const file_split = file_path.split('//');
+		const file_name = file_split[2];
+		const ext_split = file_name.split('/.');
+		const file_ext = ext_split[1];
+		if (userId != req.user.sub) {
+			return RemoveUploadFiles(res, file_path, 'ERR0R. No tienes permiso para hacer esto.');
+		}
+		if (file_ext == 'jpg' ||
+			file_ext == 'jpeg' ||
+			file_ext == 'png') {
+			User.findById(userId, 'cover', (err, result) => {
+				let userCover = result.cover;
+				if (userCover != 'default-cover.png') {
+					fs.unlinkSync('./uploads/user/cover/' + userCover);
+				}
+				User.findOneAndUpdate(userId, {
+					cover: file_name
+				}, {
+					new: true
+				}, (err, userUpdated) => {
+					if (err) return err0r(res);
+					if (!userUpdated) return err0r(res, 404, 'ERR0R. No se ha podido actualizar el usuario');
+					return res.status(200).send({
+						user: userUpdated
+					});
+				});
+			});
+		} else {
+			return RemoveUploadFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato; .jpg .jpeg ó .png');
+		}
 	} else {
 		return err0r(res, 400, 'ERR0R. No se ha recibido ninguna imagen.');
 	}
@@ -299,7 +329,19 @@ function RemoveUploadFiles(res, file_path, message) {
 
 function getAvatarFile(req, res) {
 	let avatar_file = req.params.avatarFile;
-	let path_file = './uploads/users/' + avatar_file;
+	let path_file = './uploads/user/avatar/' + avatar_file;
+	fs.exists(path_file, (exists) => {
+		if (exists) {
+			res.sendFile(path.resolve(path_file));
+		} else {
+			return err0r(res, 404, 'ERR0R. No existe esta imagen');
+		}
+	});
+}
+
+function getCoverFile(req, res) {
+	let cover_file = req.params.coverFile;
+	let path_file = './uploads/user/cover/' + cover_file;
 	fs.exists(path_file, (exists) => {
 		if (exists) {
 			res.sendFile(path.resolve(path_file));
@@ -345,7 +387,9 @@ module.exports = {
 	getUsers,
 	updateUser,
 	uploadAvatar,
+	uploadCover,
 	getAvatarFile,
+	getCoverFile,
 	updatePass,
 	deleteUser
 };

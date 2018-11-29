@@ -14,6 +14,12 @@ export class User {
     public join_date: string,
     public birthday: string,
     public role: string,
-    public badges: string
+    public badges: string,
+    public student_id: String,
+    public group: String,
+    public grade: String,
+    public turn: String,
+    public career: String,
+    public gettoken: any
   ) {}
 }

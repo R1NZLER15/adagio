@@ -1,0 +1,121 @@
+$adagio-green: #20bf55;
+$adagio-gray: #282931;
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.content {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.user-ui,
+.publication{
+    box-shadow: 0px 1px 5px #28293165;
+}
+
+.card {
+    padding-bottom: 0.2vh;
+    border-radius: 5%;
+}
+
+.card-body {
+    padding: 0.5vh;
+}
+
+.card,
+.card-body {
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0.2vh;
+
+    .card-img-top {
+        border-radius: 0;
+        margin-left: 0;
+        margin-right: 0;
+        max-height: 50vh;
+        object-fit: cover;
+    }
+
+    .profile-avatar {
+        margin: -10vh 1vh 0vh 1vh;
+        float: left;
+        border-radius: 10%;
+        width: 20vh;
+        height: 20vh;
+    }
+
+    .publication-header {
+        color: $adagio-gray;
+        .date {
+            color: #666;
+        }
+    }
+
+    .avatar {
+        float: left;
+        margin-right: 1vh;
+        border-radius: 10%;
+        height: 7vh;
+        width: 7vh;
+    }
+
+    .card-text {
+        margin-top: 1.5vh;
+        clear: left;
+    }
+
+    .stats {
+        font-weight: bold;
+        a {
+            color: black;
+            &:hover {
+                color: $adagio-green;
+            }
+        }
+    }
+
+    .names {
+        a {
+            color: black;
+        }
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .nick {
+        margin-top: 0vh;
+        margin-bottom: 0vh
+    }
+}
+
+.btn-sm {
+    border-radius: 10%;
+    background: none;
+    color: $adagio-gray;
+    &:hover {
+        color: $adagio-green;
+    }
+}
+
+p,
+small {
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+}
+
+@keyframes fade {
+    0%{
+        color: $adagio-gray;
+    }
+    50%{
+        color: $adagio-green;
+    }
+}

@@ -44,20 +44,44 @@ function getNotifications(req, res) {
 				notifications
 			});
 		});
+	}).sort('-created_at').populate({
+		path: 'emitter_id',
+		select: '-password'
 	});
 }
 
-function dimissNotification(req) {
+function getUnviewedNotifications(req, res) {
+	const userId = req.user.sub;
+	Notification.countDocuments({
+		'receiver_id': userId,
+		'viewed': false
+	}, (err, total) => {
+		if (err) return err0r(res, 500, err);
+		res.status(200).send({
+			notifications: total
+		});
+	});
+}
+
+function dimissNotification(req, res) {
 	const notificationId = req.params.notification_id;
 	Notification.findByIdAndUpdate(notificationId, {
 		$set: {
 			'viewed': true
 		}
+	}, {
+		'new': true
+	}, (err, dimissedNotification) => {
+		if (err) return err0r(res);
+		res.status(200).send({
+			dimissedNotification: dimissedNotification
+		});
 	});
 }
 
 module.exports = {
 	notificationTest,
 	getNotifications,
+	getUnviewedNotifications,
 	dimissNotification
 };

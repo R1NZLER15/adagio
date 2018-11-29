@@ -1,16 +1,25 @@
 import { Component, OnInit} from '@angular/core';
-import { Router, ActivatedRoute, Params} from '@angular/router';
+import { UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-preloader',
   templateUrl: './preloader.component.html',
   styleUrls: ['./preloader.component.scss']
 })
-export class PreLoaderComponent implements OnInit {
+export class PreloaderComponent implements OnInit {
+  public loading: Boolean;
   constructor(
-    private _route: ActivatedRoute,
-    private _router: Router
-  ) {}
+    private _userService: UserService
+  ) {
+    this.loading = true;
+    _userService.getIdentity().subscribe(
+      result => {
+        if (result) {
+          this.loading = true;
+        }
+      }
+    );
+  }
 
   ngOnInit() {
     console.log('PreLoader cargado...');

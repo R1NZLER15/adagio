@@ -18,6 +18,7 @@ const NotificationSchema = new Schema({
 *invitación a un grupo
 *respuesta solicitud
 !admin: publicación
+!admin aviso
 !admin: convocatoria
 !admin: beca
 !admin: evento

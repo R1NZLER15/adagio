@@ -1,12 +1,15 @@
-<div class="page-content">
-  <nav class="navbar navbar-expand-lg">
-    <a class="brand navbar-brand" href="/">{{title}}</a>
+<div class="page-content content">
+  <nav class="navbar fixed-top navbar-expand-lg">
+    <a class="brand navbar-brand" href="/">
+      <img src="../assets/adagio-logo.ico" class="d-inline-block align-content-center logo">
+      {{title}}
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars menu"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
         <li class="nav-item">
           <a class="nav-link" href="/"><i class="fas fa-bars"></i> Inicio</a>
         </li>
@@ -23,18 +26,40 @@
           <a class="nav-link" href="/classrooms"><i class="fas fa-chalkboard-teacher"></i> Aulas</a>
         </li>
       </ul>
-      <a *ngIf="identified === false" class="nav-link mr-sm-2" href="/login"><i class="fas fa-sign-in-alt"></i> Inicia sesión</a>
-      <a *ngIf="identified === false" class="nav-link mr-sm-2" href="/register"><i class="fas fa-address-card"></i> Registrate</a>
-      <a *ngIf="identified === true" class="nav-link mr-sm-2" href="/profile"><i class="fas fa-user-circle"></i></a>
-      <a *ngIf="identified === true" class="nav-link mr-sm-2" href="/messages"><i class="fas fa-envelope"></i></a>
-      <a *ngIf="identified === true" class="nav-link mr-sm-2" href="/notifications"><i class="fas fa-bell"></i></a>
-      <form *ngIf="identified === true" class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
+          <li *ngIf="!identity" class="nav-item">
+            <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i> Inicia sesión</a>
+          </li>
+          <li *ngIf="!identity" class="nav-item">
+            <a class="nav-link" href="/register"><i class="fas fa-address-card"></i> Registrate</a>
+          </li>
+          <li *ngIf="identity" class="nav-item">
+            <a *ngIf="identity" class="nav-link" href="/messages"><i class="fas fa-envelope"></i></a>
+          </li>
+          <li *ngIf="identity && notifications" class="nav-item">
+            <div class="dropdown nav-link">
+              <i id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="fas fa-bell"><span *ngIf="unviewedNotifications > 0"> {{unviewedNotifications}}</span></i>
+              <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+                <div id="notification-header"><small>Notificaciones</small></div>
+                <a *ngFor="let notification of notifications" class="dropdown-item" (click)="dimissNotification(notification._id)"><img class="avatar" src="{{ url + 'get-user-avatar/' + notification.emitter_id.avatar }}"/> {{notification.text}}</a>
+                <div id="notification-footer"><small>Ver todas</small></div>
+              </div>
+            </div>
+          </li>
+          <li *ngIf="identity" class="nav-item">
+            <a *ngIf="identity" class="avatar-link nav-link" href="{{'/profile/' + identity._id}}"><img class="avatar" src="{{ url + 'get-user-avatar/' + identity.avatar }}"/></a>
+          </li>
+          <li *ngIf="identity" class="nav-item">
+            <a *ngIf="identity" class="nav-link logout" (click)="logout()" href="/login"><i class="fas fa-sign-out-alt"></i></a>
+          </li>
+      </ul>
+      <!--<form *ngIf="identity" class="form-inline my-1 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Usuarios, Grupos" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-      </form>
+        <button class="btn btn-outline-success my-1 my-sm-0" type="submit">Buscar</button>
+      </form>-->
     </div>
   </nav>
-  <div>
+  <div class="components">
     <router-outlet></router-outlet>
   </div>
 </div>
