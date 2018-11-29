@@ -13,6 +13,7 @@
 		"bcrypt-nodejs": "0.0.3",
 		"body-parser": "^1.18.3",
 		"connect-multiparty": "^2.2.0",
+		"event-stream": "^3.3.4",
 		"express": "^4.16.4",
 		"firebase-admin": "^6.1.0",
 		"jwt-simple": "^0.5.5",
