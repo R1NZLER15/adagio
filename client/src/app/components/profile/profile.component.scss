@@ -17,13 +17,21 @@ $adagio-gray: #282931;
 }
 
 .user-ui,
-.publication{
+.publication {
     box-shadow: 0px 1px 5px #28293165;
 }
 
+.publication {
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+}
+
 .card {
-    padding-bottom: 0.2vh;
     border-radius: 5%;
+}
+
+.media {
+    width: 100%;
 }
 
 .card-body {
@@ -34,7 +42,6 @@ $adagio-gray: #282931;
 .card-body {
     border: 0;
     border-radius: 0;
-    margin-bottom: 0.2vh;
 
     .card-img-top {
         border-radius: 0;

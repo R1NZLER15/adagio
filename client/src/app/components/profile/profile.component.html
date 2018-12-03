@@ -21,9 +21,7 @@
         </div>
         <div *ngIf="publications" class="col-lg-8">
           <div *ngFor="let publication of publications" class="card publication">
-            <div *ngIf="publication.media_field" class="card-img-top">
-              <img src="{{url + 'get-publication-media/' + publication.media_field}}">
-            </div>
+            <img *ngIf="publication.media_file" class="card-img-top media" src="{{ url +'get-media/' + publication.media_file }}">
             <div class="card-body">
               <img class="avatar" src="{{ url +'get-user-avatar/' + publication.user_id.avatar }}" *ngIf="publication.user_id.avatar">
               <div class="publication-header">
@@ -32,10 +30,8 @@
                   <small class="date"> {{ (publication.created_at | amFromUnix) | amLocale:'es_mx' | amTimeAgo }}</small><br>
                   <small class="nick"> @{{publication.user_id.unique_nick}}</small>
                 </h6>
-                <h6 class="nick">@{{publication.user_id.unique_nick}}</h6>
               </div>
-              <p class="card-text">{{publication.text_field}}</p>
-              <img class="card-img-bottom" src="{{ url +'get-publication-media/' + publication.media_file }}" *ngIf="publication.media_file">
+              <pre class="card-text">{{publication.text}}</pre>
               <button class="btn btn-sm" (click)="saveLike()"><i class="fas fa-chevron-up"></i><span *ngIf="publication.likes > 0"> {{publication.likes}}</span></button>
               <button class="btn btn-sm" (click)="openComments()"><i class="fas fa-comment-alt"></i></button>
               <button class="btn btn-sm disabled" (click)="sharePublication()"><i class="fas fa-share"></i></button>

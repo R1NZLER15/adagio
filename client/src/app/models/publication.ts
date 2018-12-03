@@ -1,9 +1,9 @@
 export class Publication {
   constructor(
     public _id: String,
-    public text_field: String,
-    public media_field: String,
-    public document_field: String,
+    public text: String,
+    public media_file: String,
+    public document_file: String,
     public likes: Number,
     public type: String,
     public created_at: String,

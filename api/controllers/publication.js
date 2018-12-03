@@ -39,11 +39,11 @@ function savePublication(req, res) {
 	let userId = req.user.sub;
 	User.findById(userId, (err, user) => {
 		if (err) return err0r(res, 500, err);
-		if(!params.text_field) return err0r(res, 400);
+		if(!params.text) return err0r(res, 400);
 		let publication = new Publication();
-		//let text_field = params.text_field;
-		//text_field = text_field.replace(/\n/g, '\\n');
-		publication.text_field = params.text_field;
+		//let text = params.text;
+		//text = text.replace(/\n/g, '\\n');
+		publication.text = params.text;
 		publication.user_id = req.user.sub;
 		publication.likes = 0;
 		if(user.role == 'administrator') {
@@ -52,7 +52,7 @@ function savePublication(req, res) {
 		publication.created_at = moment().unix();
 		publication.save((err, publicationSaved) => {
 			if (err) return err0r(res, 500, err);
-			if (user.role == 'administrator' || user.role == 'developer') {
+			if (user.role == 'administrator') {
 				User.find({}, (err, users) => {
 					users.forEach((user) => {
 						let newNotification = new Notification();
@@ -90,9 +90,9 @@ function saveMediaFile(req, res) {
 		'user_id': req.user.sub
 	}, (err, publication)=> {
 		if(err) return err0r(res, 500, err);
-		if(publication.media_field) return err0r(res, 403);
-		if(publication.document_field) return err0r(res, 403, 'Solo puedes agregar un tipo de archivo');
-		const file_path = req.files.media_field.path;
+		if(publication.media_file) return err0r(res, 403);
+		if(publication.document_file) return err0r(res, 403, 'Solo puedes agregar un tipo de archivo');
+		const file_path = req.files.media_file.path;
 		const file_split = file_path.split('//');
 		const file_name = file_split[2];
 		const ext_split = file_name.split('/.');
@@ -102,7 +102,7 @@ function saveMediaFile(req, res) {
 			file_ext == 'png' ||
 			file_ext == 'gif' ||
 			file_ext == 'mp4') {
-			Publication.findById(publicationId, {'media_field': file_name});
+			Publication.findById(publicationId, {'media_file': file_name});
 		} else {
 			return RemoveUploadMediaFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato; .jpg .jpeg .png .gif ó .mp4');
 		}
@@ -116,9 +116,9 @@ function saveDocumentFile(req, res) {
 		'user_id': req.user.sub
 	}, (err, publication)=> {
 		if(err) return err0r(res, 500, err);
-		if(publication.document_field) return err0r(res, 403);
-		if(publication.media_field) return err0r(res, 403, 'Solo puedes agregar un tipo de archivo');
-		const file_path = req.files.document_field.path;
+		if(publication.document_file) return err0r(res, 403);
+		if(publication.media_file) return err0r(res, 403, 'Solo puedes agregar un tipo de archivo');
+		const file_path = req.files.document_file.path;
 		const file_split = file_path.split('//');
 		const file_name = file_split[2];
 		const ext_split = file_name.split('/.');
@@ -128,7 +128,7 @@ function saveDocumentFile(req, res) {
 			file_ext == 'pptx' ||
 			file_ext == 'xlsx' ||
 			file_ext == 'doc') {
-			Publication.findById(publicationId, {'document_field': file_name});
+			Publication.findById(publicationId, {'document_file': file_name});
 		} else {
 			return RemoveUploadDocumentFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato: .pdf .docx .pptx .xlsx ó .doc');
 		}
@@ -194,7 +194,7 @@ function editPublication(req, res) {
 		if (userId != result.user_id) return err0r(res, 403, 'ERR0R. Acceso denegado.');
 		Publication.findByIdAndUpdate(publicationId, {
 			$set: {
-				text_field: params.text_field,
+				text: params.text,
 				updated_at: moment().unix()
 			}
 		}, {
@@ -443,12 +443,12 @@ function savePublicationComment(req, res) {
 			let comment = new Comment();
 			comment.publication_id = publicationId;
 			comment.user_id = userId;
-			if (params.text_field || params.media_field) {
-				if (params.text_field) {
-					comment.text_field = params.text_field;
+			if (params.text || params.media_file) {
+				if (params.text) {
+					comment.text = params.text;
 				}
-				if (params.media_field) {
-					comment.media_field = params.media_field;
+				if (params.media_file) {
+					comment.media_file = params.media_file;
 				}
 				comment.likes = 0;
 				comment.created_at = moment().unix();
@@ -486,7 +486,7 @@ function editPublicationComment(req, res) {
 		if (userId != result.user_id) return err0r(res, 403, 'ERR0R. Acceso denegado.');
 		Comment.findByIdAndUpdate(commentId, {
 			$set: {
-				text_field: params.text_field,
+				text: params.text,
 				updated_at: moment().unix()
 			}
 		}, {

@@ -1,6 +1,10 @@
 $adagio-green: #20bf55;
 $adagio-gray: #282931;
 
+pre {
+    font-family: 'Roboto';
+    font-size: 100%;
+}
 .row {
     padding-left: 0;
     padding-right: 0;
@@ -19,19 +23,27 @@ $adagio-gray: #282931;
     box-shadow: 0px 1px 5px #28293165;
 }
 
-.card {
-    padding-bottom: 0.2vh;
-    border-radius: 5%;
+.form {
+    margin-top: 0.5vh;
 }
 
-.card-body {
-    padding: 0.5vh;
+.publication {
+    border-radius: 0;
+    margin-top: 1vh;
+}
+
+.card-image-top {
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 }
 
 .card,
 .card-body {
     border: 0;
     border-radius: 0;
+    padding: 0.5vh;
     margin-bottom: 0.2vh;
 
     .publication-header {
@@ -43,14 +55,14 @@ $adagio-gray: #282931;
 
     .avatar {
         float: left;
-        margin-right: 1vh;
+        margin-right: 0.5vh;
         border-radius: 10%;
-        height: 7vh;
-        width: 7vh;
+        height: 6vh;
+        width: 6vh;
     }
 
     .card-text {
-        margin-top: 1.5vh;
+        margin: 0;
         clear: left;
     }
 
@@ -59,8 +71,13 @@ $adagio-gray: #282931;
             color: black;
         }
     }
+    .nick, .names {
+        padding: 0;
+        margin: 0;
+    }
 
-    .nick {
+    .btn {
+        margin-right: 1vh;
     }
 
     .btn-sm {
@@ -71,12 +88,6 @@ $adagio-gray: #282931;
             color: $adagio-green;
         }
     }
-}
-
-p,
-small {
-    margin-top: 0.5vh;
-    margin-bottom: 0.5vh;
 }
 
 .form-group {

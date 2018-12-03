@@ -11,7 +11,7 @@
               <small class="nick"> @{{publication.user_id.unique_nick}}</small>
             </h6>
           </div>
-          <p class="card-text">{{publication.text_field}}</p>
+          <pre class="card-text">{{publication.text_field}}</pre>
           <img class="card-img-bottom" src="{{ url +'get-publication-media/' + publication.media_file }}" *ngIf="publication.media_file">
           <button class="btn btn-sm" (click)="saveLike()"><i class="fas fa-chevron-up"></i><span *ngIf="publication.likes > 0"> {{publication.likes}}</span></button>
           <button class="btn btn-sm" (click)="openComments()"><i class="fas fa-comment-alt"></i></button>

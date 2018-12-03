@@ -11,7 +11,7 @@ var UserSchema = new Schema({
 	gender: String,
 	password: String,
 	avatar: String,
-	banner: String,
+	cover: String,
 	about_me: String,
 	join_date: String,
 	birthday: String,

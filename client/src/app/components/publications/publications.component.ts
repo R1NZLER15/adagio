@@ -120,4 +120,11 @@ export class PublicationsComponent implements OnInit {
     }
     this.getFollowedPublications(this.page, true);
   }
+
+  /*likeInteract(publication_id) {
+    this._publicationService.likePublication().subscribe(
+      response => {
+      }
+    )
+  }*/
 }

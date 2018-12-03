@@ -43,6 +43,7 @@ export class AppComponent implements OnInit, DoCheck {
   }
   ngOnInit() {
     this.identity = this._userService.getIdentity();
+    console.log(this.identity);
     this.getUnviewedNotifications();
     this.getNotifications(this.page);
   }
@@ -52,45 +53,48 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   getUnviewedNotifications() {
-    this._notificationService.getUnviewedNotifications(this.token).subscribe(
-      response => {
-        this.unviewedNotifications = response.notifications;
-      }
-    );
+    if (this.identity != null) {
+      this._notificationService.getUnviewedNotifications(this.token).subscribe(
+        response => {
+          this.unviewedNotifications = response.notifications;
+        }
+      );
+    }
   }
 
   getNotifications(page, adding = false) {
-    this._notificationService.getNotifications(this.token, page).subscribe(
-      response => {
-        console.log(response);
-        if (response.notifications) {
-          this.total = response.total_items;
-          this.pages = response.pages;
-          this.itemsPerPage = response.items_per_page;
+    if (this.identity != null) {
+      this._notificationService.getNotifications(this.token, page).subscribe(
+        response => {
+          if (response.notifications) {
+            this.total = response.total;
+            this.pages = response.pages;
+            this.itemsPerPage = response.items_per_page;
 
-          if (!adding) {
-            this.notifications = response.notifications;
-            console.log(this.notifications);
+            if (!adding) {
+              this.notifications = response.notifications;
+              console.log(this.total);
+            } else {
+              const arrayA = this.notifications;
+              const arrayB = response.notifications;
+              this.notifications = arrayA.concat(arrayB);
+              $('html, body');
+            }
+            if (page > this.pages) {
+            }
           } else {
-            const arrayA = this.notifications;
-            const arrayB = response.notifications;
-            this.notifications = arrayA.concat(arrayB);
-            $('html, body');
-            console.log(this.notifications);
+            this.status = 'error';
           }
-          if (page > this.pages) {
-          }
-        } else {
-          this.status = 'error';
         }
-      }
-    );
+      );
+    }
   }
 
-  dimissNotification(notification_id) {
+  dimissThisNotification(notification_id) {
     this._notificationService.dimissNotification(this.token, notification_id).subscribe(
       response => {
-        console.log('Dimissing Notification', this.token, response);
+        console.log('Dimissing Notification', notification_id);
+        this.getUnviewedNotifications();
         this.getNotifications(this.page);
       }
     );

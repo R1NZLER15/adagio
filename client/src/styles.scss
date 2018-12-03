@@ -20,17 +20,18 @@ h1,
 h2,
 span,
 label,
-p{
+pre,
+p {
   font-family: 'Roboto';
 }
 
-.page-content{
+.page-content {
   background: #e5e6eb;
 }
 
 .brand {
   font-size: 72px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-weight: 1000;
   background: -webkit-linear-gradient(0deg, $adagio-green, #12973f);
   -webkit-background-clip: text;
@@ -42,28 +43,15 @@ p{
 }
 
 .nav-link,
-.link{
+.link {
   color: $adagio-green;
 }
 
 .nav-link:hover,
-.link:hover{
+.link:hover {
   color: #1a9442;
 }
 
-.nick{
+.nick {
   color: $adagio-green;
-}
-
-::-webkit-scrollbar {
-  width: 2vh;
-}
-::-webkit-scrollbar-track {
-  background: #e5e6eb; 
-}
-::-webkit-scrollbar-thumb {
-  background: #333; 
-}
-::-webkit-scrollbar-thumb:hover {
-  background: $adagio-gray; 
 }

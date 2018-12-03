@@ -26,7 +26,7 @@ function getNotifications(req, res) {
 	if (req.params.page) {
 		page = parseInt(req.params.page);
 	}
-	const itemsPerPage = 5;
+	const itemsPerPage = 10;
 	Notification.find({
 		'receiver_id': userId
 	}, null, {

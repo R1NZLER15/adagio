@@ -22,6 +22,6 @@ export class NotificationService {
   }
   dimissNotification(token, notification_id): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
-    return this._http.put(this.url + 'dimiss-notification/' + notification_id, {headers: headers});
+    return this._http.get(this.url + 'dimiss-notification/' + notification_id, {headers: headers});
   }
 }

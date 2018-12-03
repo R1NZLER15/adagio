@@ -3,12 +3,12 @@
     <div class="card form col-lg-8 content">
       <form #publicationForm="ngForm" (ngSubmit)="onSubmit(publicationForm)" *ngIf="identity" class="form-group">
         <!--<label for="text_field"></label>-->
-        <textarea name="text_field" #text_field="ngModel" [(ngModel)]="publication.text_field" class="form-control" name="text_field" rows="4"></textarea>
+        <textarea name="text_field" #text_field="ngModel" [(ngModel)]="publication.text" class="form-control" name="text_field" rows="4"></textarea>
         <button type="submit" [disabled]="!publicationForm.form.valid" class="btn-form btn adagio-gray">Publicar</button>
         <label for="file-upload" class="custom-file-upload btn-form btn btn-file">
-          <i class="fas fa-camera"></i><i *ngIf="publication.media_field" class="fas fa-check"></i>
+          <i class="fas fa-camera"></i><i *ngIf="publication.media_file" class="fas fa-check"></i>
         </label>
-        <input name="media_field" #media_field="ngModel" [(ngModel)]="publication.media_field" id="file-upload" type="file" accept=".png, .jpg, .jpeg"/>
+        <input name="media_file" #media_file="ngModel" [(ngModel)]="publication.media_file" id="file-upload" type="file" accept=".png, .jpg, .jpeg"/>
         <label for="file-upload" class="custom-file-upload btn-form btn btn-file">
           <i class="fas fa-file-pdf"></i>
         </label>
@@ -23,6 +23,7 @@
     </div>
     <div *ngIf="publications" class="col-lg-8 content">
       <div *ngFor="let publication of publications" class="card publication">
+        <img *ngIf="publication.media_file" class="card-img-top media" src="{{ url +'get-media/' + publication.media_file }}">
         <div class="card-body">
           <img class="avatar" src="{{ url +'get-user-avatar/' + publication.user_id.avatar }}" *ngIf="publication.user_id.avatar">
           <div class="publication-header">
@@ -32,8 +33,7 @@
               <small class="nick"> @{{publication.user_id.unique_nick}}</small>
             </h6>
           </div>
-          <p class="card-text">{{publication.text_field}}</p>
-          <img class="card-img-bottom" src="{{ url +'get-publication-media/' + publication.media_file }}" *ngIf="publication.media_file">
+          <pre class="card-text">{{publication.text}}</pre>
           <button class="btn btn-sm" (click)="saveLike()"><i class="fas fa-chevron-up"></i><span *ngIf="publication.likes > 0"> {{publication.likes}}</span></button>
           <button class="btn btn-sm" (click)="openComments()"><i class="fas fa-comment-alt"></i></button>
           <button class="btn btn-sm disabled" (click)="sharePublication()"><i class="fas fa-share"></i></button>

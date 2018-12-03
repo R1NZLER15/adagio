@@ -15,7 +15,7 @@ api.post('/save-publication', [md_auth.verifyAuth, md_upload], PublicationContro
 api.post('/edit-publication/:publicationId', md_auth.verifyAuth, PublicationController.editPublication);
 api.delete('/delete-publication/:publicationId', md_auth.verifyAuth, PublicationController.deletePublication);
 //get - publications
-api.get('/get-media/:media_file', md_auth.verifyAuth, PublicationController.getMediaFile);
+api.get('/get-media/:media_file', PublicationController.getMediaFile);
 api.get('/get-document/:document_file', md_auth.verifyAuth, PublicationController.getDocumentFile);
 api.get('/publication/:publicationId', md_auth.verifyAuth, PublicationController.getPublication);
 api.get('/publications/:page?', md_auth.verifyAuth, PublicationController.getPublications);

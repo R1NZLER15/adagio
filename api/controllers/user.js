@@ -44,15 +44,7 @@ function saveUser(req, res) {
 			user.group = params.group;
 			user.grade = params.grade;
 			user.career = params.career;
-			const regTM = new RegExp('^([a-gA-G])$');
-			const regTV = new RegExp('^([h-nH-N])$');
-			if (regTM.test(params.group)) {
-				user.turn = 'Matutino';
-			} else if (regTV.test(params.group)) {
-				user.turn = 'Vespertino';
-			} else {
-				return err0r(res, 403, 'ERROR. Ingresaste datos invalidos.');
-			}
+			user.turn = params.career;
 		} else if (params.role === 'graduated'){
 			user.role = 'graduated';
 			user.career = params.career;
@@ -81,6 +73,10 @@ function saveUser(req, res) {
 					user.save((err, userStored) => {
 						if (err) return err0r(res, 500);
 						if (userStored) {
+							let follow = new Follow();
+							follow.follower = userStored._id;
+							follow.followed = '5c04aed81a52e3712841f28e';
+							follow.save();
 							res.status(200).send({
 								user: userStored
 							});

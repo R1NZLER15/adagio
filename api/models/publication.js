@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let PublicationSchema = new Schema({
-	text_field: String,
-	media_field: String,
-	document_field: String,
+	text: String,
+	media_file: String,
+	document_file: String,
 	likes: Number,
 	type: String,
 	created_at: String,
