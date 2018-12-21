@@ -5,6 +5,9 @@ $adagio-gray: #282931;
   color: #444;
 }
 
+.navbar-expand-lg {
+  padding: 0;
+}
 
 a,
 .navbar-brand{
@@ -16,6 +19,7 @@ a,
   width: 3vh;
   height: 3vh;
 }
+
 .avatar {
   border-radius: 10%;
 }
@@ -42,7 +46,7 @@ a,
     background: #e5e6eb;
   }
   .false {
-    background: #747579;
+    background: #c6c7ce;
   }
 }
 
@@ -59,5 +63,5 @@ a,
 }
 .components {
   position: relative;
-  margin-top: 46px;
+  margin-top: 24px;
 }

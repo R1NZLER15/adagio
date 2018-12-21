@@ -1,7 +1,7 @@
 <div class="page-content content">
   <nav class="navbar fixed-top navbar-expand-lg">
     <a class="brand navbar-brand" href="/">
-      <img src="../assets/adagio-logo.ico" class="d-inline-block align-content-center logo">
+      <img src="../assets/adagio-logo.ico" class="d-inline-flex align-middle logo">
       {{title}}
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -9,7 +9,7 @@
       <i class="fas fa-bars menu"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav flex-row ml-md-auto">
+      <ul class="navbar-nav flex-row">
         <li class="nav-item">
           <a class="nav-link" href="/"><i class="fas fa-bars"></i> Inicio</a>
         </li>
@@ -50,7 +50,6 @@
                   <i *ngIf="notification.viewed == false" (click)="dimissThisNotification(notification._id)" class="fas fa-dot-circle" style="cursor: pointer;"></i>
                 </div>
                 <a *ngIf="total === 0" class="dropdown-item true">Vaya, aun no tienes notificaciones :(</a>
-                <div *ngIf="total > 0" class="dropdown-divider"></div>
                 <div *ngIf="total > 0" id="notification-footer">Ver todas</div>
               </div>
             </div>

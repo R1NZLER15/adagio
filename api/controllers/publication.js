@@ -4,12 +4,13 @@ const Like = require('../models/user_like');
 const Comment = require('../models/publication_comment');
 const User = require('../models/user');
 const Follow = require('../models/follower_followed');
-/*const Group = require('../models/group');
-const GroupMember = require('../models/group_member');*/
+const Group = require('../models/group');
+const GroupMember = require('../models/group_member');
 const Notification = require('../models/notification');
 const path = require('path');
 const fs = require('fs');
 const moment = require('moment');
+const itemsPerPage = 10;
 
 function err0r(res, statusCode, msg) {
 	if (!statusCode) {
@@ -191,7 +192,7 @@ function editPublication(req, res) {
 	Publication.findById(publicationId, (err, result) => {
 		if (err) return err0r(res, 500, err);
 		if (!result) return err0r(res, 404, 'ERR0R. Esta publicación no existe.');
-		if (userId != result.user_id) return err0r(res, 403, 'ERR0R. Acceso denegado.');
+		if (userId != result.user_id || req.user.role != 'administrator') return err0r(res, 403, 'ERR0R. Acceso denegado.');
 		Publication.findByIdAndUpdate(publicationId, {
 			$set: {
 				text: params.text,
@@ -246,11 +247,11 @@ function getPublication(req, res) {
 
 //Get global & popular posts
 function getPublications(req, res) {
-	const itemsPerPage = 5;
 	let page = 1;
 	if (req.params.page) {
 		page = parseInt(req.params.page);
 	}
+	//! Volver esto compatible con las publicaciones de grupos privados
 	Publication.find({}, null, {
 		skip: (itemsPerPage * (page - 1)),
 		limit: itemsPerPage
@@ -271,13 +272,44 @@ function getPublications(req, res) {
 		select: '-password'
 	});
 }
+
+//Get posts from a group
+function getGroupPublications(req, res) {
+	let page = 1;
+	let total;
+	const userId = req.user.sub;
+	const groupId = req.params.group_id;
+	if(req.params.page) {
+		page = req.params.page;
+	}
+	Group.findById(groupId, (err, group) => {
+		if(err) return err0r(res);
+		if(!group) return err0r(res, 404, 'Este grupo no existe');
+		GroupMember.findOne({'user_id': userId, 'group_id': groupId},(err, groupMember) => {
+			if(err) return err0r(res);
+			if(!groupMember && group.privacy == 'private') return err0r(res, 403, 'No puedes ver las publicaciones de este grupo.');
+			Publication.find({'group_id': groupId}, null, {
+				skip: (itemsPerPage * (page - 1)),
+				limit: itemsPerPage
+			}, (err, publications) => {
+				if(err) return err0r(res);
+				res.status(200).send({
+					total,
+					pages: Math.ceil(total / itemsPerPage),
+					page: page,
+					publications
+				});
+			});
+		});
+	});
+}
+
 //Get posts only from the people that i follow
 function getFollowedPublications(req, res) {
 	let page = 1;
 	if (req.params.page) {
 		page = parseInt(req.params.page);
 	}
-	const itemsPerPage = 5;
 	Follow.find({
 		follower: req.user.sub
 	}).populate({
@@ -319,6 +351,7 @@ function getFollowedPublications(req, res) {
 		});
 	});
 }
+
 //Get posts from a single user
 function getUserPublications(req, res) {
 	let page = 1;
@@ -326,7 +359,6 @@ function getUserPublications(req, res) {
 	if (req.params.page) {
 		page = parseInt(req.params.page);
 	}
-	const itemsPerPage = 5;
 	Publication.find({
 		'user_id': userId
 	}, null, {
@@ -532,7 +564,6 @@ function getPublicationComments(req, res) {
 	if (req.params.page) {
 		page = parseInt(req.params.page);
 	}
-	const itemsPerPage = 5;
 	Publication.findById(publicationId, (err, publication) => {
 		if (err) return err0r(res, 500, err);
 		if (!publication) return err0r(res, 404, 'ERR0R. No existe esta publicación');
@@ -643,6 +674,7 @@ module.exports = {
 	getMediaFile,
 	getDocumentFile,
 	getPublications,
+	getGroupPublications,
 	getPublication,
 	getUserPublications,
 	getFollowedPublications,

@@ -20,6 +20,7 @@ api.get('/user/:id', md_auth.verifyAuth, UserController.getUser);
 api.get('/users/:page?', md_auth.verifyAuth, UserController.getUsers);
 api.put('/update-user/:id', md_auth.verifyAuth, UserController.updateUser);
 api.post('/upload-user-avatar/:id', [md_auth.verifyAuth, md_upload_avatar], UserController.uploadAvatar);
+api.post('/upload-user-cover/:id', [md_auth.verifyAuth, md_upload_cover], UserController.uploadCover);
 api.get('/get-user-avatar/:avatarFile', UserController.getAvatarFile);
 api.post('/upload-user-cover/:id', [md_auth.verifyAuth, md_upload_cover], UserController.uploadCover);
 api.get('/get-user-cover/:coverFile', UserController.getCoverFile);

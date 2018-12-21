@@ -43,13 +43,16 @@ p {
 }
 
 .nav-link,
-.link {
+.link,
+a {
   color: $adagio-green;
 }
 
 .nav-link:hover,
-.link:hover {
+.link:hover,
+a:hover {
   color: #1a9442;
+  text-decoration: none;
 }
 
 .nick {

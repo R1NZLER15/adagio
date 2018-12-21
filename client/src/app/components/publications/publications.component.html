@@ -13,7 +13,7 @@
           <i class="fas fa-file-pdf"></i>
         </label>
         <input name="document_field" #document_field="ngModel" [(ngModel)]="publication.document_field" id="file-upload" type="file" accept=".pdf"/>
-        <select name="type" #type="ngModel" [(ngModel)]="publication.type" *ngIf="identity.role === 'administrator' || identity.role === 'developer'" class="custom-select form-group form-control-sm">
+        <select name="type" #type="ngModel" [(ngModel)]="publication.type" *ngIf="identity.role === 'administrator'" class="custom-select form-group form-control-sm">
           <option value="default" selected>Publicación normal</option>
           <option value="aviso">Aviso</option>
           <option value="convocatoria">Convocatoria</option>
