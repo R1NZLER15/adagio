@@ -16,8 +16,8 @@ a,
 
 .avatar,
 .logo {
+  height: auto;
   width: 3vh;
-  height: 3vh;
 }
 
 .avatar {
@@ -54,10 +54,6 @@ a,
   padding: 0.5vh;
 }
 
-.nav-link {
-  margin-left: 0.5vh;
-  margin-right: 0.5vh;
-}
 .logout {
   color: #923030;
 }

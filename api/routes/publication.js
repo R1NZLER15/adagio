@@ -22,8 +22,7 @@ api.get('/publications/:page?', md_auth.verifyAuth, PublicationController.getPub
 api.get('/user-publications/:user_id/:page?', md_auth.verifyAuth, PublicationController.getUserPublications);
 api.get('/followed-publications/:page?', md_auth.verifyAuth, PublicationController.getFollowedPublications);
 //like/unlike - publication
-api.post('/like-publication/:publicationId?', md_auth.verifyAuth, PublicationController.savePublicationLike);
-api.delete('/unlike-publication/:publicationId?', md_auth.verifyAuth, PublicationController.deletePublicationLike);
+api.put('/like-publication/:publicationId?', md_auth.verifyAuth, PublicationController.LikePublication);
 //save/edit/delete - comment
 api.post('/save-comment/:publicationId?', md_auth.verifyAuth, PublicationController.savePublicationComment);
 api.post('/edit-comment/:publicationId?', md_auth.verifyAuth, PublicationController.editPublicationComment);

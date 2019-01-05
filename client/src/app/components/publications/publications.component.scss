@@ -78,10 +78,11 @@ pre {
 
     .btn {
         margin-right: 1vh;
+        padding: 0;
     }
 
     .btn-sm {
-        border-radius: 10%;
+        border-radius: 0%;
         background: none;
         color: $adagio-gray;
         &:hover {
@@ -94,11 +95,13 @@ pre {
     margin: 0.5vh;
     border: 1px solid #28293123;
     textarea {
+        flex-wrap: break-word;
         resize: none;
         border-radius: 0;
     }
     .btn {
-        margin: 0.5vh; 
+        border-radius: 5%;
+        margin: 0.5vh;
     }
     input[type="file"] {
         display: none;

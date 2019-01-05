@@ -56,7 +56,6 @@ function saveUser(req, res) {
 		user.cover = 'default-cover.png';
 		user.about = '';
 		user.join_date = moment().unix();
-		//TODO: Find a way to verify if the user data matches an existing user from the school DB
 		User.find({
 			$or: [{
 				'unique_nick': user.unique_nick.toLowerCase()

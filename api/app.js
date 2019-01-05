@@ -10,6 +10,7 @@ const publication_routes = require('./routes/publication');
 const statistics_routes = require('./routes/statistics');
 const message_routes = require('./routes/message');
 const notification_routes = require('./routes/notification');
+const token_routes = require('./routes/token');
 
 //middlewares
 app.use(bodyParser.urlencoded({
@@ -34,6 +35,7 @@ app.use('/api', publication_routes);
 app.use('/api', statistics_routes);
 app.use('/api', message_routes);
 app.use('/api', notification_routes);
+app.use('/api', token_routes);
 
 //export
 module.exports = app;

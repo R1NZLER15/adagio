@@ -388,7 +388,7 @@ function getUserPublications(req, res) {
 //*LIKE/UNLIKE - PUBLICATIONS
 
 
-function savePublicationLike(req, res) {
+function LikePublication(req, res) {
 	let params = req.body;
 	let userId = req.user.sub;
 	let publicationId = params.publicationId;
@@ -400,7 +400,27 @@ function savePublicationLike(req, res) {
 		'publication_id': publicationId
 	}, (err, result) => {
 		if (err) return err0r(res, 500, err);
-		if (result) return err0r(res, 403, 'ERR0R. Ya existe este me gusta.');
+		if (result) {
+			Like.findOneAndRemove({
+				'user_id': userId,
+				'publication_id': publicationId
+			}, (err) => {
+				if (err) return err0r(res, 500, err);
+				Publication.findByIdAndUpdate(publicationId, {
+					$inc: {
+						'likes': -1
+					}
+				}, {
+					new: true
+				},(err, publication) => {
+					if (err) return err0r(res);
+					return res.status(200).send({
+						message: 'Ya no te gusta ésta publicación.',
+						publication: publication
+					});
+				});
+			});
+		}
 		if (!result) {
 			Publication.findByIdAndUpdate(publicationId, {
 				$inc: {
@@ -426,40 +446,8 @@ function savePublicationLike(req, res) {
 	});
 }
 
-function deletePublicationLike(req, res) {
-	let params = req.body;
-	let userId = req.user.sub;
-	let publicationId = params.publicationId;
-	if (req.params.publicationId) {
-		publicationId = req.params.publicationId;
-	}
-	Like.findOneAndRemove({
-		'user_id': userId,
-		'publication_id': publicationId
-	}, (err, result) => {
-		if (err) return err0r(res, 500, err);
-		if (!result) return err0r(res, 403, 'ERR0R. No existe este me gusta.');
-		if (result) {
-			Publication.findByIdAndUpdate(publicationId, {
-				$inc: {
-					'likes': -1
-				}
-			}, {
-				new: true
-			}, (err, updatedLikes) => {
-				if (err) return err0r(res, 500, err);
-				res.status(200).send({
-					updatedLikes: updatedLikes
-				});
-			});
-		}
-	});
-}
-
-
 //* SAVE/EDIT/DELETE - COMMENTS
 //TODO: Move the comment functions onto their own controller file
-
 
 function savePublicationComment(req, res) {
 	let params = req.body;
@@ -678,8 +666,7 @@ module.exports = {
 	getPublication,
 	getUserPublications,
 	getFollowedPublications,
-	savePublicationLike,
-	deletePublicationLike,
+	LikePublication,
 	savePublicationComment,
 	editPublicationComment,
 	deletePublicationComment,
