@@ -15,9 +15,11 @@
       <div class="row">
         <div *ngIf="user" class="col-lg-2">
             <small><i class="fas fa-user-alt"></i> {{user.names}} {{user.fst_surname}} {{user.snd_surname}}<br></small>
+            <small *ngIf="user.grade && user.group"><i class="fas fa-chalkboard"></i>Semestre: {{user.grade}} Grupo: {{user.group}}</small>
+            <small *ngIf="user.career"><i class="fa fa-university" aria-hidden="true"></i>Carrera: {{user.career}}</small>
             <small *ngIf="user.about"> {{user.about}}<br></small>
             <small><i class="fas fa-calendar"></i> Se unió {{(user.join_date | amFromUnix) | amLocale:'es_mx' | amTimeAgo}}<br></small>
-            <small *ngIf="user.birthday"><i class="fas fa-birthday-cake"></i> Cumple años {{user.birthday}}<br></small>
+            <small *ngIf="user.birthday"><i class="fas fa-birthday-cake"></i> Cumpleaños {{user.birthday}}<br></small>
         </div>
         <div *ngIf="publications" class="col-lg-8">
           <div *ngFor="let publication of publications" class="card publication">

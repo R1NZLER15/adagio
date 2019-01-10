@@ -1,7 +1,7 @@
 <div class="page-content content">
-  <nav class="navbar fixed-top navbar-expand-lg">
+  <nav class="navbar fixed-top navbar-expand-lg" style="line-height: 0;">
     <a class="brand navbar-brand" href="/">
-      <img src="../assets/adagio-logo.png" width="25" height="25" class="logo">
+      <img src="../assets/adagio-logo.png" class="d-inline-block logo mx-auto" alt="">
       {{title}}
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -54,8 +54,8 @@
               </div>
             </div>
           </li>
-          <li *ngIf="identity" class="">
-            <a *ngIf="identity" class="avatar-link" href="{{'/profile/' + identity._id}}"><img class="fas avatar" src="{{ url + 'get-user-avatar/' + identity.avatar }}"/></a>
+          <li *ngIf="identity" class="nav-item">
+            <a *ngIf="identity" class="nav-link" href="{{'/profile/' + identity._id}}"><img class="avatar mx-auto d-block" src="{{url + 'get-user-avatar/' + identity.avatar}}"/></a>
           </li>
           <li *ngIf="identity" class="nav-item">
             <a *ngIf="identity" class="nav-link logout" (click)="logout()" href="/login"><i class="fas fa-sign-out-alt"></i></a>
