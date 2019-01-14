@@ -5,6 +5,10 @@
 $adagio-green: #20bf55;
 $adagio-gray: #282931;
 
+* {
+  font-family: 'Roboto';
+}
+
 *:focus {
   outline: none !important;
   outline-color: $adagio-green;
@@ -16,26 +20,9 @@ body {
   overflow-anchor: none;
   background: #e5e6eb;
 }
-h1,
-h2,
-span,
-label,
-pre,
-p {
-  font-family: 'Roboto';
-}
 
 .page-content {
   background: #e5e6eb;
-}
-
-.brand {
-  font-size: 5vh;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  font-weight: 1000;
-  background: -webkit-linear-gradient(0deg, $adagio-green, #12973f);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .navbar {

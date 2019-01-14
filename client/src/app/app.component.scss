@@ -1,18 +1,27 @@
 $adagio-green: #20bf55;
 $adagio-gray: #282931;
 
-* {
-  padding: 0;
-}
-
 .menu{
   color: #444;
 }
 
 .logo {
-  object-position: center;
+  align-self: center;
   height: 25px;
   width: 25px;
+}
+
+.navbar-collapse {
+  line-height: 20px;
+}
+
+.navbar-nav {
+  padding-top: unset;
+  padding-bottom: unset;
+}
+
+.nav-link {
+  padding-right: unset;
 }
 
 .avatar {
@@ -23,6 +32,7 @@ $adagio-gray: #282931;
 }
 
 .dropdown-menu {
+  position: relative;
   border-radius: 0;
   right: 0;
   left: unset;
@@ -51,5 +61,5 @@ $adagio-gray: #282931;
 
 .components {
   position: relative;
-  margin-top: 25px;
+  margin-top: 48px;
 }
