@@ -2,6 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
+import { NotificationService } from '../../services/notification.service';
+import { Notification } from '../../models/notification';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +17,18 @@ export class LoginComponent implements OnInit {
   public status: String;
   public identity;
   public token;
+  public page;
+  public total;
+  public pages;
+  public itemsPerPage;
+  public notifications: Notification[];
+  public unviewedNotifications;
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _userService: UserService
+    private _userService: UserService,
+    private _notificationService: NotificationService,
   ) {
     this.title = 'Inicia sesión';
     this.user = new User(
@@ -83,6 +92,8 @@ export class LoginComponent implements OnInit {
       response => {
         localStorage.setItem('stats', JSON.stringify(response));
         this.status = 'success';
+        this.getUnviewedNotifications();
+        this.getNotifications(this.page);
         this._router.navigate(['/']);
       },
       error => {
@@ -90,4 +101,42 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+  getUnviewedNotifications() {
+    if (this.identity != null) {
+      this._notificationService.getUnviewedNotifications(this.token).subscribe(
+        response => {
+          this.unviewedNotifications = response.notifications;
+        }
+      );
+    }
+  }
+  
+  getNotifications(page, adding = false) {
+    if (this.identity != null) {
+      this._notificationService.getNotifications(this.token, page).subscribe(
+        response => {
+          if (response.notifications) {
+            this.total = response.total;
+            this.pages = response.pages;
+            this.itemsPerPage = response.items_per_page;
+  
+            if (!adding) {
+              this.notifications = response.notifications;
+              console.log(this.total);
+            } else {
+              const arrayA = this.notifications;
+              const arrayB = response.notifications;
+              this.notifications = arrayA.concat(arrayB);
+              $('html, body');
+            }
+            if (page > this.pages) {
+            }
+          } else {
+            this.status = 'error';
+          }
+        }
+      );
+    }
+  }
+  
 }

@@ -11,7 +11,7 @@ import { PublicationService } from 'src/app/services/publication.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  styleUrls: ['./profile.component.scss', '../publications.component.scss'],
   providers: [UserService, FollowService, PublicationService]
 })
 export class ProfileComponent implements OnInit {

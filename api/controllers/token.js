@@ -50,7 +50,7 @@ function saveToken(req, res) {
 		newToken.created_at = moment().unix();
 		newToken.expires_at = moment().add(30, 'days').unix();
 		console.log(newToken);
-		//newToken.save();
+		newToken.save();
 	}
 }
 

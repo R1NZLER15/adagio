@@ -11,15 +11,15 @@
         </div>
       </div> 
     </div>
-    <div class="col-lg-11 content">
+    <div class="col-lg-12 content">
       <div class="row">
         <div *ngIf="user" class="col-lg-2">
-            <small><i class="fas fa-user-alt"></i> {{user.names}} {{user.fst_surname}} {{user.snd_surname}}<br></small>
-            <small *ngIf="user.grade && user.group"><i class="fas fa-chalkboard"></i>Semestre: {{user.grade}} Grupo: {{user.group}}</small>
-            <small *ngIf="user.career"><i class="fa fa-university" aria-hidden="true"></i>Carrera: {{user.career}}</small>
-            <small *ngIf="user.about"> {{user.about}}<br></small>
-            <small><i class="fas fa-calendar"></i> Se unió {{(user.join_date | amFromUnix) | amLocale:'es_mx' | amTimeAgo}}<br></small>
-            <small *ngIf="user.birthday"><i class="fas fa-birthday-cake"></i> Cumpleaños {{user.birthday}}<br></small>
+            <p><i class="fas fa-user-alt"></i> {{user.names}}<br>{{user.fst_surname}} {{user.snd_surname}}</p>
+            <p *ngIf="user.grade && user.group"><i class="fas fa-chalkboard"></i> Semestre: {{user.grade}} Grupo: {{user.group}}</p>
+            <p *ngIf="user.career"><i class="fa fa-university" aria-hidden="true"></i> Carrera: {{user.career}}</p>
+            <p *ngIf="user.about"> {{user.about}}<br></p>
+            <p><i class="fas fa-calendar"></i> Se unió {{(user.join_date | amFromUnix) | amLocale:'es_mx' | amTimeAgo}}<br></p>
+            <p *ngIf="user.birthday"><i class="fas fa-birthday-cake"></i> Cumpleaños {{user.birthday}}<br></p>
         </div>
         <div *ngIf="publications" class="col-lg-8">
           <div *ngFor="let publication of publications" class="card publication">
@@ -33,7 +33,7 @@
                   <small class="nick"> @{{publication.user_id.unique_nick}}</small>
                 </h6>
               </div>
-              <pre class="card-text">{{publication.text}}</pre>
+              <p class="card-text">{{publication.text}}</p>
               <button class="btn btn-sm" (click)="saveLike()"><i class="fas fa-chevron-up"></i><span *ngIf="publication.likes > 0"> {{publication.likes}}</span></button>
               <button class="btn btn-sm" (click)="openComments()"><i class="fas fa-comment-alt"></i></button>
               <button class="btn btn-sm disabled" (click)="sharePublication()"><i class="fas fa-share"></i></button>

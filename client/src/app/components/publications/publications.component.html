@@ -5,14 +5,14 @@
         <!--<label for="text_field"></label>-->
         <textarea name="text_field" #text_field="ngModel" [(ngModel)]="publication.text" class="form-control" name="text_field" rows="4"></textarea>
         <button type="submit" [disabled]="!publicationForm.form.valid" class="btn-form btn adagio-gray">Publicar</button>
-        <label for="file-upload" class="custom-file-upload btn-form btn btn-file">
+        <label for="file-upload-media" class="custom-file-upload btn-form btn btn-file">
           <i class="fas fa-camera"></i><i *ngIf="publication.media_file" class="fas fa-check"></i>
         </label>
-        <input name="media_file" #media_file="ngModel" [(ngModel)]="publication.media_file" id="file-upload" type="file" accept=".png, .jpg, .jpeg"/>
-        <label for="file-upload" class="custom-file-upload btn-form btn btn-file">
-          <i class="fas fa-file-pdf"></i>
+        <input name="media_file" #media_file="ngModel" [(ngModel)]="publication.media_file" id="file-upload-media" type="file" accept=".png, .jpg, .jpeg"/>
+        <label for="file-upload-document" class="custom-file-upload btn-form btn btn-file">
+          <i class="fas fa-file-pdf"></i><i *ngIf="publication.document_file" class="fas fa-check"></i>
         </label>
-        <input name="document_field" #document_field="ngModel" [(ngModel)]="publication.document_field" id="file-upload" type="file" accept=".pdf"/>
+        <input name="document_field" #document_field="ngModel" [(ngModel)]="publication.document_file" id="file-upload-document" type="file" accept=".pdf, .docx, .doc"/>
         <select name="type" #type="ngModel" [(ngModel)]="publication.type" *ngIf="identity.role === 'administrator'" class="custom-select form-group form-control-sm">
           <option value="default" selected>Publicación normal</option>
           <option value="aviso">Aviso</option>
@@ -33,7 +33,7 @@
               <small class="nick"> @{{publication.user_id.unique_nick}}</small>
             </h6>
           </div>
-          <pre class="card-text">{{publication.text}}</pre>
+          <p class="card-text">{{publication.text}}</p>
           <button class="btn btn-sm" (click)="saveLike()"><i class="fas fa-chevron-up"></i><span *ngIf="publication.likes > 0"> {{publication.likes}}</span></button>
           <button class="btn btn-sm" (click)="openComments()"><i class="fas fa-comment-alt"></i></button>
           <button class="btn btn-sm disabled" (click)="sharePublication()"><i class="fas fa-share"></i></button>

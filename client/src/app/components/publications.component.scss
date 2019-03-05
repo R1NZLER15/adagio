@@ -1,9 +1,10 @@
 $adagio-green: #20bf55;
 $adagio-gray: #282931;
 
-pre {
+p {
     font-family: 'Roboto';
     font-size: 100%;
+    white-space: pre
 }
 .row {
     padding-left: 0;
@@ -29,21 +30,20 @@ pre {
 
 .publication {
     border-radius: 0;
-    margin-top: 1vh;
+    margin-top: 0.5vh;
 }
 
 .card-image-top {
     border-radius: 0;
     padding: 0;
     margin: 0;
-    width: 100%;
+    max-height: 70vh;
 }
 
 .card,
 .card-body {
     border: 0;
     border-radius: 0;
-    padding: 0.5vh;
     margin-bottom: 0.2vh;
 
     .publication-header {
@@ -97,17 +97,16 @@ pre {
     textarea {
         flex-wrap: break-word;
         resize: none;
-        border-radius: 0;
+        border: none;
     }
-    .btn {
-        border-radius: 5%;
+    .btn,button {
         margin: 0.5vh;
+        border: none;
     }
     input[type="file"] {
         display: none;
     }
     .custom-file-upload {
-        border: 1px solid #ccc;
         display: inline-block;
         padding: 6px 12px;
         cursor: pointer;

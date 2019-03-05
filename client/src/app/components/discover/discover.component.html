@@ -12,7 +12,7 @@
               <small class="nick"> @{{publication.user_id.unique_nick}}</small>
             </h6>
           </div>
-          <pre class="card-text">{{publication.text}}</pre>
+          <p class="card-text">{{publication.text}}</p>
           <button class="btn btn-sm" (click)="saveLike()"><i class="fas fa-chevron-up"></i><span *ngIf="publication.likes > 0"> {{publication.likes}}</span></button>
           <button class="btn btn-sm" (click)="openComments()"><i class="fas fa-comment-alt"></i></button>
           <button class="btn btn-sm disabled" (click)="sharePublication()"><i class="fas fa-share"></i></button>

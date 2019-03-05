@@ -8,7 +8,7 @@ import { PublicationService } from '../../services/publication.service';
 @Component({
   selector: 'app-discover',
   templateUrl: './discover.component.html',
-  styleUrls: ['./discover.component.scss'],
+  styleUrls: ['../publications.component.scss'],
   providers: [UserService, PublicationService]
 })
 export class DiscoverComponent implements OnInit {

@@ -31,20 +31,22 @@ $adagio-gray: #282931;
   width: 16px;
 }
 
+.notif:hover {
+  cursor: pointer;
+}
+
+.notification-hf {
+  background: white;
+}
+
 .dropdown-menu {
   position: relative;
   border-radius: 0;
   right: 0;
   left: unset;
   padding: 0;
-  #notification-header,
-  #notification-footer {
-    background: $adagio-gray;
-    color: #20bf55;
-    padding-left: 0.5vh;
-  }
   .true {
-    background: #e5e6eb;
+    background: none;
   }
   .false {
     background: #c6c7ce;

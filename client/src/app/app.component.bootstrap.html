@@ -35,10 +35,9 @@
           </li>
           <li *ngIf="identity" class="nav-item">
             <div class="dropdown nav-link">
-              <i id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="fas fa-bell notif"><span *ngIf="unviewedNotifications && unviewedNotifications > 0"> {{unviewedNotifications}}</span></i>
+              <i id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="fas fa-bell"><span *ngIf="unviewedNotifications && unviewedNotifications > 0"> {{unviewedNotifications}}</span></i>
               <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" onclick="event.stopPropagation()">
-                <div class="notification-hf">Notificaciones</div>
-                <div class="dropdown-divider"></div>
+                <div id="notification-header">Notificaciones</div>
                 <div *ngFor="let notification of notifications" class="dropdown-item {{notification.viewed}}">
                   <a (click)="dimissThisNotification(notification._id)" class="link" href="{{notification.link}}">
                     <img class="avatar" src="{{ url + 'get-user-avatar/' + notification.emitter_id.avatar }}"/>
@@ -47,9 +46,8 @@
                   <i *ngIf="notification.viewed == true" class="fas fa-circle"></i>
                   <i *ngIf="notification.viewed == false" (click)="dimissThisNotification(notification._id)" class="fas fa-dot-circle" style="cursor: pointer;"></i>
                 </div>
-                <a *ngIf="total === 0" class="dropdown-item true">Vaya, no tienes notificaciones :(</a>
-                <div class="dropdown-divider"></div>
-                <div *ngIf="total > 0" class="notification-hf">Ver todas</div>
+                <a *ngIf="total === 0" class="dropdown-item true">Vaya, aun no tienes notificaciones :(</a>
+                <div *ngIf="total > 0" id="notification-footer">Ver todas</div>
               </div>
             </div>
           </li>

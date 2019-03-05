@@ -10,7 +10,7 @@ import { PublicationService } from '../../services/publication.service';
 @Component({
   selector: 'app-publications',
   templateUrl: './publications.component.html',
-  styleUrls: ['./publications.component.scss'],
+  styleUrls: ['../publications.component.scss'],
   providers: [UserService, PublicationService, FollowService]
 })
 export class PublicationsComponent implements OnInit {
