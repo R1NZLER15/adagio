@@ -42,9 +42,9 @@ p {
 
 .card,
 .card-body {
+    padding: 0.7vh;
     border: 0;
     border-radius: 0;
-    margin-bottom: 0.2vh;
 
     .publication-header {
         color: $adagio-gray;

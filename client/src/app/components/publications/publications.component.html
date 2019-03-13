@@ -2,7 +2,6 @@
   <div class="row justify-content-md-center">
     <div class="card form col-lg-8 content">
       <form #publicationForm="ngForm" (ngSubmit)="onSubmit(publicationForm)" *ngIf="identity" class="form-group">
-        <!--<label for="text_field"></label>-->
         <textarea name="text_field" #text_field="ngModel" [(ngModel)]="publication.text" class="form-control" name="text_field" rows="4"></textarea>
         <button type="submit" [disabled]="!publicationForm.form.valid" class="btn-form btn adagio-gray">Publicar</button>
         <label for="file-upload-media" class="custom-file-upload btn-form btn btn-file">
