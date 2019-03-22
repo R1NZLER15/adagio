@@ -34,7 +34,7 @@ function saveUser(req, res) {
 		user.names = params.names;
 		user.fst_surname = params.fst_surname;
 		user.snd_surname = params.snd_surname;
-		user.unique_nick = params.unique_nick;
+		user.unique_nick = params.unique_nick.toLowerCase();
 		user.email = params.email;
 		user.birthday = params.birthday;
 		user.gender = params.gender;
