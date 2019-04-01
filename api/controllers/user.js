@@ -29,7 +29,7 @@ function saveUser(req, res) {
 	const params = req.body;
 	let user = new User();
 	//TODO: Create a username/nick blacklist (profanity/false identity filter)
-	//TODO: 
+	//TODO:
 	if (params.names && params.unique_nick && params.email && params.password) {
 		user.names = params.names;
 		user.fst_surname = params.fst_surname;
@@ -45,7 +45,7 @@ function saveUser(req, res) {
 			user.grade = params.grade;
 			user.career = params.career;
 			user.turn = params.career;
-		} else if (params.role === 'graduated'){
+		} else if (params.role === 'graduated') {
 			user.role = 'graduated';
 			user.career = params.career;
 			user.group = params.group;
@@ -356,16 +356,18 @@ function updatePass(req, res) {
 		bcrypt.compare(oldPassword, userFound.password, (err, passwordsMatch) => {
 			if (err) return err0r(res, 500, err);
 			if (passwordsMatch) {
-				bcrypt.hash(newPassword, null, null, (err, hash)=>{	
-					User.findByIdAndUpdate(userId, {'password': hash},(err,passwordUpdated)=>{
+				bcrypt.hash(newPassword, null, null, (err, hash) => {
+					User.findByIdAndUpdate(userId, {
+						'password': hash
+					}, (err, passwordUpdated) => {
 						if (err) return err0r(res, 500, err);
 						res.status(201).send({
 							passwordUpdated
 						});
 					}).select('-password');
 				});
-			}else {
-				return err0r(res,404, 'Petición denegada, las contraseñas no coinciden');
+			} else {
+				return err0r(res, 404, 'Petición denegada, las contraseñas no coinciden');
 			}
 		});
 	});
