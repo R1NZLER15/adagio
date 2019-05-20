@@ -29,7 +29,6 @@ function saveUser(req, res) {
 	const params = req.body;
 	let user = new User();
 	//TODO: Create a username/nick blacklist (profanity/false identity filter)
-	//TODO:
 	if (params.names && params.unique_nick && params.email && params.password) {
 		user.names = params.names;
 		user.fst_surname = params.fst_surname;
@@ -376,6 +375,7 @@ function updatePass(req, res) {
 function deleteUser(req, res) {
 	//TODO
 }
+
 module.exports = {
 	userTest,
 	saveUser,

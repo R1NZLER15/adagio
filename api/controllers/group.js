@@ -160,7 +160,7 @@ function joinGroupRequest(res, userId, groupId) {
 	newRequest.groupId = groupId;
 	newRequest.created_at = moment().unix();
 	newRequest.save((err, requestSaved) => {
-		if(err) return err0r(res);
+		if (err) return err0r(res);
 		res.status(201).send({
 			requestSaved
 		});
@@ -176,19 +176,19 @@ function getJoinGroupRequests(req, res) {
 	const userId = req.user.sub;
 	const groupId = req.params.group_id;
 	Group.findById(groupId, (err, group) => {
-		if(err) return err0r(res);
-		if(group.group_admin != userId) return err0r(res, 403, 'Acceso denegado.');
+		if (err) return err0r(res);
+		if (group.group_admin != userId) return err0r(res, 403, 'Acceso denegado.');
 		GroupJoinRequest.find({
 			'group_id': groupId
 		}, null, {
 			skip: (itemsPerPage * (page - 1)),
 			limit: itemsPerPage
 		}, (err, requests) => {
-			if(err) return err0r(res);
+			if (err) return err0r(res);
 			GroupJoinRequest.countDocuments({
 				'group_id': groupId
 			}, (err, total) => {
-				if(err) return err0r(res);
+				if (err) return err0r(res);
 				res.status(200).send({
 					total: total,
 					pages: Math.ceil(total / itemsPerPage),
@@ -209,17 +209,17 @@ function interactJoinRequest(req, res) {
 	const decision = req.params.decision;
 	const userId = req.user.sub;
 	Group.findById(groupId, (err, group) => {
-		if(err) return err0r(res);
-		if(!group) return err0r(res, 404);
-		if(group.group_admin != userId) return err0r(res, 403, '¡Acceso denegado!');
+		if (err) return err0r(res);
+		if (!group) return err0r(res, 404);
+		if (group.group_admin != userId) return err0r(res, 403, '¡Acceso denegado!');
 		GroupJoinRequest.findById(requestId, (err, request) => {
-			if(err) return err0r(res);
-			if(!request) return err0r(res, 404, 'No existe esta solicitud');
-			if(decision == 'true') {
+			if (err) return err0r(res);
+			if (!request) return err0r(res, 404, 'No existe esta solicitud');
+			if (decision == 'true') {
 				const aprovedUserId = request.user_id;
 				return aproveRequest(res, aprovedUserId, groupId);
 			}
-			if(decision == 'false') {
+			if (decision == 'false') {
 				const rejectedUserId = request.user_id;
 				return rejectRequest(res, rejectedUserId, groupId);
 			}
@@ -253,8 +253,8 @@ function rejectRequest(res, rejectedUserId, groupId) {
 		'user_id': rejectedUserId,
 		'group_id': groupId
 	}, (err, success) => {
-		if(err) return err0r(res);
-		if(success) return res.stats(200).send({
+		if (err) return err0r(res);
+		if (success) return res.stats(200).send({
 			message: 'Usuario rechazado.'
 		});
 	});
@@ -291,8 +291,8 @@ function deleteGroupMember(req, res) {
 			'group_id': groupId,
 			'user_id': groupMember
 		}, (err, found) => {
-			if(err) return err0r(res,500,err);
-			if(!found) return err0r(res,404,'No se encotnró a este miembro');
+			if (err) return err0r(res, 500, err);
+			if (!found) return err0r(res, 404, 'No se encontró a este miembro');
 			res.status(200).send({
 				message: `Usuario ${groupMember} eliminado del grupo.`
 			});
