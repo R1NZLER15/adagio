@@ -651,7 +651,6 @@ function deletePublicationCommentLike(req, res) {
 	});
 }
 
-
 module.exports = {
 	publicationTest,
 	savePublication,
