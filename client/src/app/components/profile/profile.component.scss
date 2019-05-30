@@ -5,6 +5,13 @@ $adagio-gray: #282931;
     box-shadow: 0px 1px 5px #28293165;
 }
 
+.about {
+  text-align: center;
+  p {
+      margin: 0;
+  }
+}
+
 .card,
 .card-body {
     border: 0;

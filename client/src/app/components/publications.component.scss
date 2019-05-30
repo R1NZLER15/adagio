@@ -1,117 +1,162 @@
-$adagio-green: #20bf55;
-$adagio-gray: #282931;
+$adagio-green: #4CAF50;
+$adagio-gray: #15151f;
 
 p {
-    font-family: 'Roboto';
-    font-size: 100%;
-    white-space: pre
+  padding: 0.5em;
+  font-family: 'Roboto';
+  font-size: 100%;
+  white-space: pre-wrap;
 }
+
 .row {
-    padding-left: 0;
-    padding-right: 0;
-    margin-right: 0;
-    margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .content,
 .container-fluid {
-    padding-left: 0;
-    padding-right: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .publication,
 .form {
-    box-shadow: 0px 1px 5px #28293165;
+  box-shadow: 0px 1px 5px #15151f65;
 }
 
 .form {
-    margin-top: 0.5vh;
+  margin-top: 0.5em;
 }
 
 .publication {
-    border-radius: 0;
-    margin-top: 0.5vh;
-}
-
-.card-image-top {
-    border-radius: 0;
-    padding: 0;
-    margin: 0;
-    max-height: 70vh;
+  border-radius: 0;
+  margin-top: 1vh;
 }
 
 .card,
 .card-body {
-    padding: 0.7vh;
-    border: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+
+  .card-header {
     border-radius: 0;
+    padding: 0.5em;
+    background: $adagio-green;
+  }
 
-    .publication-header {
-        color: $adagio-gray;
-        .date {
-            color: #666;
-        }
-    }
+  .publication-header {
+    color: $adagio-gray;
 
-    .avatar {
-        float: left;
-        margin-right: 0.5vh;
-        border-radius: 10%;
-        height: 6vh;
-        width: 6vh;
+    .date {
+      color: #666;
     }
+  }
 
-    .card-text {
-        margin: 0;
-        clear: left;
-    }
+  .avatar {
+    float: left;
+    padding: 0.5em;
+    border-radius: 10%;
+    height: 8vh;
+    width: 8vh;
+  }
 
-    .names {
-        a {
-            color: black;
-        }
+  .card-text {
+    padding: 0 0.5em 0 0.5em;
+    margin: 0;
+    clear: left;
+  }
+
+  .names {
+    padding: 0.5em;
+    margin: 0;
+
+    a {
+      color: $adagio-gray;
     }
-    .nick, .names {
-        padding: 0;
-        margin: 0;
-    }
+  }
+
+  .card-img-bottom {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: cover;
+    padding: 0 0.5em 0 0.5em;
+  }
+
+  .publication-buttons {
+    padding: 1em;
 
     .btn {
-        margin-right: 1vh;
-        padding: 0;
+      margin-right: 0.5em;
+      padding: 0;
     }
 
     .btn-sm {
-        border-radius: 0%;
-        background: none;
-        color: $adagio-gray;
-        &:hover {
-            color: $adagio-green;
+      border-radius: 0%;
+      background: none;
+      color: $adagio-gray;
+
+      &:hover {
+        color: $adagio-green;
+      }
+
+      &:target {
+        animation: move 0.5s ease 0s 1;
+
+        @-webkit-keyframes move {
+          0% {
+            transform: translateY(0);
+          }
+
+          100% {
+            transform: translateY(-10px);
+          }
         }
+
+        @keyframes move {
+          0% {
+            transform: translateY(0);
+          }
+
+          100% {
+            transform: translateY(-10px);
+          }
+        }
+      }
+
     }
+  }
+
 }
 
 .form-group {
+  margin: 0.5vh;
+  border: 1px solid #28293123;
+
+  textarea {
+    white-space: pre;
+    resize: none;
+    border: none;
+  }
+
+  .btn,
+  button {
     margin: 0.5vh;
-    border: 1px solid #28293123;
-    textarea {
-        flex-wrap: break-word;
-        resize: none;
-        border: none;
-    }
-    .btn,button {
-        margin: 0.5vh;
-        border: none;
-    }
-    input[type="file"] {
-        display: none;
-    }
-    .custom-file-upload {
-        display: inline-block;
-        padding: 6px 12px;
-        cursor: pointer;
-    }
-    select {
-        width: auto;
-    }
+    border: none;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    padding: 0;
+    cursor: pointer;
+  }
+
+  select {
+    width: auto;
+  }
 }

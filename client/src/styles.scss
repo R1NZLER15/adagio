@@ -2,8 +2,11 @@
 @import './fontawesome/scss/fontawesome';
 @import './fontawesome/scss/solid';
 
-$adagio-green: #20bf55;
-$adagio-gray: #282931;
+$adagio-green: #4CAF50;
+$adagio-gray: #15151f;
+$adagio-white: #e9e9e9;
+
+//Old green: #20bf55
 
 * {
   font-family: 'Roboto';
@@ -11,22 +14,21 @@ $adagio-gray: #282931;
 
 *:focus {
   outline: none !important;
-  outline-color: $adagio-green;
   box-shadow: none !important;
 }
 
 html,
 body {
-  overflow-anchor: none;
-  background: #e5e6eb;
+  background: $adagio-white;
 }
 
+
 .page-content {
-  background: #e5e6eb;
+  background: $adagio-white;
 }
 
 .navbar {
-  background: #282931;
+  background: $adagio-gray;
 }
 
 .nav-link,
@@ -40,6 +42,7 @@ a {
 a:hover {
   color: #1a9442;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .nick {

@@ -15,29 +15,32 @@
           <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="login">
             <div class="form-group">
               <label for="email"><i class="fas fa-at"></i> E-Mail*</label>
-              <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control form-control-sm"
-                placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+              <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email"
+                class="form-control form-control-sm" placeholder="Email" required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
               <small *ngIf="!email.valid && email.touched">
                 ¡¡Este campo es obligatorio!!
               </small>
             </div>
             <div class="form-group">
               <label for="password"><i class="fas fa-user-secret"></i> Contraseña*</label>
-              <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control form-control-sm"
-                placeholder="Contraseña" required>
+              <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password"
+                class="form-control form-control-sm" placeholder="Contraseña" required>
               <small *ngIf="!password.valid && password.touched">
                 ¡¡Este campo es obligatorio!!
               </small>
             </div>
             <div class="form-row justify-content-md-center">
-              <button type="submit" class="btn btn-sm btn-dark" [disabled]="!loginForm.form.valid"><i class="fas fa-sign-in-alt"></i>
+              <button type="submit" class="btn btn-sm btn-dark" [disabled]="!loginForm.form.valid"><i
+                  class="fas fa-sign-in-alt"></i>
                 Iniciar sesión</button>
             </div>
           </form>
         </div>
         <div class="card-footer">
-          <p class="card-text">¿No tienes una cuenta? <a class="link" href="/register"><i class="fas fa-address-card"></i>
-              Registrate</a></p>
+          <p class="card-text">¿No tienes una cuenta? <i class="link" (click)="register()">
+            <i class="fas fa-address-card"></i> Registrate
+          </i></p>
         </div>
       </div>
     </div>

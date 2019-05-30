@@ -9,11 +9,11 @@
           <h6 class="nick">@{{user.unique_nick}}</h6>
           <small class="stats"><a class="stats-hover" href="#">Usuarios seguidos {{statsFollowing}}</a> | <a class="stats-hover" href="#">Seguidores {{statsFollowed}}</a> | <a class="stats-hover" href="#">Publicaciones {{statsPublications}}</a> | <a class="stats-hover" href="#">Likes {{statsReceivedLikes}}</a></small>
         </div>
-      </div> 
+      </div>
     </div>
     <div class="col-lg-12 content">
       <div class="row">
-        <div *ngIf="user" class="col-lg-2">
+        <div *ngIf="user" class="col-lg-2 about">
             <p><i class="fas fa-user-alt"></i> {{user.names}}<br>{{user.fst_surname}} {{user.snd_surname}}</p>
             <p *ngIf="user.grade && user.group"><i class="fas fa-chalkboard"></i> Semestre: {{user.grade}} Grupo: {{user.group}}</p>
             <p *ngIf="user.career"><i class="fa fa-university" aria-hidden="true"></i> Carrera: {{user.career}}</p>
@@ -23,20 +23,28 @@
         </div>
         <div *ngIf="publications" class="col-lg-8">
           <div *ngFor="let publication of publications" class="card publication">
-            <img *ngIf="publication.media_file" class="card-img-top media" src="{{ url +'get-media/' + publication.media_file }}">
+            <div *ngIf="publication.type" class="card-header"><i class="fas fa-megaphone"></i> Comunicado</div>
             <div class="card-body">
-              <img class="avatar" src="{{ url +'get-user-avatar/' + publication.user_id.avatar }}" *ngIf="publication.user_id.avatar">
+              <img class="avatar" src="{{ url +'get-user-avatar/' + publication.user_id.avatar }}"
+                *ngIf="publication.user_id.avatar">
               <div class="publication-header">
                 <h6 class="names">
                   <a href="{{ '/profile/' + publication.user_id._id }}">{{publication.user_id.names}}</a>
-                  <small class="date"> {{ (publication.created_at | amFromUnix) | amLocale:'es_mx' | amTimeAgo }}</small><br>
+                  <small class="date">
+                    {{ (publication.created_at | amFromUnix) | amLocale:'es_mx' | amTimeAgo }}</small><br>
                   <small class="nick"> @{{publication.user_id.unique_nick}}</small>
                 </h6>
               </div>
               <p class="card-text">{{publication.text}}</p>
-              <button class="btn btn-sm" (click)="saveLike()"><i class="fas fa-chevron-up"></i><span *ngIf="publication.likes > 0"> {{publication.likes}}</span></button>
-              <button class="btn btn-sm" (click)="openComments()"><i class="fas fa-comment-alt"></i></button>
-              <button class="btn btn-sm disabled" (click)="sharePublication()"><i class="fas fa-share"></i></button>
+              <img *ngIf="publication.media_file" class="card-img-bottom media"
+                src="{{ url +'get-media/' + publication.media_file }}">
+              <div class="publication-buttons">
+                <button class="btn btn-sm" (click)="saveLike()"><i class="fas fa-chevron-up"></i><span
+                    *ngIf="publication.likes > 0">
+                    {{publication.likes}}</span></button>
+                <button class="btn btn-sm" (click)="openComments()"><i class="fas fa-comment-alt"></i></button>
+                <button class="btn btn-sm disabled" (click)="sharePublication()"><i class="fas fa-share"></i></button>
+              </div>
             </div>
           </div>
           <div class="col-lg-12 text-center content" *ngIf="publications && publications.length && pages > 1">

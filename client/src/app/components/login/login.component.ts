@@ -1,9 +1,24 @@
-import { Component, OnInit} from '@angular/core';
-import { Router, ActivatedRoute, Params} from '@angular/router';
-import { User } from '../../models/user';
-import { UserService } from '../../services/user.service';
-import { NotificationService } from '../../services/notification.service';
-import { Notification } from '../../models/notification';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  Router,
+  ActivatedRoute,
+  Params
+} from '@angular/router';
+import {
+  User
+} from '../../models/user';
+import {
+  UserService
+} from '../../services/user.service';
+import {
+  NotificationService
+} from '../../services/notification.service';
+import {
+  Notification
+} from '../../models/notification';
 
 @Component({
   selector: 'app-login',
@@ -55,7 +70,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error => {
-        const errorMessage = <any>error;
+        const errorMessage = < any > error;
         console.log(errorMessage);
 
         if (errorMessage != null) {
@@ -78,7 +93,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error => {
-        const errorMessage = <any>error;
+        const errorMessage = < any > error;
         console.log(errorMessage);
         if (errorMessage != null) {
           this.status = 'error';
@@ -97,7 +112,7 @@ export class LoginComponent implements OnInit {
         this._router.navigate(['/']);
       },
       error => {
-        console.log(<any>error);
+        console.log( < any > error);
       }
     );
   }
@@ -110,7 +125,7 @@ export class LoginComponent implements OnInit {
       );
     }
   }
-  
+
   getNotifications(page, adding = false) {
     if (this.identity != null) {
       this._notificationService.getNotifications(this.token, page).subscribe(
@@ -119,7 +134,7 @@ export class LoginComponent implements OnInit {
             this.total = response.total;
             this.pages = response.pages;
             this.itemsPerPage = response.items_per_page;
-  
+
             if (!adding) {
               this.notifications = response.notifications;
               console.log(this.total);
@@ -129,8 +144,7 @@ export class LoginComponent implements OnInit {
               this.notifications = arrayA.concat(arrayB);
               $('html, body');
             }
-            if (page > this.pages) {
-            }
+            if (page > this.pages) {}
           } else {
             this.status = 'error';
           }
@@ -138,5 +152,9 @@ export class LoginComponent implements OnInit {
       );
     }
   }
-  
+
+  register() {
+    this.identity = null;
+    this._router.navigate(['/register']);
+  }
 }
