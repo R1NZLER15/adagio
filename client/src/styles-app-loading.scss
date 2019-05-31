@@ -2,8 +2,6 @@
   .logo {
     width: 100%;
     height: 100%;
-
-    // this way asset gets processed by webpack
     background: url(./favicon.ico) center center no-repeat;
   }
 }

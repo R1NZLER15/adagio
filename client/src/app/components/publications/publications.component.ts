@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Publication } from '../../models/publication';
 import { GLOBAL } from '../../services/global';
 import { Follow } from '../../models/follower_followed';
@@ -121,6 +122,9 @@ export class PublicationsComponent implements OnInit {
     this.getFollowedPublications(this.page, true);
   }
 
+  onScroll() {
+    this.viewMore();
+  }
   /*likeInteract(publication_id) {
     this._publicationService.likePublication().subscribe(
       response => {

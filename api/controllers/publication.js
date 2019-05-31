@@ -10,7 +10,7 @@ const Notification = require('../models/notification');
 const path = require('path');
 const fs = require('fs');
 const moment = require('moment');
-const itemsPerPage = 10;
+const itemsPerPage = 15;
 
 function err0r(res, statusCode, msg) {
 	if (!statusCode) {
@@ -20,6 +20,7 @@ function err0r(res, statusCode, msg) {
 		msg = 'ERR0R';
 	}
 	res.status(statusCode).send({
+		warn: '!Algo ha salido mal!',
 		message: msg
 	});
 }
@@ -40,14 +41,14 @@ function savePublication(req, res) {
 	let userId = req.user.sub;
 	User.findById(userId, (err, user) => {
 		if (err) return err0r(res, 500, err);
-		if(!params.text) return err0r(res, 400);
+		if (!params.text) return err0r(res, 400);
 		let publication = new Publication();
 		//let text = params.text;
 		//text = text.replace(/\n/g, '\\n');
 		publication.text = params.text;
 		publication.user_id = req.user.sub;
 		publication.likes = 0;
-		if(user.role == 'administrator') {
+		if (user.role == 'administrator') {
 			publication.type = params.type;
 		}
 		publication.created_at = moment().unix();
@@ -89,10 +90,10 @@ function saveMediaFile(req, res) {
 	Publication.findOne({
 		'_id': publicationId,
 		'user_id': req.user.sub
-	}, (err, publication)=> {
-		if(err) return err0r(res, 500, err);
-		if(publication.media_file) return err0r(res, 403);
-		if(publication.document_file) return err0r(res, 403, 'Solo puedes agregar un tipo de archivo');
+	}, (err, publication) => {
+		if (err) return err0r(res, 500, err);
+		if (publication.media_file) return err0r(res, 403);
+		if (publication.document_file) return err0r(res, 403, 'Solo puedes agregar un tipo de archivo');
 		const file_path = req.files.media_file.path;
 		const file_split = file_path.split('//');
 		const file_name = file_split[2];
@@ -103,7 +104,9 @@ function saveMediaFile(req, res) {
 			file_ext == 'png' ||
 			file_ext == 'gif' ||
 			file_ext == 'mp4') {
-			Publication.findById(publicationId, {'media_file': file_name});
+			Publication.findById(publicationId, {
+				'media_file': file_name
+			});
 		} else {
 			return RemoveUploadMediaFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato; .jpg .jpeg .png .gif ó .mp4');
 		}
@@ -115,10 +118,10 @@ function saveDocumentFile(req, res) {
 	Publication.findOne({
 		'_id': publicationId,
 		'user_id': req.user.sub
-	}, (err, publication)=> {
-		if(err) return err0r(res, 500, err);
-		if(publication.document_file) return err0r(res, 403);
-		if(publication.media_file) return err0r(res, 403, 'Solo puedes agregar un tipo de archivo');
+	}, (err, publication) => {
+		if (err) return err0r(res, 500, err);
+		if (publication.document_file) return err0r(res, 403);
+		if (publication.media_file) return err0r(res, 403, 'Solo puedes agregar un tipo de archivo');
 		const file_path = req.files.document_file.path;
 		const file_split = file_path.split('//');
 		const file_name = file_split[2];
@@ -129,7 +132,9 @@ function saveDocumentFile(req, res) {
 			file_ext == 'pptx' ||
 			file_ext == 'xlsx' ||
 			file_ext == 'doc') {
-			Publication.findById(publicationId, {'document_file': file_name});
+			Publication.findById(publicationId, {
+				'document_file': file_name
+			});
 		} else {
 			return RemoveUploadDocumentFiles(res, file_path, 'ERR0R. Solo puedes subir archivos en formato: .pdf .docx .pptx .xlsx ó .doc');
 		}
@@ -279,20 +284,25 @@ function getGroupPublications(req, res) {
 	let total;
 	const userId = req.user.sub;
 	const groupId = req.params.group_id;
-	if(req.params.page) {
+	if (req.params.page) {
 		page = req.params.page;
 	}
 	Group.findById(groupId, (err, group) => {
-		if(err) return err0r(res);
-		if(!group) return err0r(res, 404, 'Este grupo no existe');
-		GroupMember.findOne({'user_id': userId, 'group_id': groupId},(err, groupMember) => {
-			if(err) return err0r(res);
-			if(!groupMember && group.privacy == 'private') return err0r(res, 403, 'No puedes ver las publicaciones de este grupo.');
-			Publication.find({'group_id': groupId}, null, {
+		if (err) return err0r(res);
+		if (!group) return err0r(res, 404, 'Este grupo no existe');
+		GroupMember.findOne({
+			'user_id': userId,
+			'group_id': groupId
+		}, (err, groupMember) => {
+			if (err) return err0r(res);
+			if (!groupMember && group.privacy == 'private') return err0r(res, 403, 'No puedes ver las publicaciones de este grupo.');
+			Publication.find({
+				'group_id': groupId
+			}, null, {
 				skip: (itemsPerPage * (page - 1)),
 				limit: itemsPerPage
 			}, (err, publications) => {
-				if(err) return err0r(res);
+				if (err) return err0r(res);
 				res.status(200).send({
 					total,
 					pages: Math.ceil(total / itemsPerPage),
@@ -412,7 +422,7 @@ function LikePublication(req, res) {
 					}
 				}, {
 					new: true
-				},(err, publication) => {
+				}, (err, publication) => {
 					if (err) return err0r(res);
 					return res.status(200).send({
 						message: 'Ya no te gusta ésta publicación.',
