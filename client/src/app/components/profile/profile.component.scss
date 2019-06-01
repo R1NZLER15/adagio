@@ -1,72 +1,81 @@
-$adagio-green: #20bf55;
-$adagio-gray: #282931;
+$adagio-green: #4CAF50;
+$adagio-gray: #15151f;
 
 .user-ui {
-    box-shadow: 0px 1px 5px #28293165;
+  box-shadow: 0px 1px 5px #15151f65;
 }
 
 .about {
   text-align: center;
+
   p {
-      margin: 0;
+    margin: 0;
   }
 }
 
 .card,
 .card-body {
+  border: 0;
+  border-radius: 0;
+
+  .card-img-top {
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    max-height: 50vh;
+    object-fit: cover;
+  }
+
+  .profile-avatar {
+    margin: -10vh 1vw 1vh 1vw;
+    float: left;
+    border-radius: 5%;
+    width: 20vh;
+    height: 20vh;
+  }
+
+  .card-text {
+    margin-top: 1.5vh;
+    clear: left;
+  }
+
+  .card-footer {
     border: 0;
     border-radius: 0;
+    background: $adagio-gray;
+  }
 
-    .card-img-top {
-        border-radius: 0;
-        margin-left: 0;
-        margin-right: 0;
-        max-height: 50vh;
-        object-fit: cover;
+  .stats-hover {
+    font-weight: bold;
+    color: #777;
+
+    &:hover {
+	  color: $adagio-green;
+	  text-decoration: none;
+    }
+  }
+
+  .profile-names {
+    a {
+      color: black;
     }
 
-    .profile-avatar {
-        margin: -10vh 1vh 0vh 1vh;
-        float: left;
-        border-radius: 10%;
-        width: 20vh;
-        height: 20vh;
-    }
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 
-    .card-text {
-        margin-top: 1.5vh;
-        clear: left;
-    }
-
-    .stats {
-        font-weight: bold;
-        a {
-            color: black;
-            &:hover {
-                color: $adagio-green;
-            }
-        }
-    }
-
-    .names {
-        a {
-            color: black;
-        }
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    .nick {
-        margin-top: 0vh;
-        margin-bottom: 0vh
-    }
+  .profile-nick {
+    margin-top: 0vh;
+    margin-bottom: 0vh
+  }
 }
 
 @keyframes fade {
-    0%{
-        color: $adagio-gray;
-    }
-    50%{
-        color: $adagio-green;
-    }
+  0% {
+    color: $adagio-gray;
+  }
+
+  50% {
+    color: $adagio-green;
+  }
 }

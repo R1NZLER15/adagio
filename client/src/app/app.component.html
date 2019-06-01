@@ -25,41 +25,47 @@
         </li>
       </ul>
       <ul class="navbar-nav flex-row ml-md-auto mt-2 mt-lg-0" style="line-height: 0;">
-          <li *ngIf="!identity" class="nav-item">
-            <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i> Inicia sesión</a>
-          </li>
-          <li *ngIf="!identity" class="nav-item">
-            <a class="nav-link" href="/register"><i class="fas fa-address-card"></i> Registrate</a>
-          </li>
-          <li *ngIf="identity" class="nav-item">
-            <a *ngIf="identity" class="nav-link" href="/messages"><i class="fas fa-envelope"></i></a>
-          </li>
-          <li *ngIf="identity" class="nav-item">
-            <div class="dropdown nav-link">
-              <i id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="fas fa-bell notif"><span *ngIf="unviewedNotifications && unviewedNotifications > 0"> {{unviewedNotifications}}</span></i>
-              <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" onclick="event.stopPropagation()">
-                <div class="notification-hf">Notificaciones</div>
-                <div class="dropdown-divider"></div>
-                <div *ngFor="let notification of notifications" class="dropdown-item {{notification.viewed}}">
-                  <a (click)="dimissThisNotification(notification._id)" class="link" href="{{notification.link}}">
-                    <img class="avatar" src="{{ url + 'get-user-avatar/' + notification.emitter_id.avatar }}"/>
-                    {{notification.text}}
-                  </a>
-                  <i *ngIf="notification.viewed == true" class="fas fa-circle"></i>
-                  <i *ngIf="notification.viewed == false" (click)="dimissThisNotification(notification._id)" class="fas fa-dot-circle" style="cursor: pointer;"></i>
-                </div>
-                <a *ngIf="total === 0" class="dropdown-item true">Vaya, no tienes notificaciones :(</a>
-                <div class="dropdown-divider"></div>
-                <div *ngIf="total > 0" class="notification-hf">Ver todas</div>
+        <li *ngIf="!identity" class="nav-item">
+          <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i> Inicia sesión</a>
+        </li>
+        <li *ngIf="!identity" class="nav-item">
+          <a class="nav-link" href="/register"><i class="fas fa-address-card"></i> Registrate</a>
+        </li>
+        <li *ngIf="identity" class="nav-item">
+          <a *ngIf="identity" class="nav-link" href="/messages"><i class="fas fa-envelope"></i></a>
+        </li>
+        <li *ngIf="identity" class="nav-item">
+          <div class="dropdown nav-link">
+            <i id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+              class="fas fa-bell notif"><span *ngIf="unviewedNotifications && unviewedNotifications > 0">
+                {{unviewedNotifications}}</span></i>
+            <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton"
+              onclick="event.stopPropagation()">
+              <div class="notification-hf">Notificaciones</div>
+              <div class="dropdown-divider"></div>
+              <div *ngFor="let notification of notifications" class="dropdown-item {{notification.viewed}}">
+                <a (click)="dimissThisNotification(notification._id)" class="link" href="{{notification.link}}">
+                  <img class="avatar" src="{{ url + 'get-user-avatar/' + notification.emitter_id.avatar }}" />
+                  {{notification.text}}
+                </a>
+                <i *ngIf="notification.viewed == true" class="fas fa-circle"></i>
+                <i *ngIf="notification.viewed == false" (click)="dimissThisNotification(notification._id)"
+                  class="fas fa-dot-circle" style="cursor: pointer;"></i>
               </div>
+              <a *ngIf="total === 0" class="dropdown-item true">Vaya, no tienes notificaciones :(</a>
+              <div class="dropdown-divider"></div>
+              <div *ngIf="total > 0" class="notification-hf">Ver todas</div>
             </div>
-          </li>
-          <li *ngIf="identity" class="nav-item">
-            <a *ngIf="identity" class="nav-link" href="{{'/profile/' + identity._id}}"><img class="avatar mx-auto d-block" src="{{url + 'get-user-avatar/' + identity.avatar}}"/></a>
-          </li>
-          <li *ngIf="identity" class="nav-item">
-            <a *ngIf="identity" class="nav-link logout" (click)="logout()" href="/login"><i class="fas fa-sign-out-alt"></i></a>
-          </li>
+          </div>
+        </li>
+        <li *ngIf="identity" class="nav-item">
+          <a *ngIf="identity" class="nav-link" href="{{'/profile/' + identity._id}}"><img class="avatar mx-auto d-block"
+              src="{{url + 'get-user-avatar/' + identity.avatar}}" /></a>
+        </li>
+        <li *ngIf="identity" class="nav-item">
+          <a *ngIf="identity" class="nav-link logout" (click)="logout()" href="/login"><i
+              class="fas fa-sign-out-alt"></i></a>
+        </li>
       </ul>
       <!--<form *ngIf="identity" class="form-inline my-1 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Usuarios, Grupos" aria-label="Search">
@@ -68,6 +74,27 @@
     </div>
   </nav>
   <div class="components">
+    <div id="accordianId" role="tablist" aria-multiselectable="true">
+      <div class="card">
+        <div class="card-header" role="tab" id="section1HeaderId">
+          <h5 class="mb-0">
+            <a data-toggle="collapse" data-parent="#accordianId" href="#section1ContentId" aria-expanded="true"
+              aria-controls="section1ContentId">
+              Requisitos para Beta abierta
+            </a>
+          </h5>
+        </div>
+        <div id="section1ContentId" class="collapse in" role="tabpanel" aria-labelledby="section1HeaderId">
+          <div class="card-body">
+            <i class="fas fa-bug text-danger"></i> Arreglar los bugs de paginación y usar un modelo escalable<br>
+            <i class="fas fa-code text-secondary"></i> Crear panel de administración <br>
+            <i class="fas fa-bug text-danger"></i> Arreglar el controlador de carga de archivos e imagenes <br>
+            <i class="fas fa-robot text-info"></i> Algoritmo para priorizar publicaciones populares <br>
+            <i class="fas fa-bell text-primary"></i> Implementar notificaciones push
+          </div>
+        </div>
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -5,21 +5,27 @@
         <img class="card-img-top" src="{{ url + 'get-user-cover/' + user.cover }}">
         <div class="card-body content">
           <img class="profile-avatar" src="{{ url + 'get-user-avatar/' + user.avatar }}">
-          <h4 class="names">{{user.names}}</h4>
-          <h6 class="nick">@{{user.unique_nick}}</h6>
-          <small class="stats"><a class="stats-hover" href="#">Usuarios seguidos {{statsFollowing}}</a> | <a class="stats-hover" href="#">Seguidores {{statsFollowed}}</a> | <a class="stats-hover" href="#">Publicaciones {{statsPublications}}</a> | <a class="stats-hover" href="#">Likes {{statsReceivedLikes}}</a></small>
+          <h4 class="profile-names">{{user.names}}</h4>
+          <h6 class="profile-nick">@{{user.unique_nick}}</h6>
+        </div>
+        <div class="card-footer">
+          <a class="stats-hover" href="#">Usuarios seguidos {{statsFollowing}}</a> | <a class="stats-hover"
+            href="#">Seguidores {{statsFollowed}}</a> | <a class="stats-hover" href="#">Publicaciones
+            {{statsPublications}}</a> | <a class="stats-hover" href="#">Likes {{statsReceivedLikes}}</a>
         </div>
       </div>
     </div>
     <div class="col-lg-12 content">
       <div class="row">
         <div *ngIf="user" class="col-lg-2 about">
-            <p><i class="fas fa-user-alt"></i> {{user.names}}<br>{{user.fst_surname}} {{user.snd_surname}}</p>
-            <p *ngIf="user.grade && user.group"><i class="fas fa-chalkboard"></i> Semestre: {{user.grade}} Grupo: {{user.group}}</p>
-            <p *ngIf="user.career"><i class="fa fa-university" aria-hidden="true"></i> Carrera: {{user.career}}</p>
-            <p *ngIf="user.about"> {{user.about}}<br></p>
-            <p><i class="fas fa-calendar"></i> Se unió {{(user.join_date | amFromUnix) | amLocale:'es_mx' | amTimeAgo}}<br></p>
-            <p *ngIf="user.birthday"><i class="fas fa-birthday-cake"></i> Cumpleaños {{user.birthday}}<br></p>
+          <p><i class="fas fa-user-alt"></i> {{user.names}}<br>{{user.fst_surname}} {{user.snd_surname}}</p>
+          <p *ngIf="user.grade && user.group"><i class="fas fa-chalkboard"></i> Semestre: {{user.grade}} Grupo:
+            {{user.group}}</p>
+          <p *ngIf="user.career"><i class="fa fa-university" aria-hidden="true"></i> Carrera: {{user.career}}</p>
+          <p *ngIf="user.about"> {{user.about}}<br></p>
+          <p><i class="fas fa-calendar"></i> Se unió
+            {{(user.join_date | amFromUnix) | amLocale:'es_mx' | amTimeAgo}}<br></p>
+          <p *ngIf="user.birthday"><i class="fas fa-birthday-cake"></i> Cumpleaños {{user.birthday}}<br></p>
         </div>
         <div *ngIf="publications" class="col-lg-8">
           <div *ngFor="let publication of publications" class="card publication">
