@@ -1,11 +1,9 @@
 label {
-  padding-left: 1vh;
   margin-top: 0;
   margin-bottom: 0;
 }
 
 .login-card {
-  align-content: center;
   background: -webkit-linear-gradient(-45deg, #348f52, #12973f);
   margin-top: 2vh;
   border: none;
@@ -43,5 +41,5 @@ input:focus {
 }
 
 button{
-  margin: 2vh;
+  margin: 0, 0, 0, 0;
 }
