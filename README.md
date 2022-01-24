@@ -2,7 +2,6 @@
 Red Social Orientada a Planteles Educativos
 
 #### TODO List(Por realizar):
-- [ ] **Misión y Visión del proyecto**
 - [ ] **Back-End** *?%*
   - [ ] **Usuarios** *72%*
     - [x] Registro
